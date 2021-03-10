@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1071404679671",
+    "project_id": "solidaremaps-proyectofinal",
+    "storage_bucket": "solidaremaps-proyectofinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071404679671:android:ae206b56b79b96aff5aef2",
+        "android_client_info": {
+          "package_name": "com.guillermo.blazquez.ortega.solidaremaps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1071404679671-oqhck0miua8on7rnm7dnken87p5f4ic9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.guillermo.blazquez.ortega.solidaremaps",
+            "certificate_hash": "3b79fa53f5780ad521144ccc13fca954dc6590c9"
+          }
+        },
+        {
+          "client_id": "1071404679671-kugf6a69dkbpn14nk4v2jque985gujfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5EaBIBGjIH844e1IndNbimRsSZJNtyps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1071404679671-kugf6a69dkbpn14nk4v2jque985gujfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
