@@ -1,17 +1,23 @@
 package com.guillermo.blazquez.ortega.solidaremaps;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Registro_Inicio.MainActivity;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityMenuSMBinding;
@@ -32,9 +38,13 @@ public class Menu_SM extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference usuario;
 
+    //Image Storage
+    private FirebaseStorage imgStorageFireBase;
+
     //Elemnetos database
     private TextView nombreUser;
     private TextView correoUser;
+    private ImageView imgUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +55,7 @@ public class Menu_SM extends AppCompatActivity {
         setSupportActionBar(binding.contenido.toolbar);
 
         database = FirebaseDatabase.getInstance();
+        imgStorageFireBase = FirebaseStorage.getInstance();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
@@ -71,8 +82,14 @@ public class Menu_SM extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         nombreUser=binding.navElements.getHeaderView(0).findViewById(R.id.txtNombreUserCabecera);
         correoUser=binding.navElements.getHeaderView(0).findViewById(R.id.txtEmailUserCabecera);
+        imgUser = binding.navElements.getHeaderView(0).findViewById(R.id.imgUserMenu);
 
         database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,6 +97,14 @@ public class Menu_SM extends AppCompatActivity {
                 if (snapshot.exists()) {
                     nombreUser.setText(snapshot.child("nombre").getValue().toString());
                     correoUser.setText(Configuraciones.firebaseUser.getEmail());
+
+                    StorageReference ref = imgStorageFireBase.getReferenceFromUrl(snapshot.child("imgPerfil").getValue().toString());
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            imgUser.setImageURI(uri);
+                        }
+                    });
                 }
 
             }
@@ -89,6 +114,7 @@ public class Menu_SM extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override

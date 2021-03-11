@@ -91,7 +91,10 @@ public class Register extends AppCompatActivity {
                             usuario.setValue(new Date());
 
                             usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("subscripcion");
-                            usuario.setValue("GOld");
+                            usuario.setValue("free");
+
+                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("imgPerfil");
+                            usuario.setValue(Configuraciones.fotoInicial);
 
                             Toast.makeText(Register.this, "Registro exitoso"+mAuth.getUid(),
                                     Toast.LENGTH_SHORT).show();

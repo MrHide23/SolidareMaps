@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ModificarInfoUserBinding;
 
@@ -53,7 +56,7 @@ public class Modificar_Info_User extends AppCompatActivity {
     private DatabaseReference userInfo;
 
     //Img Stroage Fire base
-    private StorageReference imgReferenceFirebase;
+    private FirebaseStorage imgStorafeFirebase;
 
     //Foto
     private String direccionUri;
@@ -65,12 +68,11 @@ public class Modificar_Info_User extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         database = FirebaseDatabase.getInstance();
-        imgReferenceFirebase = FirebaseStorage.getInstance().getReference(Configuraciones.StorageImgsFirebase).
-                child(Configuraciones.firebaseUser.getUid());
-
-        setSupportActionBar(binding.toolbar2);
+        imgStorafeFirebase = FirebaseStorage.getInstance();
 
         CargarDatosIniciales();
+
+        setSupportActionBar(binding.toolbar2);
 
         binding.toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,39 +89,30 @@ public class Modificar_Info_User extends AppCompatActivity {
         });
     }
 
-
     private void CargarDatosIniciales() {
-        //Sacar info real data
         database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 binding.txtNombreUserPerfil.setText(snapshot.child("nombre").getValue().toString());
                 binding.txtEmailUserPerfil.setText(Configuraciones.firebaseUser.getEmail());
+
+                StorageReference refImg = imgStorafeFirebase.getReferenceFromUrl(snapshot.child("imgPerfil").getValue().toString());
+                refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        binding.imUserPerfil.setImageURI(uri);
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                binding.imUserPerfil.setImageURI(Uri.fromFile(new File("src\\main\\res\\drawable\\user.jpg")));
+                Toast.makeText(Modificar_Info_User.this, "La insercionde la imagen ha Fallado", Toast.LENGTH_SHORT).show();
             }
         });
-
-        //Sacer info de la imagen
-
-       /* imgReferenceFirebase.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-
-               binding.imUserPerfil.setImageURI(Uri.parse(task.getResult().toString()));
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                binding.imUserPerfil.setImageResource(R.drawable.user1);
-            }
-        });*/
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -145,8 +138,8 @@ public class Modificar_Info_User extends AppCompatActivity {
         dialog.setPositiveButton("Modificar Datos", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                updateUserInformation();
                 Toast.makeText(Modificar_Info_User.this, "Datos Modificados", Toast.LENGTH_SHORT).show();
-               // updateUserInformation();
             }
         });
         dialog.show();
@@ -160,6 +153,15 @@ public class Modificar_Info_User extends AppCompatActivity {
 
             userInfo = database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("email");
             userInfo.setValue(binding.txtEmailUserPerfil.getText().toString());
+            Configuraciones.firebaseUser.updateEmail(binding.txtEmailUserPerfil.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("TAG", "User email address updated."+ Configuraciones.firebaseUser.getEmail());
+                    }
+                }
+            });
+
 
             if (ContrasenyasVacias()) {
                 userInfo = database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("password");
@@ -167,8 +169,17 @@ public class Modificar_Info_User extends AppCompatActivity {
                     if (binding.txtNuevaContrasenyaPerfil.getText().toString().equals(
                             binding.txtRepetirNuevaContrasenyaPerfil.getText().toString())) {
 
-                        Configuraciones.firebaseUser.updatePassword(binding.txtNuevaContrasenyaPerfil.getText().toString());
                         userInfo.setValue(binding.txtNuevaContrasenyaPerfil.getText().toString());
+                        Configuraciones.firebaseUser.updatePassword(binding.txtNuevaContrasenyaPerfil.getText().toString()).
+                                addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("TAG", "Contraseña actualizada");
+                                }
+                            }
+                        });;
+                        Toast.makeText(this, "Ha entrado", Toast.LENGTH_SHORT).show();
 
                     }else{
                         Toast.makeText(this, "Las nuevas contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -180,17 +191,28 @@ public class Modificar_Info_User extends AppCompatActivity {
 
             }
 
-            //2- Comprobar si ha insertado imagen
-            // SI---> Subir imagen al storage de la nube
-            //No dejar vacio
+
+            if (direccionUri != null) {
+                StorageReference reference = imgStorafeFirebase.getReference("UsersImgs").child("imgInicial");
+                reference.putFile(Uri.parse(direccionUri)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> resultado = taskSnapshot.getStorage().getDownloadUrl();
+                        resultado.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                userInfo = database.getReference(Configuraciones.InfoUsers).child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
+                                userInfo.setValue(resultado);
+                            }
+                        });
+                    }
+                });
+            }
 
 
-            Configuraciones.firebaseUser.updateEmail(binding.txtEmailUserPerfil.getText().toString());
         }else{
             Toast.makeText(this, "Comprueba que los campos no esten vacios", Toast.LENGTH_SHORT).show();
         }
-
-
 
 
         Toast.makeText(this, "La informacion se ha guradado", Toast.LENGTH_SHORT).show();
@@ -281,6 +303,11 @@ public class Modificar_Info_User extends AppCompatActivity {
         Intent intent= new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(intent, Configuraciones.GALERIA_ACTION);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -10,8 +10,8 @@ public class Configuraciones {
     public static final String InfoUsers = "Users";
 
     //Storage Imgs
-    public static final String StorageImgsFirebase = "UsersImgs";
-    public static final String fotoInicial = "imgInicial";
+    public static final String fotoInicial = "gs://solidaremaps-proyectofinal.appspot.com/UsersImgs/imgInicial/userImg.png";
+    public static final String imgPerfil = "/UsersImgs/imgInicial";
 
     //Valore Fijos Intentes
     public static final int SING_IN_GOOGLE = 1;
