@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +61,7 @@ public class Modificar_Info_User extends AppCompatActivity {
 
     //Foto
     private String direccionUri;
+    private String contrasenyaVieja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +113,17 @@ public class Modificar_Info_User extends AppCompatActivity {
                 Toast.makeText(Modificar_Info_User.this, "La insercionde la imagen ha Fallado", Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
+        database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                contrasenyaVieja = snapshot.child("password").getValue().toString();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,15 +173,15 @@ public class Modificar_Info_User extends AppCompatActivity {
                 }
             });
 
-
             if (ContrasenyasVacias()) {
-                userInfo = database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("password");
-                if (binding.txtAntiguaContrasenyaPerfil.getText().toString().equals(userInfo.toString())) {
+                if (binding.txtAntiguaContrasenyaPerfil.getText().toString().equals(contrasenyaVieja)) {
                     if (binding.txtNuevaContrasenyaPerfil.getText().toString().equals(
                             binding.txtRepetirNuevaContrasenyaPerfil.getText().toString())) {
 
+                        userInfo = database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("password");
                         userInfo.setValue(binding.txtNuevaContrasenyaPerfil.getText().toString());
-                        Configuraciones.firebaseUser.updatePassword(binding.txtNuevaContrasenyaPerfil.getText().toString()).
+
+                        FirebaseAuth.getInstance().getCurrentUser().updatePassword(binding.txtNuevaContrasenyaPerfil.getText().toString()).
                                 addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -178,9 +189,7 @@ public class Modificar_Info_User extends AppCompatActivity {
                                     Log.d("TAG", "Contraseña actualizada");
                                 }
                             }
-                        });;
-                        Toast.makeText(this, "Ha entrado", Toast.LENGTH_SHORT).show();
-
+                        });
                     }else{
                         Toast.makeText(this, "Las nuevas contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     }
@@ -191,29 +200,31 @@ public class Modificar_Info_User extends AppCompatActivity {
 
             }
 
+            if (!direccionUri.isEmpty()) {
+                File fichero = new File(direccionUri);
 
-            if (direccionUri != null) {
-                StorageReference reference = imgStorafeFirebase.getReference("UsersImgs").child("imgInicial");
-                reference.putFile(Uri.parse(direccionUri)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                StorageReference reference = imgStorafeFirebase.getReference("UsersImgs").child("imgInicial").
+                        child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
+
+                reference.putFile(Uri.fromFile(fichero)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
                         Task<Uri> resultado = taskSnapshot.getStorage().getDownloadUrl();
                         resultado.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
                                 userInfo = database.getReference(Configuraciones.InfoUsers).child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
-                                userInfo.setValue(resultado);
+                                userInfo.setValue(resultado.getResult().toString());
                             }
                         });
                     }
                 });
             }
 
-
         }else{
             Toast.makeText(this, "Comprueba que los campos no esten vacios", Toast.LENGTH_SHORT).show();
         }
-
 
         Toast.makeText(this, "La informacion se ha guradado", Toast.LENGTH_SHORT).show();
     } //Actualizamos la info del user insertando la info de los campos
@@ -305,17 +316,11 @@ public class Modificar_Info_User extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Configuraciones.CAMERA_ACTION && resultCode == RESULT_OK && data != null) {
             binding.imUserPerfil.setImageURI(Uri.parse(direccionUri));
-
         }
 
         if (requestCode == Configuraciones.GALERIA_ACTION && resultCode== RESULT_OK && data!=null) {
@@ -331,7 +336,8 @@ public class Modificar_Info_User extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode == Configuraciones.CAMARA_PERMISO){
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED){
                 AbrirCamara();
             }
             else {
@@ -339,8 +345,8 @@ public class Modificar_Info_User extends AppCompatActivity {
             }
         }
 
-        if (requestCode == Configuraciones.CAMARA_PERMISO) {
-            if (permissions.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == Configuraciones.GALERIA_PERMISION) {
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 SeleccionarGaleria();
             }else{
                 Toast.makeText(this, "Se requieren permisos para realizazar esta accion", Toast.LENGTH_SHORT).show();

@@ -11,7 +11,7 @@ public class Configuraciones {
 
     //Storage Imgs
     public static final String fotoInicial = "gs://solidaremaps-proyectofinal.appspot.com/UsersImgs/imgInicial/userImg.png";
-    public static final String imgPerfil = "/UsersImgs/imgInicial";
+    public static final String imgPerfil = "imgInicial";
 
     //Valore Fijos Intentes
     public static final int SING_IN_GOOGLE = 1;
