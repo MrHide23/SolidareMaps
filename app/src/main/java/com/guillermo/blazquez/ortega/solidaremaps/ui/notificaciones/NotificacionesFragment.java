@@ -1,4 +1,4 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.slideshow;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.notificaciones;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,17 +12,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 
-public class SlideshowFragment extends Fragment {
+public class NotificacionesFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private NotificacionesViewModel notificacionesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        notificacionesViewModel =
+                new ViewModelProvider(this).get(NotificacionesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        notificacionesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

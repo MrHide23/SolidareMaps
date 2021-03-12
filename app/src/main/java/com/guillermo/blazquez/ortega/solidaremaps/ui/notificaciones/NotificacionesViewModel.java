@@ -1,14 +1,14 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.slideshow;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.notificaciones;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class NotificacionesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public NotificacionesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
     }

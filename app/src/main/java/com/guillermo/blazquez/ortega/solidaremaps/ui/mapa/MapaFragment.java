@@ -1,4 +1,4 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.gallery;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.mapa;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,22 +12,25 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 
-public class GalleryFragment extends Fragment {
+public class MapaFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private MapaViewModel mapaViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+
+        mapaViewModel = new ViewModelProvider(this).get(MapaViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+
         final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+        mapaViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
+
         return root;
     }
 }

@@ -1,4 +1,4 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.home;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.Inicio;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,17 +11,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 
-public class HomeFragment extends Fragment {
+public class InicioFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private InicioViewModel inicioViewModel;
 
     //Data base
     private FirebaseDatabase data;
@@ -29,14 +25,14 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        inicioViewModel = new ViewModelProvider(this).get(InicioViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         data = FirebaseDatabase.getInstance();
 
         final TextView textView = root.findViewById(R.id.text_home);
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        inicioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

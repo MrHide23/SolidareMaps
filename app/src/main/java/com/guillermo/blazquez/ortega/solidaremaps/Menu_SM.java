@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -58,7 +57,8 @@ public class Menu_SM extends AppCompatActivity {
         imgStorageFireBase = FirebaseStorage.getInstance();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_inicio, R.id.nav_mapas, R.id.nav_notificaciones, R.id.subscripcionFragment, R.id.miLocalFragment,
+                R.id.favoritosFragment, R.id.FAQFragment)
                 .setOpenableLayout(binding.drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

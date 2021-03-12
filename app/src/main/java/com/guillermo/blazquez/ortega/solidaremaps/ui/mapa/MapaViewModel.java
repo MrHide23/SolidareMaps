@@ -1,14 +1,14 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.gallery;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.mapa;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class MapaViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public MapaViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }
