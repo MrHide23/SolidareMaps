@@ -20,7 +20,7 @@ public class MapaFragment extends Fragment {
             ViewGroup container, Bundle savedInstanceState) {
 
         mapaViewModel = new ViewModelProvider(this).get(MapaViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View root = inflater.inflate(R.layout.fragment_mapa, container, false);
 
         final TextView textView = root.findViewById(R.id.text_gallery);
 

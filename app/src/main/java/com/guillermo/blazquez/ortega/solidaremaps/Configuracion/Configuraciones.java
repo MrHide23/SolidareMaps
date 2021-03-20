@@ -1,6 +1,7 @@
 package com.guillermo.blazquez.ortega.solidaremaps.Configuracion;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 
 public class Configuraciones {
     //Fire base Auth
@@ -21,6 +22,18 @@ public class Configuraciones {
 
     public static final int GALERIA_PERMISION = 200;
     public static final int GALERIA_ACTION = 201;
+
+    //Metodos genericos
+    public static float calcularPuntuacion(DataSnapshot comentarios)  {
+        float puntuacion = 0;
+
+        for (int i = 0; i < comentarios.getChildrenCount(); i++) {
+            puntuacion = puntuacion + Float.parseFloat(comentarios.child(String.valueOf(i)).child("puntuacion").getValue().toString());
+        }
+
+        puntuacion = puntuacion / comentarios.getChildrenCount();
+        return puntuacion;
+    }
 
 
 

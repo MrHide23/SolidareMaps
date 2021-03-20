@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.mapa.MapaViewModel;
 
 public class SubscripcionFragment extends Fragment {
 
@@ -27,16 +26,11 @@ public class SubscripcionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         subscripcionViewModel = new ViewModelProvider(this).get(SubscripcionViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View root = inflater.inflate(R.layout.fragment_mapa, container, false);
+
 
         return root;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        subscripcionViewModel = new ViewModelProvider(this).get(SubscripcionViewModel.class);
-        // TODO: Use the ViewModel
-    }
 
 }

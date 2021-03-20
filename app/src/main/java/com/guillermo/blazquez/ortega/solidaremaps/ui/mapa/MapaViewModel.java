@@ -10,7 +10,7 @@ public class MapaViewModel extends ViewModel {
 
     public MapaViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is map fragment");
     }
 
     public LiveData<String> getText() {

@@ -12,10 +12,6 @@
             android:id="@+id/nav_mapas"
             android:icon="@drawable/ic_mapa"
             android:title="@string/menu_mapas" />
-        <item
-            android:id="@+id/nav_notificaciones"
-            android:icon="@drawable/ic_notificaciones"
-            android:title="@string/menu_notificaciones" />
 
         <item
             android:id="@+id/subscripcionFragment"

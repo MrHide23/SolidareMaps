@@ -15,31 +15,26 @@
         android:id="@+id/nav_mapas"
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.mapa.MapaFragment"
         android:label="@string/menu_mapas"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_mapa" />
 
-    <fragment
-        android:id="@+id/nav_notificaciones"
-        android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.notificaciones.NotificacionesFragment"
-        android:label="@string/menu_notificaciones"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/subscripcionFragment"
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.subscripcion.SubscripcionFragment"
-        android:label="subscripcion_fragment"
+        android:label="@string/menu_subscripcion"
         tools:layout="@layout/subscripcion_fragment" />
     <fragment
         android:id="@+id/miLocalFragment"
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.mi_local.MiLocalFragment"
-        android:label="mi_local_fragment"
+        android:label="@string/menu_mi_local"
         tools:layout="@layout/mi_local_fragment" />
     <fragment
         android:id="@+id/favoritosFragment"
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos.FavoritosFragment"
-        android:label="favoritos_fragment"
+        android:label="@string/menu_favoritos"
         tools:layout="@layout/favoritos_fragment" />
     <fragment
         android:id="@+id/FAQFragment"
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.faq.FAQFragment"
-        android:label="faq_fragment"
+        android:label="@string/menu_faq"
         tools:layout="@layout/faq_fragment" />
 </navigation>
