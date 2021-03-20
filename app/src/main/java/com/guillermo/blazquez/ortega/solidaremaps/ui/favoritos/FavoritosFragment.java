@@ -53,11 +53,11 @@ public class FavoritosFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mViewModel = new ViewModelProvider(this).get(FavoritosViewModel.class);
         View favoritos = inflater.inflate(R.layout.favoritos_fragment, container, false);
 
         infoLocalesFavoritos = FirebaseDatabase.getInstance();
         refInfo = infoLocalesFavoritos.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("favoritos");
+
         listaFavoritos = new ArrayList<>();
 
         cargarFavoritos(refInfo);
@@ -65,7 +65,8 @@ public class FavoritosFragment extends Fragment {
         adapter = new FavoritosAdapter(listaFavoritos, R.layout.adapter_favoritos, getActivity());
 
         rvFavoritos = favoritos.findViewById(R.id.rvfavoritos);
-        rvFavoritos.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        rvFavoritos.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvFavoritos.setAdapter(adapter);
 
         return favoritos;
