@@ -8,18 +8,20 @@
 
     <ImageView
         android:id="@+id/imgFotoLocalAdapter"
-        android:layout_width="240dp"
+        android:layout_width="186dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/btnImgFavoritoAdapter"
-        android:layout_width="53dp"
-        android:layout_height="58dp"
-        android:layout_gravity="end"
-        android:layout_margin="10dp"
-        app:srcCompat="@drawable/ic_favoritos" />
+    <ImageButton
+        android:id="@+id/btnimgFavoritosAdapter"
+        android:layout_width="54dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/ic_corazon_rojo" />
 
     <TextView
         android:id="@+id/txtTituloAdapter"
@@ -43,8 +45,13 @@
     <RatingBar
         android:id="@+id/rbPuntuacionAdapter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="15dp"
+        android:indeterminate="false"
+        android:isIndicator="true"
         android:numStars="5"
         android:stepSize="0.5" />
 </LinearLayout>

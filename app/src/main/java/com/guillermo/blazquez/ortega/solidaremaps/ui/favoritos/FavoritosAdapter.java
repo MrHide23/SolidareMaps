@@ -52,7 +52,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
     @NonNull
     @Override
     public FavoritosVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View favoritos = LayoutInflater.from(context).inflate(resource, null);
+        View favoritos = LayoutInflater.from(parent.getContext()).inflate(resource, null);
         favoritos.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         FavoritosVH favoritosVH = new FavoritosVH(favoritos);
         return favoritosVH;
@@ -124,7 +124,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
             txtDireccion = itemView.findViewById(R.id.txtDireccionAdapter);
             rbPuntuacion = itemView.findViewById(R.id.rbPuntuacionAdapter);
             imgFotoLocal = itemView.findViewById(R.id.imgFotoLocalAdapter);
-            btnFavorito = itemView.findViewById(R.id.btnImgFavoritoAdapter);
+            btnFavorito = itemView.findViewById(R.id.btnimgFavoritosAdapter);
         }
     }
 }

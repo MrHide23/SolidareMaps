@@ -35,6 +35,17 @@ public class Configuraciones {
         return puntuacion;
     }
 
+    public static void cambiarColorButtomFav(String idLocal){
+        //Detertar tipo de img
+
+        //"no fav"
+        //  añadir a lista fav
+        //  cambiar img buton
+        //si fav
+        // eliminar de lista fav
+        // cambiar img buton
+    }
+
 
 
 }

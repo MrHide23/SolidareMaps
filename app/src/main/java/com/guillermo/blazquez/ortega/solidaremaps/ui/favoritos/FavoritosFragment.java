@@ -27,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.databinding.FavoritosFragmentBinding;
 
 import java.util.ArrayList;
 
@@ -60,26 +59,28 @@ public class FavoritosFragment extends Fragment {
 
         listaFavoritos = new ArrayList<>();
 
-        cargarFavoritos(refInfo);
-
         adapter = new FavoritosAdapter(listaFavoritos, R.layout.adapter_favoritos, getActivity());
 
         rvFavoritos = favoritos.findViewById(R.id.rvfavoritos);
 
-        rvFavoritos.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rvFavoritos.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvFavoritos.setAdapter(adapter);
+        cargarFavoritos(refInfo);
 
         return favoritos;
     }
 
     private void cargarFavoritos(DatabaseReference refInfo) {
+
         refInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                     listaFavoritos.add(snapshot.child(String.valueOf(i)).getValue().toString());
                     Log.d("Enseña valor del array ", listaFavoritos.get(i)+" -- "+listaFavoritos.size());
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -92,6 +93,7 @@ public class FavoritosFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 
 }
