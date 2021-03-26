@@ -3,11 +3,10 @@
     package="com.guillermo.blazquez.ortega.solidaremaps">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,25 +15,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SolidareMaps">
+        <activity android:name=".SerieIndividual"
+            android:label="SerieIndividual"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
 
         <provider
-            android:authorities="com.guillermo.blazquez.ortega.solidaremaps"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.guillermo.blazquez.ortega.solidaremaps"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".Modificar_Info_User"
+        <activity
+            android:name=".Modificar_Info_User"
             android:label="Configuracion_User"
-            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
+            android:theme="@style/Theme.SolidareMaps.NoActionBar" />
         <activity
             android:name=".Menu_SM"
             android:label="@string/title_activity_menu__s_m"
-            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
+            android:theme="@style/Theme.SolidareMaps.NoActionBar" />
         <activity android:name=".Registro_Inicio.Register" />
         <activity android:name=".Registro_Inicio.MainActivity">
             <intent-filter>

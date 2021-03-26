@@ -80,6 +80,7 @@ public class FavoritosFragment extends Fragment {
                     listaFavoritos.add(snapshot.child(String.valueOf(i)).getValue().toString());
                     Log.d("Enseña valor del array ", listaFavoritos.get(i)+" -- "+listaFavoritos.size());
                 }
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -88,6 +89,7 @@ public class FavoritosFragment extends Fragment {
 
             }
         });
+
     }
 
     @Override

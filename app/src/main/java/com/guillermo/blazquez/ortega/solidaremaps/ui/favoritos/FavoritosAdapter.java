@@ -1,7 +1,9 @@
 package com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +28,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
+import com.guillermo.blazquez.ortega.solidaremaps.SerieIndividual;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.FavoritosVH>{
@@ -78,8 +83,6 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
                     }
                 });
 
-                Log.d("Ha enrado ", "ii--> "+position);
-
             }
 
             @Override
@@ -91,7 +94,21 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Cambiar color boton
+
+                DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).
+                        child("favoritos").child(position+"");
+
+                refFavs.getRef().removeValue();
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                holder.btnFavorito.setImageResource(R.drawable.ic_corazon_rojo);
+
+                notifyDataSetChanged();
             }
         });
 
@@ -99,9 +116,12 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
             @Override
             public void onClick(View v) {
                 //Cargar informacion en Pagina Locales
+                Bundle bundle = new Bundle();
+                bundle.putString(Configuraciones.ID_LOCAL, lista.get(position).toString());
+                context.startActivity(new Intent(context, SerieIndividual.class).putExtras(bundle));
+
             }
         });
-
     }
 
     @Override
