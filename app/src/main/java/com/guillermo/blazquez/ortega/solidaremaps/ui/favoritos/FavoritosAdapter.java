@@ -95,9 +95,10 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
             @Override
             public void onClick(View v) {
 
-                DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).
-                        child("favoritos").child(position+"");
+                lista.remove(position);
 
+                DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).
+                        child("favoritos");
                 refFavs.getRef().removeValue();
 
                 try {
@@ -106,7 +107,11 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
                     e.printStackTrace();
                 }
 
-                holder.btnFavorito.setImageResource(R.drawable.ic_corazon_rojo);
+                for (int i = 0; i < lista.size(); i++) {
+                    refFavs.child(String.valueOf(i)).setValue(lista.get(i).toString());
+                }
+
+                holder.btnFavorito.setImageResource(R.drawable.no_fav_corazon);
 
                 notifyDataSetChanged();
             }

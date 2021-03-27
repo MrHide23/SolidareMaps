@@ -75,6 +75,7 @@ public class FavoritosFragment extends Fragment {
         refInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 listaFavoritos.clear();
 
                 for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                     listaFavoritos.add(snapshot.child(String.valueOf(i)).getValue().toString());
