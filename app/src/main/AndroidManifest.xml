@@ -15,9 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SolidareMaps">
-        <activity android:name=".SerieIndividual"
-            android:label="SerieIndividual"
+        <activity android:name=".ui.subscripcion.pago_subscripcion"
             android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
+        <activity
+            android:name=".SerieIndividual"
+            android:label="SerieIndividual"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

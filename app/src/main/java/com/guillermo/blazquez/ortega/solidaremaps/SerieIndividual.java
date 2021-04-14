@@ -9,17 +9,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivitySerieIndividualBinding;
 
 public class SerieIndividual extends AppCompatActivity {
 
     private ActivitySerieIndividualBinding binding;
+    private String idLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySerieIndividualBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        idLocal=getIntent().getExtras().getString(Configuraciones.ID_LOCAL); //Id del local que traemos con el intent
 
         //Configuramos Toolbar
         setSupportActionBar(binding.toolbar3);

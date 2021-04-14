@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name">SolidareMaps</string>
-    <string name="title_activity_menu__s_m">Menu_SM</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="title_activity_menu__s_m" translatable="false">Menu_SM</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_inicio">Inicio</string>
-    <string name="menu_mapas">Mapas</string>
-    <string name="menu_notificaciones">Notificaciones</string>
-    <string name="menu_subscripcion">Subscripcion</string>
-    <string name="menu_mi_local">Mi Local</string>
-    <string name="menu_favoritos">Favoritos</string>
-    <string name="menu_faq">F.A.Q</string>
+    <string name="menu_inicio" translatable="false">Inicio</string>
+    <string name="menu_mapas" translatable="false">Mapas</string>
+    <string name="menu_notificaciones" translatable="false">Notificaciones</string>
+    <string name="menu_subscripcion" translatable="false">Subscripcion</string>
+    <string name="menu_mi_local" translatable="false">Mi Local</string>
+    <string name="menu_favoritos" translatable="false">Favoritos</string>
+    <string name="menu_faq" translatable="false">F.A.Q</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 </resources>

@@ -94,7 +94,6 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 lista.remove(position);
 
                 DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).

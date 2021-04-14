@@ -44,43 +44,6 @@ public class Configuraciones {
         return puntuacion;
     }
 
-    private static int respuesta;
-
-    /*public static int colorBtnFav(String idLocal){
-        //Detertar tipo de img
-
-        Configuraciones.respuesta = R.drawable.no_fav_corazon;
-
-        DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).
-                child("favoritos");
-
-        refFavs.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //snapshot instanceof  ? (() snapshot) : null;
-
-                for (int i = 0; i < snapshot.getChildrenCount(); i++) {
-                    if (!snapshot.child(String.valueOf(i)).getValue().toString().equals(idLocal)) {
-                        Configuraciones.respuesta= R.drawable.ic_corazon_rojo;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        try {
-
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return Configuraciones.respuesta;
-    }*/
 
 
 

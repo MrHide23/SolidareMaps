@@ -2,8 +2,6 @@
 
 package com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,8 +29,6 @@ import com.guillermo.blazquez.ortega.solidaremaps.R;
 import java.util.ArrayList;
 
 public class FavoritosFragment extends Fragment {
-
-    private FavoritosViewModel mViewModel;
 
     //Recycle View
     private ArrayList<String> listaFavoritos;
@@ -71,7 +67,6 @@ public class FavoritosFragment extends Fragment {
     }
 
     private void cargarFavoritos(DatabaseReference refInfo) {
-
         refInfo.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

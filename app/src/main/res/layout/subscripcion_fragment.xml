@@ -1,13 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.subscripcion.SubscripcionFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="370dp"
+                android:layout_height="480dp"
+                android:layout_margin="20dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0BF316"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:title="FREE"
+                    app:titleMarginStart="150dp"
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+                    app:titleTextColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/txtContenidoFree1"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="100dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="Estas son las opciones que estan activas e inactivas en la subscripcion free:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtContenidoFree3"
+                    android:layout_width="294dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="200dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="+Acceso a la busqueda de locales      +Lista personalizada de locales favoritos   +Comentarios desbloqueados"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtContenidoFree5"
+                    android:layout_width="283dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="320dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="-Posibilidad de añadir un local propio  -Chat en directo"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtContenidoFree2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="170dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="Activas:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtContenidoFree4"
+                    android:layout_width="69dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="290dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="Inactivas:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgSeleccionadoFree"
+                    android:layout_width="39dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_seleccionado" />
+
+                <Button
+                    android:id="@+id/btnSeleccionarFreeSubscripcion"
+                    android:layout_width="169dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="400dp"
+                    android:background="#0BF316"
+                    android:backgroundTint="#0BF416"
+                    android:text="FREE"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvFreeSubsccipcion"
+                android:layout_width="372dp"
+                android:layout_height="402dp"
+                android:layout_margin="20dp">
+
+                <Button
+                    android:id="@+id/btnSeleccionarGoldSubscripcion"
+                    android:layout_width="169dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="340dp"
+                    android:background="#0BF316"
+                    android:backgroundTint="#0BF416"
+                    android:text="29,99 €/año"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F4DE08"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    app:subtitleTextColor="#FFFFFF"
+                    app:title="GOLD"
+                    app:titleMarginStart="150dp"
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <ImageView
+                    android:id="@+id/imgSeleccionadoGold"
+                    android:layout_width="39dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_seleccionado" />
+
+                <TextView
+                    android:id="@+id/txtContenidoGold3"
+                    android:layout_width="294dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="210dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="+Acceso a la busqueda de locales      +Lista personalizada de locales favoritos            +Comentarios desbloqueados +Posibilidad de añadir un local propio  +Chat en directo"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtContenidoGold1"
+                    android:layout_width="277dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="100dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="Estas son las opciones que estan activas e inactivas en la subscripcion free:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtContenidoGold2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="180dp"
+                    android:inputType="textMultiLine"
+                    android:singleLine="false"
+                    android:text="Activas:"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
