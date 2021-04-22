@@ -17,6 +17,7 @@ public class Configuraciones {
 
     //Fire base Realdata Time
     public static final String InfoUsers = "Users";
+    public static final String FAQPregunta = " FAQPregunta";
 
     //Storage Imgs
     public static final String fotoInicial = "gs://solidaremaps-proyectofinal.appspot.com/UsersImgs/imgInicial/userImg.png";

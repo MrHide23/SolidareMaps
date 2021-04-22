@@ -1,13 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.faq.FAQFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <LinearLayout
+        android:id="@+id/ComunesFAQ"
+        android:layout_width="385dp"
+        android:layout_height="126dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="103dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_faq" />
+
+        <TextView
+            android:id="@+id/txtTituloComunesFAQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Buscar Pregunta"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ChatFAQ"
+        android:layout_width="385dp"
+        android:layout_height="126dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="152dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_chat" />
+
+        <TextView
+            android:id="@+id/txtTituloChatFAQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="Iniciar Chat en Directo"
+            android:textColor="#090909"
+            android:textSize="24sp" />
+    </LinearLayout>
 </FrameLayout>

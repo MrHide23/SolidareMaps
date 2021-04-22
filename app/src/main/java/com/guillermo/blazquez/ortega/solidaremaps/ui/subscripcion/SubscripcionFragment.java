@@ -107,6 +107,8 @@ public class SubscripcionFragment extends Fragment {
 
                 if (snapshot.child("pagado").getValue().toString().equals("true")) {
                     btnGold.setText("PAGADO!");
+                }else{
+                    btnGold.setText("29,99 €/año");
                 }
             }
 
