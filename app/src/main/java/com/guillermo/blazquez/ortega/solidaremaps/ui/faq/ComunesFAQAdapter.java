@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
+import com.guillermo.blazquez.ortega.solidaremaps.Models.FAQModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos.FavoritosAdapter;
 
@@ -24,14 +25,12 @@ import java.util.ArrayList;
 
 public class ComunesFAQAdapter extends RecyclerView.Adapter<ComunesFAQAdapter.ComunesVH>{
 
-    private ArrayList<String> lista;
+    private ArrayList<FAQModel> lista;
     private int resource;
     private Context context;
 
-    //Firebase
-    private DatabaseReference refFAQ;
 
-    public ComunesFAQAdapter(ArrayList<String> lista, int resource, Context context) {
+    public ComunesFAQAdapter(ArrayList<FAQModel> lista, int resource, Context context) {
         this.lista = lista;
         this.resource = resource;
         this.context = context;
@@ -48,19 +47,8 @@ public class ComunesFAQAdapter extends RecyclerView.Adapter<ComunesFAQAdapter.Co
 
     @Override
     public void onBindViewHolder(@NonNull ComunesFAQAdapter.ComunesVH holder, int position) {
-        refFAQ = FirebaseDatabase.getInstance().getReference("FAQ");
-        refFAQ.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                holder.txtTitulo.setText(snapshot.child(position+"").child("titulo").getValue().toString());
-                holder.txtContenido.setText(snapshot.child(position+"").child("contenido").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        holder.txtTitulo.setText(lista.get(position).getTitulo());
+        holder.txtContenido.setText(lista.get(position).getContenido());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

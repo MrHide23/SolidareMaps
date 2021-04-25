@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,6 +29,8 @@ public class VerPreguntaFAQ extends AppCompatActivity {
         binding = ActivityVerPreguntaFaqBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setSupportActionBar(binding.toolbar6);
+
         //Cazamos pos de pregunta FAQ
         posPregunta = getIntent().getExtras().getString(Configuraciones.FAQPregunta);
 
@@ -35,7 +38,8 @@ public class VerPreguntaFAQ extends AppCompatActivity {
         dbFAQ.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                binding.txtTituloVerFAQ.setText(snapshot.child("titulo").getValue().toString());
+                binding.txtContenidoVerFAQ.setText(snapshot.child("contenido").getValue().toString());
             }
 
             @Override
@@ -44,7 +48,23 @@ public class VerPreguntaFAQ extends AppCompatActivity {
             }
         });
 
+        binding.btnSiVerFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Subida respuesta si
+                respuetaUtilidadFAQ("si");
+            }
+        });
 
+        binding.btnNoVerFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                respuetaUtilidadFAQ("no");
+            }
+        });
+    }
 
+    private void respuetaUtilidadFAQ(String respuesta) {
+        dbFAQ.child("util").child(Configuraciones.firebaseUser.getUid()).setValue(respuesta);
     }
 }

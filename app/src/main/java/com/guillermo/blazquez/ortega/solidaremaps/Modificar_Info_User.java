@@ -327,8 +327,6 @@ public class Modificar_Info_User extends AppCompatActivity {
             direccionUri = data.getData().toString();
             binding.imUserPerfil.setImageURI(data.getData());
         }
-
-
     }
 
     @Override
