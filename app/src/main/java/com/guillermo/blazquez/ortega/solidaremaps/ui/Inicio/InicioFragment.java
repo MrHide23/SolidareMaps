@@ -32,6 +32,7 @@ import com.guillermo.blazquez.ortega.solidaremaps.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class InicioFragment extends Fragment {
 
@@ -52,9 +53,19 @@ public class InicioFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             Map = googleMap;
             listaLocales = new ArrayList<MarkerInfoModel>();
-            fbLocales = FirebaseDatabase.getInstance().getReference("Locales_SM");
+            //fbLocales = FirebaseDatabase.getInstance().getReference("Locales_SM");
+            //cargarLocales(fbLocales);
 
-            cargarLocales(fbLocales);
+            try {
+                listaLocales = new CargarDatosArray().execute().get();
+                Thread.sleep(5000);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
 
             Log.d("VALOR ARRAY", "array --> "+listaLocales.size());
 
