@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         google = GoogleSignIn.getClient(this, gson);
 
-
-
         binding.txtRegistrarseLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

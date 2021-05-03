@@ -57,7 +57,7 @@ public class Menu_SM extends AppCompatActivity {
         imgStorageFireBase = FirebaseStorage.getInstance();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_inicio, R.id.nav_mapas, R.id.subscripcionFragment, R.id.miLocalFragment,
+                R.id.nav_inicio, R.id.subscripcionFragment, R.id.miLocalFragment,
                 R.id.favoritosFragment, R.id.FAQFragment)
                 .setOpenableLayout(binding.drawerLayout)
                 .build();

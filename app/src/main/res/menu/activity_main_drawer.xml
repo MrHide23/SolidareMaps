@@ -9,23 +9,19 @@
             android:icon="@drawable/ic_inicio"
             android:title="@string/menu_inicio" />
         <item
-            android:id="@+id/nav_mapas"
-            android:icon="@drawable/ic_mapa"
-            android:title="@string/menu_mapas" />
-
-        <item
-            android:id="@+id/subscripcionFragment"
-            android:icon="@drawable/ic_mony"
-            android:title="@string/menu_subscripcion" />
+            android:id="@+id/favoritosFragment"
+            android:icon="@drawable/ic_favoritos"
+            android:title="@string/menu_favoritos" />
 
         <item
             android:id="@+id/miLocalFragment"
             android:icon="@drawable/ic_home"
             android:title="@string/menu_mi_local" />
+
         <item
-            android:id="@+id/favoritosFragment"
-            android:icon="@drawable/ic_favoritos"
-            android:title="@string/menu_favoritos" />
+            android:id="@+id/subscripcionFragment"
+            android:icon="@drawable/ic_mony"
+            android:title="@string/menu_subscripcion" />
 
         <item
             android:id="@+id/FAQFragment"

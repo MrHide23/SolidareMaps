@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_mapas"
-        android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.mapa.MapaFragment"
-        android:label="@string/menu_mapas"
-        tools:layout="@layout/fragment_mapa" />
-
-    <fragment
         android:id="@+id/subscripcionFragment"
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.subscripcion.SubscripcionFragment"
         android:label="@string/menu_subscripcion"
