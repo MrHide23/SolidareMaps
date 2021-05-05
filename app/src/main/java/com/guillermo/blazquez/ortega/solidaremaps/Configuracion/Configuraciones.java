@@ -33,6 +33,9 @@ public class Configuraciones {
     public static final int GALERIA_PERMISION = 200;
     public static final int GALERIA_ACTION = 201;
 
+    public static final int GPS_PERMISION = 300;
+    public static final int GPS_ACTION = 301;
+
     //Metodos genericos
     public static float calcularPuntuacion(DataSnapshot comentarios)  {
         float puntuacion = 0;
