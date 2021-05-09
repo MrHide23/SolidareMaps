@@ -26,7 +26,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.SerieIndividual;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.LocalIndividual;
 
 import java.util.ArrayList;
 
@@ -119,7 +119,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
                 //Cargar informacion en Pagina Locales
                 Bundle bundle = new Bundle();
                 bundle.putString(Configuraciones.ID_LOCAL, lista.get(position).toString());
-                context.startActivity(new Intent(context, SerieIndividual.class).putExtras(bundle));
+                context.startActivity(new Intent(context, LocalIndividual.class).putExtras(bundle));
 
             }
         });

@@ -11,17 +11,17 @@ import android.view.View;
 
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivitySerieIndividualBinding;
+import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
 
-public class SerieIndividual extends AppCompatActivity {
+public class LocalIndividual extends AppCompatActivity {
 
-    private ActivitySerieIndividualBinding binding;
+    private ActivityLocalIndividualBinding binding;
     private String idLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySerieIndividualBinding.inflate(getLayoutInflater());
+        binding = ActivityLocalIndividualBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         idLocal=getIntent().getExtras().getString(Configuraciones.ID_LOCAL); //Id del local que traemos con el intent
