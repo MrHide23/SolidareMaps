@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:clickable="true"
-        android:src="@drawable/ic_mipos"
+        android:src="@drawable/ic_mipos_inaccesible"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

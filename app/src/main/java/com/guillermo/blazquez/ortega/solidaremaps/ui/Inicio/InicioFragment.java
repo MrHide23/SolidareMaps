@@ -1,7 +1,6 @@
 package com.guillermo.blazquez.ortega.solidaremaps.ui.Inicio;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -15,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,33 +21,25 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentController;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.internal.IGoogleMapDelegate;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.MarkerInfoModel;
-import com.guillermo.blazquez.ortega.solidaremaps.Modificar_Info_User;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class InicioFragment extends Fragment {
@@ -66,7 +56,6 @@ public class InicioFragment extends Fragment {
 
     //Componentes layout
     private FloatingActionButton fabPosicion;
-
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -100,7 +89,6 @@ public class InicioFragment extends Fragment {
             }
         }
     };
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -197,11 +185,10 @@ public class InicioFragment extends Fragment {
                 List<Address> addressList = null;
 
                 // checking if the entered location is null or not.
-                if (local != null || local.equals("")) {
+                if (local != null || !local.equals("")) {
                     // on below line we are creating and initializing a geo coder.
                     Geocoder geocoder = new Geocoder(getContext());
                     try {
-
                         addressList = geocoder.getFromLocationName(local, 1);
                     } catch (IOException e) {
                         e.printStackTrace();

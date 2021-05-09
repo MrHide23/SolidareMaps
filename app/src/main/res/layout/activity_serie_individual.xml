@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SerieIndividual">
+    tools:context=".ui.targetaLocalIndividual.SerieIndividual">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -22,4 +22,415 @@
         app:layout_constraintVertical_bias="0.0"
         app:navigationIcon="@drawable/abc_vector_test"
         app:titleTextColor="#FFFFFF" />
+
+    <ScrollView
+        android:layout_width="411dp"
+        android:layout_height="677dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgLocalIndividual"
+                android:layout_width="match_parent"
+                android:layout_height="253dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <RatingBar
+                android:id="@+id/rbPuntuacionLocalIndividual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnInfoLocalIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:text="Info" />
+
+                <Button
+                    android:id="@+id/btnMenuLocalIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:text="Menu" />
+
+                <Button
+                    android:id="@+id/btnLlamarLocalIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:text="Llamar" />
+
+                <Button
+                    android:id="@+id/btnWebLocalIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:text="web" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyDireccionIndividual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="#F6F3F3"
+                android:backgroundTint="#F6F3F3"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtDireccion"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="Direccion:"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/txtDireccionLocalIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="#000000" />
+
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:backgroundTint="#F6F3F3"
+                    app:srcCompat="@drawable/ic_map_marker" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyEmailIndividual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="#F6F3F3"
+                android:backgroundTint="#F6F3F3"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="Email:"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/txtEmailLocalIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="#000000" />
+
+                <ImageButton
+                    android:id="@+id/imgbtnEscribirCorreoIndividual"
+                    android:layout_width="56dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:backgroundTint="#F6F3F3"
+                    app:srcCompat="@drawable/ic_gmail" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyDescricionLocalIndividual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="#F6F3F3"
+                android:backgroundTint="#F6F3F3"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtDesccripcion"
+                        android:layout_width="349dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="Email:"
+                        android:textColor="#000000" />
+
+                    <ImageButton
+                        android:id="@+id/imgbtnDesplegarDescripcion"
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:backgroundTint="#F6F3F3"
+                        android:src="@drawable/ic_arrow_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyDescripccionDesplegada"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/txtDescripcionLocalIndividual"
+                        android:layout_width="325dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:shadowRadius="2"
+                        android:text="TextView"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyHorariosLocalIndividual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="#F6F3F3"
+                android:backgroundTint="#F6F3F3"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtHorarios"
+                        android:layout_width="349dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="Horarios:"
+                        android:textColor="#000000" />
+
+                    <ImageButton
+                        android:id="@+id/imgbtnDesplegarHorarios"
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:backgroundTint="#F6F3F3"
+                        android:src="@drawable/ic_arrow_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyHorariosDesplegada"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/lyListaDias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtLunes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Lunes:"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtMartes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Martes:"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Miercoles:"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Juves:"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Viernes:"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Sabado:"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Domingo:"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lyListaHoras"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtLunesJorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtMartesHorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtMiercolesHorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtJuevesHorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtViernesHorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtSabadoHorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/txtDomingoHorarioIndividual"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="Cerrado"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/lyTipoLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="Tipo de Local:"
+                        android:textColor="#000000" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyDonativos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

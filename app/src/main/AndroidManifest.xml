@@ -52,7 +52,7 @@
             android:name=".ui.subscripcion.pago_subscripcion"
             android:theme="@style/Theme.SolidareMaps.NoActionBar" />
         <activity
-            android:name=".SerieIndividual"
+            android:name=".ui.targetaLocalIndividual.SerieIndividual"
             android:label="SerieIndividual"
             android:theme="@style/Theme.SolidareMaps.NoActionBar" />
 
