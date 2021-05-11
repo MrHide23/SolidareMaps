@@ -6,6 +6,7 @@ public class LocalModel {
 
     private ArrayList<String> imgLocal;
     private String nombreLocal;
+    private String emailLocal;
     private DireccionModel direccionLocal;
     private String descripcionLocal;
     private String menuLocal;
@@ -15,12 +16,13 @@ public class LocalModel {
     private ArrayList<DonativoModel> listaDonativos;
     private ArrayList<ComentariosModel> comentariosLocal;
 
-    public LocalModel(ArrayList<String> imgLocal, String nombreLocal, DireccionModel direccionLocal,
+    public LocalModel(ArrayList<String> imgLocal, String nombreLocal, String emailLocal, DireccionModel direccionLocal,
                       String descripcionLocal, String menuLocal, int telefonoLocal, ArrayList<String> horariosLocal,
                       ArrayList<String> tipoLocal, ArrayList<DonativoModel> listaDonativos,
                       ArrayList<ComentariosModel> comentariosLocal) {
         this.imgLocal = imgLocal;
         this.nombreLocal = nombreLocal;
+        this.emailLocal = emailLocal;
         this.direccionLocal = direccionLocal;
         this.descripcionLocal = descripcionLocal;
         this.menuLocal = menuLocal;
@@ -32,11 +34,6 @@ public class LocalModel {
     }
 
     public LocalModel() {
-        this.horariosLocal = new ArrayList<>();
-        this.tipoLocal = new ArrayList<>();
-        this.listaDonativos = new ArrayList<>();
-        this.imgLocal = new ArrayList<>();
-        this.comentariosLocal = new ArrayList<>();
     }
 
     public ArrayList<String> getImgLocal() {
@@ -53,6 +50,18 @@ public class LocalModel {
 
     public void setNombreLocal(String nombreLocal) {
         this.nombreLocal = nombreLocal;
+    }
+
+    public String getEmailLocal() {
+        return emailLocal;
+    }
+
+    public void setEmailLocal(String emailLocal) {
+        this.emailLocal = emailLocal;
+    }
+
+    public DireccionModel getDireccionLocal() {
+        return direccionLocal;
     }
 
     public void setDireccionLocal(DireccionModel direccionLocal) {

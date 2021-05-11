@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SolidareMaps">
-        <activity android:name=".ui.targetaLocalIndividual.MenuViewLocalIndividual"></activity>
+        <activity android:name=".ui.targetaLocalIndividual.GaleriaLocalIndividual"></activity>
+        <activity android:name=".ui.targetaLocalIndividual.MenuViewLocalIndividual" />
         <activity android:name=".ui.targetaLocalIndividual.WebLocalIndividual" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
