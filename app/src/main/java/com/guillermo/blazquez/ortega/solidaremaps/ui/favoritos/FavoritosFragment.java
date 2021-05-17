@@ -8,15 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,9 +32,7 @@ public class FavoritosFragment extends Fragment {
     private RecyclerView rvFavoritos;
     private FavoritosAdapter adapter;
 
-
     //Llamar Real Data
-    private FirebaseDatabase infoLocalesFavoritos;
     private DatabaseReference refInfo;
 
 
@@ -50,17 +45,17 @@ public class FavoritosFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View favoritos = inflater.inflate(R.layout.favoritos_fragment, container, false);
 
-        infoLocalesFavoritos = FirebaseDatabase.getInstance();
-        refInfo = infoLocalesFavoritos.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("favoritos");
+        refInfo = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("favoritos");
 
         listaFavoritos = new ArrayList<>();
 
-        adapter = new FavoritosAdapter(listaFavoritos, R.layout.adapter_favoritos, getActivity());
+        adapter = new FavoritosAdapter(listaFavoritos, R.layout.adapter_favoritos, getContext());
 
         rvFavoritos = favoritos.findViewById(R.id.rvfavoritos);
 
         rvFavoritos.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvFavoritos.setAdapter(adapter);
+
         cargarFavoritos(refInfo);
 
         return favoritos;
@@ -74,9 +69,9 @@ public class FavoritosFragment extends Fragment {
 
                 for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                     listaFavoritos.add(snapshot.child(String.valueOf(i)).getValue().toString());
-                    Log.d("Enseña valor del array ", listaFavoritos.get(i)+" -- "+listaFavoritos.size());
-                }
+                    Log.d("Contenido--> ", "Valor lista--> "+snapshot.child(String.valueOf(i)).getValue().toString());
 
+                }
                 adapter.notifyDataSetChanged();
             }
 
@@ -85,12 +80,6 @@ public class FavoritosFragment extends Fragment {
 
             }
         });
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
     }
 

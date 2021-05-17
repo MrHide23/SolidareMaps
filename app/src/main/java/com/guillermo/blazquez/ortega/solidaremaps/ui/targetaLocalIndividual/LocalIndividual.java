@@ -65,6 +65,7 @@ public class LocalIndividual extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         idLocal = getIntent().getExtras().getString(Configuraciones.ID_LOCAL); //Id del local que traemos con el intent
+        Log.d("TAG", "onCreate: "+idLocal);
         localModel = new LocalModel();
 
         //Instanciar adapters
@@ -77,7 +78,7 @@ public class LocalIndividual extends AppCompatActivity {
         binding.rvListaComentarios.setAdapter(adapterComentario);
 
         //Descargar Datos Firebase
-        dbLocal = FirebaseDatabase.getInstance().getReference("Locales_SM");
+        dbLocal = FirebaseDatabase.getInstance().getReference("Locales_SM").child(idLocal);
         dbLocal.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -88,20 +89,20 @@ public class LocalIndividual extends AppCompatActivity {
                 direccionModel = new DireccionModel();
                 coordenadasModel = new CoordenadasModel();
 
-                localModel.setNombreLocal(snapshot.child(idLocal).child("nombre").getValue().toString());
-                localModel.setTelefonoLocal(Integer.parseInt(snapshot.child(idLocal).child("telefono").getValue().toString()));
-                localModel.setMenuLocal(snapshot.child(idLocal).child("menu").getValue().toString());
-                localModel.setDescripcionLocal(snapshot.child(idLocal).child("descripcionLocal").getValue().toString());
-                localModel.setEmailLocal(snapshot.child(idLocal).child("emailLocal").getValue().toString());
+                localModel.setNombreLocal(snapshot.child("nombre").getValue().toString());
+                localModel.setTelefonoLocal(snapshot.child("telefono").getValue().toString());
+                localModel.setMenuLocal(snapshot.child("menu").getValue().toString());
+                localModel.setDescripcionLocal(snapshot.child("descripcionLocal").getValue().toString());
+                localModel.setEmailLocal(snapshot.child("emailLocal").getValue().toString());
                 //Traer estado donativos + hacer comparacion
 
-                if (Boolean.parseBoolean(snapshot.child(idLocal).child("donativos").child("estado").getValue().toString())) {
+                if (Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString())) {
                     binding.lyDonativos.setVisibility(View.VISIBLE);
-                    donativoModel.setEstado(Boolean.parseBoolean(snapshot.child(idLocal).child("donativos").child("estado").getValue().toString()));
+                    donativoModel.setEstado(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
 
-                    for (int m = 0; m < snapshot.child(idLocal).child("donativos").child("opciones").getChildrenCount(); m++) {
-                        appDonativosModel.setApp(snapshot.child(idLocal).child("donativos").child("opciones").child(m + "").child("appDonativos").getValue().toString());
-                        appDonativosModel.setUser(snapshot.child(idLocal).child("donativos").child("opciones").child(m + "").child("id_user").getValue().toString());
+                    for (int m = 0; m < snapshot.child("donativos").child("opciones").getChildrenCount(); m++) {
+                        appDonativosModel.setApp(snapshot.child("donativos").child("opciones").child(m + "").child("appDonativos").getValue().toString());
+                        appDonativosModel.setUser(snapshot.child("donativos").child("opciones").child(m + "").child("id_user").getValue().toString());
                         donativoModel.getOpciones().add(appDonativosModel);
                     }
 
@@ -109,36 +110,36 @@ public class LocalIndividual extends AppCompatActivity {
                 }
 
                 //Añadimos local
-                coordenadasModel.setLatitud(snapshot.child(idLocal).child("direccionLocal").child("cordenadas").child("lat").getValue().toString());
-                coordenadasModel.setLongitud(snapshot.child(idLocal).child("direccionLocal").child("cordenadas").child("lon").getValue().toString());
+                coordenadasModel.setLatitud(snapshot.child("direccionLocal").child("cordenadas").child("lat").getValue().toString());
+                coordenadasModel.setLongitud(snapshot.child("direccionLocal").child("cordenadas").child("lon").getValue().toString());
 
                 direccionModel.setCoordenadas(coordenadasModel);
-                direccionModel.setDireccion(snapshot.child(idLocal).child("direccionLocal").child("direccion").getValue().toString());
+                direccionModel.setDireccion(snapshot.child("direccionLocal").child("direccion").getValue().toString());
                 localModel.setDireccionLocal(direccionModel);
 
-                for (int j = 0; j < snapshot.child(idLocal).child("tipoLocal").getChildrenCount(); j++) {
-                    localModel.getTipoLocal().add(snapshot.child(idLocal).child("tipoLocal").child(j + "").getValue().toString());
+                for (int j = 0; j < snapshot.child("tipoLocal").getChildrenCount(); j++) {
+                    localModel.getTipoLocal().add(snapshot.child("tipoLocal").child(j + "").getValue().toString());
                 }
 
-                for (int k = 0; k < snapshot.child(idLocal).child("comentarios").getChildrenCount(); k++) {
+                for (int k = 0; k < snapshot.child("comentarios").getChildrenCount(); k++) {
 
-                    comentariosModel.setEmail(snapshot.child(idLocal).child("comentarios").child(k + "").child("email").getValue().toString());
-                    comentariosModel.setComentario(snapshot.child(idLocal).child("comentarios").child(k + "").child("comentario").getValue().toString());
-                    comentariosModel.setPuntuacion(Integer.parseInt(snapshot.child(idLocal).child("comentarios").child(k + "").
+                    comentariosModel.setEmail(snapshot.child("comentarios").child(k + "").child("email").getValue().toString());
+                    comentariosModel.setComentario(snapshot.child("comentarios").child(k + "").child("comentario").getValue().toString());
+                    comentariosModel.setPuntuacion(Integer.parseInt(snapshot.child("comentarios").child(k + "").
                             child("puntuacion").getValue().toString()));
 
                     localModel.getComentariosLocal().add(comentariosModel);
                 }
 
                 //Calculamos puntuacion
-                putuacionBar = Configuraciones.calcularPuntuacion(snapshot.child(idLocal).child("comentarios"));
+                putuacionBar = Configuraciones.calcularPuntuacion(snapshot.child("comentarios"));
 
-                for (int l = 0; l < snapshot.child(idLocal).child("imgLocal").getChildrenCount(); l++) {
-                    localModel.getImgLocal().add(snapshot.child(idLocal).child("imgLocal").child(l + "").getValue().toString());
+                for (int l = 0; l < snapshot.child("imgLocal").getChildrenCount(); l++) {
+                    localModel.getImgLocal().add(snapshot.child("imgLocal").child(l + "").getValue().toString());
                 }
 
-                for (int o = 0; o < snapshot.child(idLocal).child("horario").getChildrenCount(); o++) {
-                    localModel.getHorariosLocal().add(snapshot.child(idLocal).child("horario").child(o + "").getValue().toString());
+                for (int o = 0; o < snapshot.child("horario").getChildrenCount(); o++) {
+                    localModel.getHorarios().add(snapshot.child("horario").child(o + "").getValue().toString());
                 }
 
                 adapterTipoLocal.notifyDataSetChanged();
@@ -209,13 +210,13 @@ public class LocalIndividual extends AppCompatActivity {
         binding.txtEmailLocalIndividual.setText(localModel.getEmailLocal());
         binding.txtNumeroTelefonoLocal.setText(localModel.getTelefonoLocal());
 
-        binding.txtLunesHorarioIndividual.setText(localModel.getHorariosLocal().get(0));
-        binding.txtMartesHorarioIndividual.setText(localModel.getHorariosLocal().get(1));
-        binding.txtMiercolesHorarioIndividual.setText(localModel.getHorariosLocal().get(2));
-        binding.txtJuevesHorarioIndividual.setText(localModel.getHorariosLocal().get(3));
-        binding.txtViernesHorarioIndividual.setText(localModel.getHorariosLocal().get(4));
-        binding.txtSabadoHorarioIndividual.setText(localModel.getHorariosLocal().get(5));
-        binding.txtDomingoHorarioIndividual.setText(localModel.getHorariosLocal().get(6));
+        binding.txtLunesHorarioIndividual.setText(localModel.getHorarios().get(0));
+        binding.txtMartesHorarioIndividual.setText(localModel.getHorarios().get(1));
+        binding.txtMiercolesHorarioIndividual.setText(localModel.getHorarios().get(2));
+        binding.txtJuevesHorarioIndividual.setText(localModel.getHorarios().get(3));
+        binding.txtViernesHorarioIndividual.setText(localModel.getHorarios().get(4));
+        binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
+        binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
 
         StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
         refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

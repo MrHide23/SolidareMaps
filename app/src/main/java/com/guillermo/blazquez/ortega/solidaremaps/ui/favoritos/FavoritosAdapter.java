@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +32,7 @@ import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.Loca
 
 import java.util.ArrayList;
 
-public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.FavoritosVH>{
+public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.FavoritosVH> {
     private ArrayList<String> lista;
     private int resource;
     private Context context;
@@ -47,8 +49,6 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         this.resource = resource;
         this.context = context;
 
-        infoFavs = FirebaseDatabase.getInstance();
-        imgLocalStorge = FirebaseStorage.getInstance();
     }
 
     @NonNull
@@ -62,46 +62,47 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
 
     @Override
     public void onBindViewHolder(@NonNull FavoritosVH holder, int position) {
-        ref = infoFavs.getReference("Locales_SM").child(lista.get(position).toString());
+        ref = FirebaseDatabase.getInstance().getReference("Locales_SM").child(lista.get(position).toString());
 
         //No funcion dado que no existe las referencias, todavia
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                holder.txtTitulo.setText(snapshot.child("nombreLocal").getValue().toString());
-                holder.txtDireccion.setText(snapshot.child("direccionLocal").getValue().toString());
-                holder.rbPuntuacion.setRating(Configuraciones.calcularPuntuacion(snapshot.child("comentarios")));
 
-                StorageReference refImg = imgLocalStorge.getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());
-                refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        holder.imgFotoLocal.setImageURI(uri);
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try {
+                    holder.txtTitulo.setText(snapshot.child("nombre").getValue().toString());
+                    holder.txtDireccion.setText(snapshot.child("direccionLocal").child("direccion").getValue().toString());
+                    holder.rbPuntuacion.setRating(Configuraciones.calcularPuntuacion(snapshot.child("comentarios")));
+
+                    StorageReference refImg = FirebaseStorage.getInstance().getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());
+                    refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            holder.imgFotoLocal.setImageURI(uri);
+                        }
+                    });
+
+                    } catch (NullPointerException n) {
+                        Log.e("TAG", "error al cargar la lista. Datos incorrectos: " + n.getMessage());
                     }
-                });
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+
 
         holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lista.remove(position);
 
-                DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).
+                DatabaseReference refFavs = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
                         child("favoritos");
                 refFavs.getRef().removeValue();
-
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
                 for (int i = 0; i < lista.size(); i++) {
                     refFavs.child(String.valueOf(i)).setValue(lista.get(i).toString());
@@ -123,6 +124,8 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
 
             }
         });
+
+
     }
 
     @Override

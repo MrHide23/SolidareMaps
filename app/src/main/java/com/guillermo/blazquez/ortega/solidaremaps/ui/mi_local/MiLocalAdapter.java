@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,38 +53,43 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
     public void onBindViewHolder(@NonNull MiLocalVH holder, int position) {
         DatabaseReference refLocal = FirebaseDatabase.getInstance().getReference("Locales_SM");
 
-        refLocal.child(lista.get(position).toString()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                holder.txtNombre.setText(snapshot.child("nombreLocal").getValue().toString());
-                holder.txtDireccion.setText(snapshot.child("direccionLocal").getValue().toString());
 
-                StorageReference refImg = FirebaseStorage.getInstance().
-                        getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());
+            refLocal.child(lista.get(position).toString()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    try{
+                    holder.txtNombre.setText(snapshot.child("nombreLocal").getValue().toString()+"");
+                    holder.txtDireccion.setText(snapshot.child("direccionLocal").getValue().toString());
 
-                refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        holder.imgLocal.setImageURI(uri);
+                    StorageReference refImg = FirebaseStorage.getInstance().
+                            getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());
+
+                    refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            holder.imgLocal.setImageURI(uri);
+                        }});
+
+                    }catch (NullPointerException n){
+                        Log.e("TAG", "error al cargar la lista. Datos incorrectos: " + n.getMessage());
                     }
-                });
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
 
-        holder.btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("ID_LOCAL", lista.get(position));
-                //context.startActivity(new Intent(context, MiNewLocal.class).putExtras(bundle));
-            }
-        });
-        holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
+            holder.btnEditar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ID_LOCAL", lista.get(position));
+                    //context.startActivity(new Intent(context, MiNewLocal.class).putExtras(bundle));
+                }
+            });
+            holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Eliminar de Locales_SM
@@ -103,6 +109,8 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
                 notifyDataSetChanged();
             }
         });
+
+
     }
 
     @Override

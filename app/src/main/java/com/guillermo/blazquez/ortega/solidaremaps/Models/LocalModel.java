@@ -10,14 +10,14 @@ public class LocalModel {
     private DireccionModel direccionLocal;
     private String descripcionLocal;
     private String menuLocal;
-    private int telefonoLocal;
-    private ArrayList<String> horariosLocal;
+    private String telefonoLocal;
+    private ArrayList<String> horarios;
     private ArrayList<String> tipoLocal;
     private ArrayList<DonativoModel> listaDonativos;
     private ArrayList<ComentariosModel> comentariosLocal;
 
     public LocalModel(ArrayList<String> imgLocal, String nombreLocal, String emailLocal, DireccionModel direccionLocal,
-                      String descripcionLocal, String menuLocal, int telefonoLocal, ArrayList<String> horariosLocal,
+                      String descripcionLocal, String menuLocal, String telefonoLocal, ArrayList<String> horarios,
                       ArrayList<String> tipoLocal, ArrayList<DonativoModel> listaDonativos,
                       ArrayList<ComentariosModel> comentariosLocal) {
         this.imgLocal = imgLocal;
@@ -27,13 +27,15 @@ public class LocalModel {
         this.descripcionLocal = descripcionLocal;
         this.menuLocal = menuLocal;
         this.telefonoLocal = telefonoLocal;
-        this.horariosLocal = horariosLocal;
+        this.horarios = horarios;
         this.tipoLocal = tipoLocal;
         this.listaDonativos = listaDonativos;
         this.comentariosLocal = comentariosLocal;
     }
 
     public LocalModel() {
+        direccionLocal = new DireccionModel();
+
     }
 
     public ArrayList<String> getImgLocal() {
@@ -84,20 +86,20 @@ public class LocalModel {
         this.menuLocal = menuLocal;
     }
 
-    public int getTelefonoLocal() {
+    public String getTelefonoLocal() {
         return telefonoLocal;
     }
 
-    public void setTelefonoLocal(int telefonoLocal) {
+    public void setTelefonoLocal(String telefonoLocal) {
         this.telefonoLocal = telefonoLocal;
     }
 
-    public ArrayList<String> getHorariosLocal() {
-        return horariosLocal;
+    public ArrayList<String> getHorarios() {
+        return horarios;
     }
 
-    public void setHorariosLocal(ArrayList<String> horariosLocal) {
-        this.horariosLocal = horariosLocal;
+    public void setHorarios(ArrayList<String> horarios) {
+        this.horarios = horarios;
     }
 
     public ArrayList<String> getTipoLocal() {
