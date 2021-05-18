@@ -31,4 +31,9 @@
         android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.faq.FAQFragment"
         android:label="@string/menu_faq"
         tools:layout="@layout/faq_fragment" />
+    <fragment
+        android:id="@+id/buscar_Locales"
+        android:name="com.guillermo.blazquez.ortega.solidaremaps.ui.buscadorLocales.Buscar_Locales"
+        android:label="@string/menu_buscar_locales"
+        tools:layout="@layout/fragment_buscar_locales" />
 </navigation>

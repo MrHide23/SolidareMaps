@@ -34,6 +34,8 @@ import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndiv
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class LocalIndividual extends AppCompatActivity {
 
     private ActivityLocalIndividualBinding binding;
@@ -70,7 +72,7 @@ public class LocalIndividual extends AppCompatActivity {
 
         //Instanciar adapters
         adapterTipoLocal = new TipoLocalAdapter(this, localModel.getTipoLocal(), R.layout.adapter_tipo_local);
-        binding.rvTipoLocal.setLayoutManager(new GridLayoutManager(this, 4));
+        binding.rvTipoLocal.setLayoutManager(new GridLayoutManager(this, 3));
         binding.rvTipoLocal.setAdapter(adapterTipoLocal);
 
         adapterComentario = new ComentariosAdapter(this, localModel.getComentariosLocal(), R.layout.adapter_comentarios_local);
@@ -103,10 +105,10 @@ public class LocalIndividual extends AppCompatActivity {
                     for (int m = 0; m < snapshot.child("donativos").child("opciones").getChildrenCount(); m++) {
                         appDonativosModel.setApp(snapshot.child("donativos").child("opciones").child(m + "").child("appDonativos").getValue().toString());
                         appDonativosModel.setUser(snapshot.child("donativos").child("opciones").child(m + "").child("id_user").getValue().toString());
-                        donativoModel.getOpciones().add(appDonativosModel);
+                        donativoModel.setOpciones(appDonativosModel);
                     }
 
-                    localModel.getListaDonativos().add(donativoModel);
+                    localModel.setListaDonativos(donativoModel);
                 }
 
                 //Añadimos local
@@ -125,22 +127,25 @@ public class LocalIndividual extends AppCompatActivity {
 
                     comentariosModel.setEmail(snapshot.child("comentarios").child(k + "").child("email").getValue().toString());
                     comentariosModel.setComentario(snapshot.child("comentarios").child(k + "").child("comentario").getValue().toString());
-                    comentariosModel.setPuntuacion(Integer.parseInt(snapshot.child("comentarios").child(k + "").
+                    comentariosModel.setPuntuacion(Float.parseFloat(snapshot.child("comentarios").child(k + "").
                             child("puntuacion").getValue().toString()));
 
-                    localModel.getComentariosLocal().add(comentariosModel);
+                    localModel.setComentariosLocal(comentariosModel);
                 }
 
                 //Calculamos puntuacion
                 putuacionBar = Configuraciones.calcularPuntuacion(snapshot.child("comentarios"));
 
                 for (int l = 0; l < snapshot.child("imgLocal").getChildrenCount(); l++) {
-                    localModel.getImgLocal().add(snapshot.child("imgLocal").child(l + "").getValue().toString());
+                    localModel.setImgLocal(snapshot.child("imgLocal").child(l + "").getValue().toString());
                 }
 
                 for (int o = 0; o < snapshot.child("horario").getChildrenCount(); o++) {
-                    localModel.getHorarios().add(snapshot.child("horario").child(o + "").getValue().toString());
+                    localModel.setHorarios(snapshot.child("horario").child(o + "").getValue().toString());
+
                 }
+
+                introducirDatosLocal();
 
                 adapterTipoLocal.notifyDataSetChanged();
                 adapterComentario.notifyDataSetChanged();
@@ -161,13 +166,20 @@ public class LocalIndividual extends AppCompatActivity {
             }
         });
 
-        introducirDatosLocal();
+        horariosDesplegados = false;
+        comentariosDesplegados = false;
 
         //Configurar Imgbtn Deslegables + mostrar info
         binding.imgbtnDesplegarHorarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 horariosDesplegados = CambairImgButton(binding.imgbtnDesplegarHorarios, horariosDesplegados);
+
+                if(horariosDesplegados = true){
+                    binding.lyHorariosDesplegada.setVisibility(View.VISIBLE);
+                }else{
+                    binding.lyHorariosDesplegada.setVisibility(View.GONE);
+                }
                 //cargar datos
             }
         });
@@ -175,8 +187,13 @@ public class LocalIndividual extends AppCompatActivity {
         binding.imgbtnComentariosDesplegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comentariosDesplegados = CambairImgButton(binding.imgbtnDesplegarHorarios, comentariosDesplegados);
-                //Cargar datos
+               comentariosDesplegados = CambairImgButton(binding.imgbtnComentariosDesplegar, comentariosDesplegados);
+
+                if(comentariosDesplegados = true){
+                    binding.lyComentarios.setVisibility(View.VISIBLE);
+                }else{
+                    binding.lyComentarios.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -203,35 +220,37 @@ public class LocalIndividual extends AppCompatActivity {
 
     //Metemos info en componentes
     private void introducirDatosLocal() {
+        try{
+            binding.rbPuntuacionLocalIndividual.setRating(putuacionBar);
+            binding.txtDireccionLocalIndividual.setText(localModel.getDireccionLocal().getDireccion());
+            binding.toolbar3.setTitle(localModel.getNombreLocal());
+            binding.txtEmailLocalIndividual.setText(localModel.getEmailLocal());
+            binding.txtNumeroTelefonoLocal.setText(localModel.getTelefonoLocal());
 
-        binding.rbPuntuacionLocalIndividual.setRating(putuacionBar);
-        binding.txtDireccionLocalIndividual.setText(localModel.getDireccionLocal().getDireccion());
-        binding.toolbar3.setTitle(localModel.getNombreLocal());
-        binding.txtEmailLocalIndividual.setText(localModel.getEmailLocal());
-        binding.txtNumeroTelefonoLocal.setText(localModel.getTelefonoLocal());
+            binding.txtLunesHorarioIndividual.setText(localModel.getHorarios().get(0));
+            binding.txtMartesHorarioIndividual.setText(localModel.getHorarios().get(1));
+            binding.txtMiercolesHorarioIndividual.setText(localModel.getHorarios().get(2));
+            binding.txtJuevesHorarioIndividual.setText(localModel.getHorarios().get(3));
+            binding.txtViernesHorarioIndividual.setText(localModel.getHorarios().get(4));
+            binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
+            binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
 
-        binding.txtLunesHorarioIndividual.setText(localModel.getHorarios().get(0));
-        binding.txtMartesHorarioIndividual.setText(localModel.getHorarios().get(1));
-        binding.txtMiercolesHorarioIndividual.setText(localModel.getHorarios().get(2));
-        binding.txtJuevesHorarioIndividual.setText(localModel.getHorarios().get(3));
-        binding.txtViernesHorarioIndividual.setText(localModel.getHorarios().get(4));
-        binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
-        binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
-
-        StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
-        refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                binding.imgLocalIndividual.setImageURI(uri);
-            }
-        });
+            StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
+            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    binding.imgLocalIndividual.setImageURI(uri);
+                }
+            });
+        }catch (NullPointerException e){
+            e.getCause();
+        }
     }
 
     private boolean CambairImgButton(ImageButton imgButton, Boolean desplegado) {
         if (desplegado) {
             imgButton.setImageResource(R.drawable.ic_arrow_down);
             return false;
-
         }
 
         imgButton.setImageResource(R.drawable.ic_arrow_up);

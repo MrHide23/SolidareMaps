@@ -6,8 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_inicio"
-            android:icon="@drawable/ic_inicio"
+            android:icon="@drawable/ic_mapa"
             android:title="@string/menu_inicio" />
+        <item
+            android:id="@+id/buscar_Locales"
+            android:icon="@drawable/ic_search_local"
+            android:title="@string/menu_buscar_locales" />
         <item
             android:id="@+id/favoritosFragment"
             android:icon="@drawable/ic_favoritos"

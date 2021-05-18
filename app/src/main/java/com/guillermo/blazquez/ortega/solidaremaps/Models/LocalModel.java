@@ -35,15 +35,19 @@ public class LocalModel {
 
     public LocalModel() {
         direccionLocal = new DireccionModel();
-
+        horarios = new ArrayList<>();
+        tipoLocal = new ArrayList<>();
+        listaDonativos = new ArrayList<>();
+        comentariosLocal = new ArrayList<>();
+        imgLocal= new ArrayList<>();
     }
 
     public ArrayList<String> getImgLocal() {
         return imgLocal;
     }
 
-    public void setImgLocal(ArrayList<String> imgLocal) {
-        this.imgLocal = imgLocal;
+    public void setImgLocal(String imgLocal) {
+        this.imgLocal.add(imgLocal);
     }
 
     public String getNombreLocal() {
@@ -98,8 +102,8 @@ public class LocalModel {
         return horarios;
     }
 
-    public void setHorarios(ArrayList<String> horarios) {
-        this.horarios = horarios;
+    public void setHorarios(String horarios) {
+        this.horarios.add(horarios);
     }
 
     public ArrayList<String> getTipoLocal() {
@@ -114,15 +118,15 @@ public class LocalModel {
         return listaDonativos;
     }
 
-    public void setListaDonativos(ArrayList<DonativoModel> listaDonativos) {
-        this.listaDonativos = listaDonativos;
+    public void setListaDonativos(DonativoModel donativos) {
+        this.listaDonativos.add(donativos);
     }
 
     public ArrayList<ComentariosModel> getComentariosLocal() {
         return comentariosLocal;
     }
 
-    public void setComentariosLocal(ArrayList<ComentariosModel> comentariosLocal) {
-        this.comentariosLocal = comentariosLocal;
+    public void setComentariosLocal(ComentariosModel comentariosLocal) {
+        this.comentariosLocal.add(comentariosLocal);
     }
 }

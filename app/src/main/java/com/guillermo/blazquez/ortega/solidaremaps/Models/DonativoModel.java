@@ -7,6 +7,7 @@ public class DonativoModel {
     private ArrayList<AppDonativosModel> opciones;
 
     public DonativoModel() {
+        opciones = new ArrayList<>();
     }
 
     public DonativoModel(boolean estado, ArrayList<AppDonativosModel> opciones) {
@@ -26,7 +27,7 @@ public class DonativoModel {
         return opciones;
     }
 
-    public void setOpciones(ArrayList<AppDonativosModel> opciones) {
-        this.opciones = opciones;
+    public void setOpciones(AppDonativosModel opciones) {
+        this.opciones.add(opciones);
     }
 }

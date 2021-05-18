@@ -9,7 +9,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_inicio" translatable="false">Inicio</string>
-    <string name="menu_mapas" translatable="false">Mapas</string>
+    <string name="menu_buscar_locales" translatable="false">Buscar Locales</string>
     <string name="menu_notificaciones" translatable="false">Notificaciones</string>
     <string name="menu_subscripcion" translatable="false">Subscripcion</string>
     <string name="menu_mi_local" translatable="false">Mi Local</string>
