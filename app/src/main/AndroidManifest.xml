@@ -8,6 +8,7 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -35,7 +36,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.targetaLocalIndividual.GaleriaLocalIndividual" />
+        <activity android:name=".ui.targetaLocalIndividual.GaleriaLocalIndividual"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
         <activity android:name=".ui.targetaLocalIndividual.MenuViewLocalIndividual" />
         <activity android:name=".ui.targetaLocalIndividual.WebLocalIndividual" />
         <!--

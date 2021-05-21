@@ -25,6 +25,7 @@ public class Configuraciones {
     //Valore Fijos Intentes
     public static final int SING_IN_GOOGLE = 1;
     public static final String ID_LOCAL = "ID_LOCAL";
+    public static final String PASAR_MODEL_GALERIA ="MODEL_GALERIA";
 
     //Permisos
     public static final int CAMARA_PERMISO = 100;
@@ -35,6 +36,9 @@ public class Configuraciones {
 
     public static final int GPS_PERMISION = 300;
     public static final int GPS_ACTION = 301;
+
+    public static final int LLAMADA_PERMISION = 400;
+    public static final int LLAMADA_ACTION = 401;
 
     //Metodos genericos
     public static float calcularPuntuacion(DataSnapshot comentarios)  {

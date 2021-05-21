@@ -1,4 +1,4 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos.FavoritosAdapter;
 
 import org.jetbrains.annotations.NotNull;
 

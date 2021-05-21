@@ -1,8 +1,11 @@
 package com.guillermo.blazquez.ortega.solidaremaps.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class LocalModel {
+public class LocalModel implements Parcelable {
 
     private ArrayList<String> imgLocal;
     private String nombreLocal;
@@ -41,6 +44,46 @@ public class LocalModel {
         comentariosLocal = new ArrayList<>();
         imgLocal= new ArrayList<>();
     }
+
+    protected LocalModel(Parcel in) {
+        imgLocal = in.createStringArrayList();
+        nombreLocal = in.readString();
+        emailLocal = in.readString();
+        descripcionLocal = in.readString();
+        menuLocal = in.readString();
+        telefonoLocal = in.readString();
+        horarios = in.createStringArrayList();
+        tipoLocal = in.createStringArrayList();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringList(imgLocal);
+        dest.writeString(nombreLocal);
+        dest.writeString(emailLocal);
+        dest.writeString(descripcionLocal);
+        dest.writeString(menuLocal);
+        dest.writeString(telefonoLocal);
+        dest.writeStringList(horarios);
+        dest.writeStringList(tipoLocal);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<LocalModel> CREATOR = new Creator<LocalModel>() {
+        @Override
+        public LocalModel createFromParcel(Parcel in) {
+            return new LocalModel(in);
+        }
+
+        @Override
+        public LocalModel[] newArray(int size) {
+            return new LocalModel[size];
+        }
+    };
 
     public ArrayList<String> getImgLocal() {
         return imgLocal;

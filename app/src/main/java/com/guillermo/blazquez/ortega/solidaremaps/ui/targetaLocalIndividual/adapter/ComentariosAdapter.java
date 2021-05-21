@@ -1,4 +1,4 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-class ComentariosAdapter extends RecyclerView.Adapter<ComentariosAdapter.ComentarioVH>{
+public class ComentariosAdapter extends RecyclerView.Adapter<ComentariosAdapter.ComentarioVH>{
     private Context context;
     private ArrayList<ComentariosModel> list;
     private int resource;
