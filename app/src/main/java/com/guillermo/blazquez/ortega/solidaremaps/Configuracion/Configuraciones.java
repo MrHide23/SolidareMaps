@@ -16,7 +16,6 @@ public class Configuraciones {
     public static FirebaseUser firebaseUser;
 
     //Fire base Realdata Time
-    public static final String InfoUsers = "Users";
     public static final String FAQPregunta = " FAQPregunta";
 
     //Storage Imgs

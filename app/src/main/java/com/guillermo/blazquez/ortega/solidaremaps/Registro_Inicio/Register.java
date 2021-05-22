@@ -78,25 +78,25 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("nombre");
+                            usuario = database.getReference("Users").child(mAuth.getUid()).child("nombre");
                             usuario.setValue(binding.txtNombreRegistrar.getText().toString());
 
-                            usuario =  database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("password");
+                            usuario =  database.getReference("Users").child(mAuth.getUid()).child("password");
                             usuario.setValue(binding.txtContrasenyaRegistrar.getText().toString());
 
-                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("email");
+                            usuario = database.getReference("Users").child(mAuth.getUid()).child("email");
                             usuario.setValue(binding.txtEmailRegistrar.getText().toString());
 
-                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("fecha");
+                            usuario = database.getReference("Users").child(mAuth.getUid()).child("fecha");
                             usuario.setValue(new Date());
 
-                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("subscripcion").child("tipo");
+                            usuario = database.getReference("Users").child(mAuth.getUid()).child("subscripcion").child("tipo");
                             usuario.setValue("free");
 
-                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("subscripcion").child("pagado");
+                            usuario = database.getReference("Users").child(mAuth.getUid()).child("subscripcion").child("pagado");
                             usuario.setValue(false);
 
-                            usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("imgPerfil");
+                            usuario = database.getReference("Users").child(mAuth.getUid()).child("imgPerfil");
                             usuario.setValue(Configuraciones.fotoInicial);
 
                             Toast.makeText(Register.this, "Registro exitoso"+mAuth.getUid(),

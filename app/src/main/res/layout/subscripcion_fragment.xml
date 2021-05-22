@@ -18,7 +18,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="370dp"
                 android:layout_height="480dp"
-                android:layout_margin="20dp">
+                android:layout_margin="15dp">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar4"
@@ -118,7 +118,7 @@
                 android:id="@+id/cvFreeSubsccipcion"
                 android:layout_width="372dp"
                 android:layout_height="402dp"
-                android:layout_margin="20dp">
+                android:layout_margin="15dp">
 
                 <Button
                     android:id="@+id/btnSeleccionarGoldSubscripcion"

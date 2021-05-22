@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -67,7 +68,7 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
                     refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            holder.imgLocal.setImageURI(uri);
+                            Picasso.get().load(uri).into(holder.imgLocal);
                         }});
 
                     }catch (NullPointerException n){

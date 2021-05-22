@@ -57,9 +57,6 @@ public class Modificar_Info_User extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference userInfo;
 
-    //Img Stroage Fire base
-    private FirebaseStorage imgStorafeFirebase;
-
     //Foto
     private String direccionUri;
     private String contrasenyaVieja;
@@ -71,7 +68,6 @@ public class Modificar_Info_User extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         database = FirebaseDatabase.getInstance();
-        imgStorafeFirebase = FirebaseStorage.getInstance();
 
         CargarDatosIniciales();
 
@@ -99,7 +95,7 @@ public class Modificar_Info_User extends AppCompatActivity {
                 binding.txtNombreUserPerfil.setText(snapshot.child("nombre").getValue().toString());
                 binding.txtEmailUserPerfil.setText(Configuraciones.firebaseUser.getEmail());
 
-                StorageReference refImg = imgStorafeFirebase.getReferenceFromUrl(snapshot.child("imgPerfil").getValue().toString());
+                StorageReference refImg = FirebaseStorage.getInstance().getReferenceFromUrl(snapshot.child("imgPerfil").getValue().toString());
                 refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -204,7 +200,7 @@ public class Modificar_Info_User extends AppCompatActivity {
             if (!direccionUri.isEmpty()) {
                 File fichero = new File(direccionUri);
 
-                StorageReference reference = imgStorafeFirebase.getReference("usersImg").child(Configuraciones.firebaseUser.getUid());
+                StorageReference reference = FirebaseStorage.getInstance().getReference("usersImg").child(Configuraciones.firebaseUser.getUid());
 
                 reference.putFile(Uri.fromFile(fichero)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -214,7 +210,7 @@ public class Modificar_Info_User extends AppCompatActivity {
                         resultado.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                userInfo = database.getReference(Configuraciones.InfoUsers).child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
+                                userInfo = database.getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
                                 userInfo.setValue(resultado.getResult().toString()); //
                             }
                         });

@@ -348,9 +348,6 @@ public class LocalIndividual extends AppCompatActivity {
 
     private void publicarComentario(DatabaseReference dbLocal, String comentario, float rating) {
 
-//        comentariosModel=new ComentariosModel(Configuraciones.firebaseUser.getEmail(), comentario, rating);
-//        localModel.setComentariosLocal(comentariosModel);
-
         dbLocal.child("comentarios").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
