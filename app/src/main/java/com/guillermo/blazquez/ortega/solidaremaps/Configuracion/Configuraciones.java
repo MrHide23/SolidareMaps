@@ -20,7 +20,7 @@ public class Configuraciones {
     public static final String FAQPregunta = " FAQPregunta";
 
     //Storage Imgs
-    public static final String fotoInicial = "gs://solidaremaps-proyectofinal.appspot.com/UsersImgs/imgInicial/userImg.png";
+    public static final String fotoInicial = "gs://solidaremapsdb.appspot.com/usersImg/user1.png";
 
     //Valore Fijos Intentes
     public static final int SING_IN_GOOGLE = 1;

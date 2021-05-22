@@ -3,6 +3,7 @@ package com.guillermo.blazquez.ortega.solidaremaps;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Registro_Inicio.MainActivity;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityMenuSMBinding;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -98,11 +100,11 @@ public class Menu_SM extends AppCompatActivity {
                     nombreUser.setText(snapshot.child("nombre").getValue().toString());
                     correoUser.setText(Configuraciones.firebaseUser.getEmail());
 
-                    StorageReference ref = imgStorageFireBase.getReferenceFromUrl(snapshot.child("imgPerfil").getValue().toString());
+                    StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(snapshot.child("imgPerfil").getValue().toString());
                     ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            imgUser.setImageURI(uri);
+                            Picasso.get().load(uri).into(imgUser);
                         }
                     });
                 }

@@ -40,6 +40,7 @@ import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.ComentariosAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.TipoLocalAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -284,13 +285,17 @@ public class LocalIndividual extends AppCompatActivity {
             binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
             binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
 
-            StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
-            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    binding.imgLocalIndividual.setImageURI(uri);
-                }
-            });
+            if (localModel.getImgLocal().get(0) != null) {
+                Picasso.get().load(localModel.getImgLocal().get(0)).into(binding.imgLocalIndividual);
+            }
+
+//            StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
+//            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    binding.imgLocalIndividual.setImageURI(uri);
+//                }
+//            });
         }catch (NullPointerException e){
             e.getCause();
         }
@@ -390,7 +395,7 @@ public class LocalIndividual extends AppCompatActivity {
                 llamadaAction(localModel.getTelefonoLocal().toString());
             }
             else {
-                Toast.makeText(this, "Necesito permisos para llamar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Se requieren permisos para poder continuar", Toast.LENGTH_SHORT).show();
             }
         }
     }

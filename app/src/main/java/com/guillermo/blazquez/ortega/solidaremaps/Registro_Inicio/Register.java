@@ -94,7 +94,7 @@ public class Register extends AppCompatActivity {
                             usuario.setValue("free");
 
                             usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("subscripcion").child("pagado");
-                            usuario.setValue("false");
+                            usuario.setValue(false);
 
                             usuario = database.getReference(Configuraciones.InfoUsers).child(mAuth.getUid()).child("imgPerfil");
                             usuario.setValue(Configuraciones.fotoInicial);

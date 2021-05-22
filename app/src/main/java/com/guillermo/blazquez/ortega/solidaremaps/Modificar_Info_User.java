@@ -42,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ModificarInfoUserBinding;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -102,7 +103,7 @@ public class Modificar_Info_User extends AppCompatActivity {
                 refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        binding.imUserPerfil.setImageURI(uri);
+                        Picasso.get().load(uri).into(binding.imUserPerfil);
                     }
                 });
             }
@@ -203,8 +204,7 @@ public class Modificar_Info_User extends AppCompatActivity {
             if (!direccionUri.isEmpty()) {
                 File fichero = new File(direccionUri);
 
-                StorageReference reference = imgStorafeFirebase.getReference("UsersImgs").child("imgInicial").
-                        child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
+                StorageReference reference = imgStorafeFirebase.getReference("usersImg").child(Configuraciones.firebaseUser.getUid());
 
                 reference.putFile(Uri.fromFile(fichero)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -215,7 +215,7 @@ public class Modificar_Info_User extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 userInfo = database.getReference(Configuraciones.InfoUsers).child(Configuraciones.firebaseUser.getUid()).child("imgPerfil");
-                                userInfo.setValue(resultado.getResult().toString());
+                                userInfo.setValue(resultado.getResult().toString()); //
                             }
                         });
                     }
