@@ -62,7 +62,7 @@ public class LocalIndividual extends AppCompatActivity {
     private LocalModel localModel;
     private ComentariosModel comentariosModel;
     private AppDonativosModel appDonativosModel;
-    private DonativoModel donativoModel; 
+    private DonativoModel donativoModel;
     private CoordenadasModel coordenadasModel;
     private DireccionModel direccionModel;
 
@@ -78,7 +78,7 @@ public class LocalIndividual extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         idLocal = getIntent().getExtras().getString(Configuraciones.ID_LOCAL); //Id del local que traemos con el intent
-        Log.d("TAG", "onCreate: "+idLocal);
+        Log.d("TAG", "onCreate: " + idLocal);
         localModel = new LocalModel();
 
         //Instanciar adapters
@@ -176,9 +176,9 @@ public class LocalIndividual extends AppCompatActivity {
             public void onClick(View v) {
                 horariosDesplegados = CambairImgButton(binding.imgbtnDesplegarHorarios, horariosDesplegados);
 
-                if(horariosDesplegados){
+                if (horariosDesplegados) {
                     binding.lyHorariosDesplegada.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     binding.lyHorariosDesplegada.setVisibility(View.GONE);
                 }
                 //cargar datos
@@ -188,12 +188,12 @@ public class LocalIndividual extends AppCompatActivity {
         binding.imgbtnComentariosDesplegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               comentariosDesplegados = CambairImgButton(binding.imgbtnComentariosDesplegar, comentariosDesplegados);
+                comentariosDesplegados = CambairImgButton(binding.imgbtnComentariosDesplegar, comentariosDesplegados);
 
-                if(comentariosDesplegados){
+                if (comentariosDesplegados) {
                     binding.lyComentarios.setVisibility(View.VISIBLE);
                     cargarComentariosLocal();
-                }else{
+                } else {
                     binding.lyComentarios.setVisibility(View.GONE);
                 }
 
@@ -267,7 +267,7 @@ public class LocalIndividual extends AppCompatActivity {
         binding.btnPublicarOpinionLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!binding.txtEscribirComentarioLocal.getText().toString().isEmpty()){
+                if (!binding.txtEscribirComentarioLocal.getText().toString().isEmpty()) {
                     //publicarComentario(dbLocal, binding.txtEscribirComentarioLocal.getText().toString(), binding.rbPuntuarLocalndicidual.getRating());
                     Toast.makeText(LocalIndividual.this, "Tu comentario ha sido publicado", Toast.LENGTH_SHORT).show();
                 }
@@ -278,32 +278,31 @@ public class LocalIndividual extends AppCompatActivity {
 
     //Metemos info en componentes
     private void introducirDatosLocal() {
-        try{
-            binding.rbPuntuacionLocalIndividual.setRating(putuacionBar);
-            binding.txtDireccionLocalIndividual.setText(localModel.getDireccionLocal().getDireccion());
-            binding.toolbar3.setTitle(localModel.getNombreLocal());
-            binding.txtEmailLocalIndividual.setText(localModel.getEmailLocal());
-            binding.txtNumeroTelefonoLocal.setText(localModel.getTelefonoLocal());
-            binding.txtDescripcionLocalIndividual.setText(localModel.getDescripcionLocal());
 
-            binding.txtLunesHorarioIndividual.setText(localModel.getHorarios().get(0));
-            binding.txtMartesHorarioIndividual.setText(localModel.getHorarios().get(1));
-            binding.txtMiercolesHorarioIndividual.setText(localModel.getHorarios().get(2));
-            binding.txtJuevesHorarioIndividual.setText(localModel.getHorarios().get(3));
-            binding.txtViernesHorarioIndividual.setText(localModel.getHorarios().get(4));
-            binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
-            binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
+        binding.rbPuntuacionLocalIndividual.setRating(putuacionBar);
+        binding.txtDireccionLocalIndividual.setText(localModel.getDireccionLocal().getDireccion());
+        binding.toolbar3.setTitle(localModel.getNombreLocal());
+        binding.txtEmailLocalIndividual.setText(localModel.getEmailLocal());
+        binding.txtNumeroTelefonoLocal.setText(localModel.getTelefonoLocal());
+        binding.txtDescripcionLocalIndividual.setText(localModel.getDescripcionLocal());
 
-            StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
-            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    Picasso.get().load(localModel.getImgLocal().get(0)).into(binding.imgLocalIndividual);
-                }
-            });
-        }catch (NullPointerException e){
-            e.getCause();
-        }
+        binding.txtLunesHorarioIndividual.setText(localModel.getHorarios().get(0));
+        binding.txtMartesHorarioIndividual.setText(localModel.getHorarios().get(1));
+        binding.txtMiercolesHorarioIndividual.setText(localModel.getHorarios().get(2));
+        binding.txtJuevesHorarioIndividual.setText(localModel.getHorarios().get(3));
+        binding.txtViernesHorarioIndividual.setText(localModel.getHorarios().get(4));
+        binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
+        binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
+
+        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(localModel.getImgLocal().get(0));
+        //StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
+        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(binding.imgLocalIndividual);
+            }
+        });
+
     }
 
     private boolean CambairImgButton(ImageButton imgButton, Boolean desplegado) {
@@ -320,7 +319,7 @@ public class LocalIndividual extends AppCompatActivity {
     //Acciones con permisos
     private void llamadaAction(String telefonoLocal) {
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel: "+telefonoLocal));
+        intent.setData(Uri.parse("tel: " + telefonoLocal));
         startActivity(intent);
     }
 
@@ -336,7 +335,7 @@ public class LocalIndividual extends AppCompatActivity {
 
                     comentariosModel.setEmail(snapshot.child(i + "").child("email").getValue().toString());
                     comentariosModel.setComentario(snapshot.child(i + "").child("comentario").getValue().toString());
-                    comentariosModel.setPuntuacion(Float.parseFloat(snapshot.child(i + ""). child("puntuacion").getValue().toString()));
+                    comentariosModel.setPuntuacion(Float.parseFloat(snapshot.child(i + "").child("puntuacion").getValue().toString()));
 
                     localModel.setComentariosLocal(comentariosModel);
                 }
@@ -394,11 +393,10 @@ public class LocalIndividual extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == Configuraciones.LLAMADA_PERMISION){
-            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){ // HAS AUTORIZADO
+        if (requestCode == Configuraciones.LLAMADA_PERMISION) {
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) { // HAS AUTORIZADO
                 llamadaAction(localModel.getTelefonoLocal().toString());
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Se requieren permisos para poder continuar", Toast.LENGTH_SHORT).show();
             }
         }

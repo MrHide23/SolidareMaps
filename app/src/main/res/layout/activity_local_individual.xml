@@ -42,7 +42,7 @@
 
             <ImageView
                 android:id="@+id/imgLocalIndividual"
-                android:layout_width="match_parent"
+                android:layout_width="410dp"
                 android:layout_height="253dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
