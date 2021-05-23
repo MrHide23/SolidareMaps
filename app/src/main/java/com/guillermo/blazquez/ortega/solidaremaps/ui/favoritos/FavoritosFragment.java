@@ -69,10 +69,10 @@ public class FavoritosFragment extends Fragment {
 
                 for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                     listaFavoritos.add(snapshot.child(String.valueOf(i)).getValue().toString());
-                    Log.d("Contenido--> ", "Valor lista--> "+snapshot.child(String.valueOf(i)).getValue().toString());
-
                 }
+
                 adapter.notifyDataSetChanged();
+
             }
 
             @Override

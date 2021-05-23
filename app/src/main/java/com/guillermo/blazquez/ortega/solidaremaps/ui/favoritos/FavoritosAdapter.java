@@ -29,6 +29,7 @@ import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.LocalIndividual;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -78,7 +79,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
                     refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            holder.imgFotoLocal.setImageURI(uri);
+                            Picasso.get().load(uri).into(holder.imgFotoLocal);
                         }
                     });
 
