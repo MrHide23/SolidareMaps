@@ -59,7 +59,7 @@ public class LocalIndividual extends AppCompatActivity {
     private LocalModel localModel;
     private ComentariosModel comentariosModel;
     private AppDonativosModel appDonativosModel;
-    private DonativoModel donativoModel;
+    private DonativoModel donativoModel; 
     private CoordenadasModel coordenadasModel;
     private DireccionModel direccionModel;
 
@@ -355,6 +355,7 @@ public class LocalIndividual extends AppCompatActivity {
                 dbLocal.child("comentarios").child(c).child("comentario").setValue(comentario);
                 dbLocal.child("comentarios").child(c).child("email").setValue(Configuraciones.firebaseUser.getEmail());
                 dbLocal.child("comentarios").child(c).child("puntuacion").setValue(rating);
+
                 adapterComentario.notifyDataSetChanged();
             }
 
