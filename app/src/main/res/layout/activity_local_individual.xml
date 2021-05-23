@@ -95,7 +95,8 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_weight="1"
-                    android:text="web" />
+                    android:text="web"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

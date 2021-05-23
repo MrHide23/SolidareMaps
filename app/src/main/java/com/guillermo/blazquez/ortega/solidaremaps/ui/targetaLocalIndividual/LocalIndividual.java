@@ -105,10 +105,15 @@ public class LocalIndividual extends AppCompatActivity {
                 localModel.setMenuLocal(snapshot.child("menu").getValue().toString());
                 localModel.setDescripcionLocal(snapshot.child("descripcionLocal").getValue().toString());
                 localModel.setEmailLocal(snapshot.child("emailLocal").getValue().toString());
+
+                if (Boolean.parseBoolean(snapshot.child("webLocal").child("existe").getValue().toString())) {
+                    binding.btnWebLocalIndividual.setVisibility(View.VISIBLE);
+                    localModel.setWebLocal(snapshot.child("webLocal").child("web").getValue().toString());
+                }
                 //Traer estado donativos + hacer comparacion
 
                 if (Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString())) {
-                    binding.btnDonarLocalIndividual.setVisibility(View.VISIBLE);
+                    binding.btnWebLocalIndividual.setVisibility(View.VISIBLE);
                     donativoModel.setEstado(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
 
                     for (int m = 0; m < snapshot.child("donativos").child("opciones").getChildrenCount(); m++) {
@@ -206,13 +211,13 @@ public class LocalIndividual extends AppCompatActivity {
             public void onClick(View v) {
 
             }
-        });
+        }); //Diseñar
         binding.btnMenuLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LocalIndividual.this, MenuViewLocalIndividual.class));
             }
-        });
+        }); //Diseñar
         binding.btnGaleriaLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,9 +229,14 @@ public class LocalIndividual extends AppCompatActivity {
         binding.btnWebLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LocalIndividual.this, WebLocalIndividual.class));
+
+                //Pedir permisos de internet
+
+                Bundle bundle = new Bundle();
+                bundle.putString(Configuraciones.PASAR_MODEL_WEB, localModel.getWebLocal());
+                startActivity(new Intent(LocalIndividual.this, WebLocalIndividual.class).putExtras(bundle));
             }
-        });
+        }); //Diseñar
 
         //ImageButtons acciones
         binding.imgbtnBuscarEnMapa.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +278,7 @@ public class LocalIndividual extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!binding.txtEscribirComentarioLocal.getText().toString().isEmpty()) {
-                    //publicarComentario(dbLocal, binding.txtEscribirComentarioLocal.getText().toString(), binding.rbPuntuarLocalndicidual.getRating());
+                    publicarComentario(dbLocal, binding.txtEscribirComentarioLocal.getText().toString(), binding.rbPuntuarLocalndicidual.getRating());
                     Toast.makeText(LocalIndividual.this, "Tu comentario ha sido publicado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -294,9 +304,8 @@ public class LocalIndividual extends AppCompatActivity {
         binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
         binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
 
-        StorageReference ref = FirebaseStorage.getInstance().getReferenceFromUrl(localModel.getImgLocal().get(0));
-        //StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
-        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        StorageReference refImg = FirebaseStorage.getInstance().getReferenceFromUrl(localModel.getImgLocal().get(0));
+        refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(binding.imgLocalIndividual);
@@ -350,28 +359,33 @@ public class LocalIndividual extends AppCompatActivity {
 
     }
 
-    /*private void publicarComentario(DatabaseReference dbLocal, String comentario, float rating) {
+    private void publicarComentario(DatabaseReference dbLocal, String comentario, float rating) {
+        ComentariosModel comentariosModel = new ComentariosModel(Configuraciones.firebaseUser.getEmail().toString(),comentario, rating);
+        localModel.setComentariosLocal(comentariosModel);
+        adapterComentario.notifyDataSetChanged();
 
-        dbLocal.child("comentarios").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-               String c = String.valueOf(snapshot.getChildrenCount());
-                dbLocal.child("comentarios").child(c).child("comentario").setValue(comentario);
-                dbLocal.child("comentarios").child(c).child("email").setValue(Configuraciones.firebaseUser.getEmail());
-                dbLocal.child("comentarios").child(c).child("puntuacion").setValue(rating);
+        //ARReglar subida a FIrebase
 
-                adapterComentario.notifyDataSetChanged();
-            }
+//        dbLocal.child("comentarios").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+//               String c = String.valueOf(snapshot.getChildrenCount());
+//                dbLocal.child("comentarios").child(c).child("comentario").setValue(comentario);
+//                dbLocal.child("comentarios").child(c).child("email").setValue(Configuraciones.firebaseUser.getEmail());
+//                dbLocal.child("comentarios").child(c).child("puntuacion").setValue(rating);
+//
+//                adapterComentario.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        cargarComentariosLocal();
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-
-        cargarComentariosLocal();
-
-    }*/ //ARREGLAR Insertar Comentario
+    } //ARREGLAR Insertar Comentario
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

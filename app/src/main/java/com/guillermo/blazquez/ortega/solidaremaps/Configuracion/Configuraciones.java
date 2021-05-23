@@ -25,6 +25,7 @@ public class Configuraciones {
     public static final int SING_IN_GOOGLE = 1;
     public static final String ID_LOCAL = "ID_LOCAL";
     public static final String PASAR_MODEL_GALERIA ="MODEL_GALERIA";
+    public static final String PASAR_MODEL_WEB ="MODEL_WEB";
 
     //Permisos
     public static final int CAMARA_PERMISO = 100;

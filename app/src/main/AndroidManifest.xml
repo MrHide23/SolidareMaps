@@ -38,8 +38,10 @@
 
         <activity android:name=".ui.targetaLocalIndividual.GaleriaLocalIndividual"
             android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
-        <activity android:name=".ui.targetaLocalIndividual.MenuViewLocalIndividual" />
-        <activity android:name=".ui.targetaLocalIndividual.WebLocalIndividual" />
+        <activity android:name=".ui.targetaLocalIndividual.MenuViewLocalIndividual"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
+        <activity android:name=".ui.targetaLocalIndividual.WebLocalIndividual"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
