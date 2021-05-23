@@ -38,7 +38,6 @@ import com.guillermo.blazquez.ortega.solidaremaps.Models.DonativoModel;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.LocalModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.CargarComentariosSupport.CargarComentarios;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.ComentariosAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.TipoLocalAdapter;
 import com.squareup.picasso.Picasso;
@@ -76,6 +75,7 @@ public class LocalIndividual extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         idLocal = getIntent().getExtras().getString(Configuraciones.ID_LOCAL); //Id del local que traemos con el intent
+        Log.d("TAG", "onCreate: "+idLocal);
         localModel = new LocalModel();
 
         //Instanciar adapters
@@ -323,13 +323,26 @@ public class LocalIndividual extends AppCompatActivity {
     private void cargarComentariosLocal() {
         localModel.getComentariosLocal().clear();
 
-        CargarComentarios cargarComentarios =  new CargarComentarios(idLocal);
-        cargarComentarios.descargarComentarios();
+        dbLocal.child("comentarios").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (int i = 0; i < snapshot.getChildrenCount(); i++) {
+                    comentariosModel = new ComentariosModel();
 
-        if (cargarComentarios.getDescargaComentarios() != null){
-            localModel.setComentariosLocal(cargarComentarios.getDescargaComentarios());
-            adapterComentario.notifyDataSetChanged();
-        }
+                    comentariosModel.setEmail(snapshot.child(i + "").child("email").getValue().toString());
+                    comentariosModel.setComentario(snapshot.child(i + "").child("comentario").getValue().toString());
+                    comentariosModel.setPuntuacion(Float.parseFloat(snapshot.child(i + ""). child("puntuacion").getValue().toString()));
+
+                    localModel.setComentariosLocal(comentariosModel);
+                }
+                adapterComentario.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -342,6 +355,7 @@ public class LocalIndividual extends AppCompatActivity {
                 dbLocal.child("comentarios").child(c).child("comentario").setValue(comentario);
                 dbLocal.child("comentarios").child(c).child("email").setValue(Configuraciones.firebaseUser.getEmail());
                 dbLocal.child("comentarios").child(c).child("puntuacion").setValue(rating);
+                adapterComentario.notifyDataSetChanged();
             }
 
             @Override

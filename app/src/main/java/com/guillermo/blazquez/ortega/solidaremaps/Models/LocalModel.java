@@ -169,7 +169,7 @@ public class LocalModel implements Parcelable {
         return comentariosLocal;
     }
 
-    public void setComentariosLocal(ArrayList<ComentariosModel> comentariosLocal) {
-        this.comentariosLocal.addAll(comentariosLocal);
+    public void setComentariosLocal(ComentariosModel comentariosLocal) {
+        this.comentariosLocal.add(comentariosLocal);
     }
 }
