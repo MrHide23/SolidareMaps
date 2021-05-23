@@ -5,18 +5,19 @@ import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class GaleriaLocalAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<String> lista;
-    private int resource;
 
     public GaleriaLocalAdapter(Context context, ArrayList<String> lista) {
         this.context = context;
@@ -46,9 +47,12 @@ public class GaleriaLocalAdapter extends BaseAdapter {
         refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                imgView.setImageURI(uri);
+                Picasso.get().load(uri).into(imgView);
             }
         });
+
+        imgView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imgView.setLayoutParams(new ViewGroup.LayoutParams(340, 350));
 
         return imgView;
     }

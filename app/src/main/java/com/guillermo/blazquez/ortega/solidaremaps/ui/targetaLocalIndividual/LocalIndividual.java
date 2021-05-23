@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -187,10 +190,9 @@ public class LocalIndividual extends AppCompatActivity {
             public void onClick(View v) {
                comentariosDesplegados = CambairImgButton(binding.imgbtnComentariosDesplegar, comentariosDesplegados);
 
-                if(comentariosDesplegados = true){
+                if(comentariosDesplegados){
                     binding.lyComentarios.setVisibility(View.VISIBLE);
                     cargarComentariosLocal();
-
                 }else{
                     binding.lyComentarios.setVisibility(View.GONE);
                 }
@@ -230,7 +232,11 @@ public class LocalIndividual extends AppCompatActivity {
         binding.imgbtnBuscarEnMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Acccion buscar en el mapa
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Direccion local", localModel.getDireccionLocal().getDireccion());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(LocalIndividual.this, "Se ha copiado la direccion del local", Toast.LENGTH_SHORT).show();
+
             }
         }); // -- FALTA DISEÑAR ACCIONES
         binding.imgbntLlamarNumero.setOnClickListener(new View.OnClickListener() {
@@ -250,16 +256,19 @@ public class LocalIndividual extends AppCompatActivity {
         binding.imgbtnEscribirCorreoIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Direccion Email", localModel.getEmailLocal().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(LocalIndividual.this, "Se ha copiado la direccion email en el portapapel", Toast.LENGTH_SHORT).show();
             }
-        }); // -- FALTA DISEÑAR ACCIONES
+        });
 
         //Comentario nuevo
         binding.btnPublicarOpinionLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!binding.txtEscribirComentarioLocal.getText().toString().isEmpty()){
-                    publicarComentario(dbLocal, binding.txtEscribirComentarioLocal.getText().toString(), binding.rbPuntuarLocalndicidual.getRating());
+                    //publicarComentario(dbLocal, binding.txtEscribirComentarioLocal.getText().toString(), binding.rbPuntuarLocalndicidual.getRating());
                     Toast.makeText(LocalIndividual.this, "Tu comentario ha sido publicado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -285,17 +294,13 @@ public class LocalIndividual extends AppCompatActivity {
             binding.txtSabadoHorarioIndividual.setText(localModel.getHorarios().get(5));
             binding.txtDomingoHorarioIndividual.setText(localModel.getHorarios().get(6));
 
-            if (localModel.getImgLocal().get(0) != null) {
-                Picasso.get().load(localModel.getImgLocal().get(0)).into(binding.imgLocalIndividual);
-            }
-
-//            StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
-//            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    binding.imgLocalIndividual.setImageURI(uri);
-//                }
-//            });
+            StorageReference refImg = imgLocal.getReferenceFromUrl(localModel.getImgLocal().get(0));
+            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(localModel.getImgLocal().get(0)).into(binding.imgLocalIndividual);
+                }
+            });
         }catch (NullPointerException e){
             e.getCause();
         }
@@ -346,7 +351,7 @@ public class LocalIndividual extends AppCompatActivity {
 
     }
 
-    private void publicarComentario(DatabaseReference dbLocal, String comentario, float rating) {
+    /*private void publicarComentario(DatabaseReference dbLocal, String comentario, float rating) {
 
         dbLocal.child("comentarios").addValueEventListener(new ValueEventListener() {
             @Override
@@ -367,7 +372,7 @@ public class LocalIndividual extends AppCompatActivity {
 
         cargarComentariosLocal();
 
-    } //ARREGLAR
+    }*/ //ARREGLAR Insertar Comentario
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
