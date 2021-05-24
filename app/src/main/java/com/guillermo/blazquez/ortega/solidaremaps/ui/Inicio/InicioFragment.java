@@ -76,9 +76,6 @@ public class InicioFragment extends Fragment {
                 e.printStackTrace();
             }
 
-
-            Log.d("VALOR ARRAY", "array --> " + listaLocales.size());
-
             for (int i = 0; i < listaLocales.size(); i++) {
                 LatLng latLng = new LatLng(listaLocales.get(i).getLat(), listaLocales.get(i).getLon());
                 Map.addMarker(new MarkerOptions().position(latLng).title(listaLocales.get(i).getNombre()));
