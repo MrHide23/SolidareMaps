@@ -109,7 +109,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
                     refFavs.child(String.valueOf(i)).setValue(lista.get(i).toString());
                 }
 
-                holder.btnFavorito.setImageResource(R.drawable.no_fav_corazon);
+                holder.btnFavorito.setImageResource(R.drawable.ic_corozon_no_rojo);
 
                 notifyDataSetChanged();
             }

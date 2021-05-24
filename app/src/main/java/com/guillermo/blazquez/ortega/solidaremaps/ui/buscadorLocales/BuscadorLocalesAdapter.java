@@ -55,6 +55,8 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull BuscadorVH holder, int position) {
+        ArrayList<String> lista = new ArrayList<>();
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Locales_SM").child(list.get(position).toString());
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -85,8 +87,9 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for (int i = 0; i < snapshot.getChildrenCount(); i++) {
-                    if (list.get(position).equals(i+"")) {
-                        holder.btnFavorito.setImageResource(R.drawable.ic_favoritos);
+                    if (!list.get(position).equals(i+"")) {
+                        holder.btnFavorito.setImageResource(R.drawable.ic_corozon_no_rojo);
+                        lista.add(i+"");
                     }
                 }
             }
@@ -98,6 +101,14 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
         });
 
         //Si pulsa btnCorazon meter o eliminar de lista de favoritos
+//        holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (lista.contains(lista.get(position))){
+//                    refFav.child(lista.get(position)).removeValue();
+//                }
+//            }
+//        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

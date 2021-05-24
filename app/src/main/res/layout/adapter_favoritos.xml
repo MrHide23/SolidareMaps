@@ -12,6 +12,7 @@
         android:id="@+id/imgFotoLocalAdapter"
         android:layout_width="230dp"
         android:layout_height="100dp"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
