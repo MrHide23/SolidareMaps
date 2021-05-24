@@ -12,7 +12,7 @@ public class LocalModel implements Parcelable {
     private String emailLocal;
     private DireccionModel direccionLocal;
     private String descripcionLocal;
-    private String menuLocal;
+    private ArrayList<String> menuLocal;
     private String webLocal;
     private String telefonoLocal;
     private ArrayList<String> horarios;
@@ -21,7 +21,7 @@ public class LocalModel implements Parcelable {
     private ArrayList<ComentariosModel> comentariosLocal;
 
     public LocalModel(ArrayList<String> imgLocal, String nombreLocal, String emailLocal, DireccionModel direccionLocal,
-                      String descripcionLocal, String menuLocal, String web, String telefonoLocal, ArrayList<String> horarios,
+                      String descripcionLocal, ArrayList<String> menuLocal, String web, String telefonoLocal, ArrayList<String> horarios,
                       ArrayList<String> tipoLocal, ArrayList<DonativoModel> listaDonativos,
                       ArrayList<ComentariosModel> comentariosLocal) {
         this.imgLocal = imgLocal;
@@ -45,6 +45,7 @@ public class LocalModel implements Parcelable {
         listaDonativos = new ArrayList<>();
         comentariosLocal = new ArrayList<>();
         imgLocal= new ArrayList<>();
+        menuLocal = new ArrayList<>();
     }
 
     protected LocalModel(Parcel in) {
@@ -52,7 +53,7 @@ public class LocalModel implements Parcelable {
         nombreLocal = in.readString();
         emailLocal = in.readString();
         descripcionLocal = in.readString();
-        menuLocal = in.readString();
+        menuLocal = in.createStringArrayList();
         webLocal = in.readString();
         telefonoLocal = in.readString();
         horarios = in.createStringArrayList();
@@ -65,7 +66,7 @@ public class LocalModel implements Parcelable {
         dest.writeString(nombreLocal);
         dest.writeString(emailLocal);
         dest.writeString(descripcionLocal);
-        dest.writeString(menuLocal);
+        dest.writeStringList(menuLocal);
         dest.writeString(webLocal);
         dest.writeString(telefonoLocal);
         dest.writeStringList(horarios);
@@ -129,12 +130,12 @@ public class LocalModel implements Parcelable {
         this.descripcionLocal = descripcionLocal;
     }
 
-    public String getMenuLocal() {
+    public ArrayList<String> getMenuLocal() {
         return menuLocal;
     }
 
     public void setMenuLocal(String menuLocal) {
-        this.menuLocal = menuLocal;
+        this.menuLocal.add(menuLocal);
     }
 
     public String getWebLocal() {

@@ -59,8 +59,8 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     try{
-                    holder.txtNombre.setText(snapshot.child("nombreLocal").getValue().toString()+"");
-                    holder.txtDireccion.setText(snapshot.child("direccionLocal").getValue().toString());
+                    holder.txtNombre.setText(snapshot.child("nombre").getValue().toString());
+                    holder.txtDireccion.setText(snapshot.child("direccionLocal").child("direccion").getValue().toString());
 
                     StorageReference refImg = FirebaseStorage.getInstance().
                             getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());

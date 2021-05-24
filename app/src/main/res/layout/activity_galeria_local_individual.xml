@@ -20,8 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/abc_vector_test"
-        app:title="Titulo Local"
-        app:titleMarginStart="85dp"
+        app:title="Galeria"
+        app:titleMarginStart="120dp"
         app:titleTextColor="#FFFFFF" />
 
     <GridView

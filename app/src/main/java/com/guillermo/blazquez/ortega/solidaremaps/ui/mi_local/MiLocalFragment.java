@@ -46,7 +46,7 @@ public class MiLocalFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View mi_local = inflater.inflate(R.layout.mi_local_fragment, container, false);
 
-        refInfo = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).child("miLocal");
+        refInfo = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid());
         listaMisLocales= new ArrayList<>();
 
         adapter = new MiLocalAdapter(listaMisLocales,R.layout.adapter_mi_local,getContext());
@@ -65,11 +65,11 @@ public class MiLocalFragment extends Fragment {
                         child(Configuraciones.firebaseUser.getUid()).child("subscripcion").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (listaMisLocales.size() <= 0 && snapshot.getValue().toString().equalsIgnoreCase("gold")) {
+                        if (Boolean.parseBoolean(snapshot.child("pagado").getValue().toString())) {
                             Log.d("Puedes", "Crea nuevo local");
                         }else{
 
-                            Log.d("Hola", "ya hay un local insertado");
+                            Toast.makeText(getContext(), "Deber tener un subscripcion Gol para poder tener un local", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -85,28 +85,25 @@ public class MiLocalFragment extends Fragment {
     }
 
     private void cargarMisLocales(DatabaseReference refInfo) {
-        refInfo.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaMisLocales.clear();
 
-                for (int i = 0; i < snapshot.getChildrenCount(); i++) {
-                    listaMisLocales.add(snapshot.child(String.valueOf(i)).getValue().toString());
+        refInfo.child("miLocal").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    listaMisLocales.clear();
+
+                    for (int i = 0; i < snapshot.getChildrenCount(); i++) {
+                        listaMisLocales.add(snapshot.child(String.valueOf(i)).getValue().toString());
+                    }
+
+                    adapter.notifyDataSetChanged();
                 }
 
-                adapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
     } //Generalizar metodo
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
 
 }

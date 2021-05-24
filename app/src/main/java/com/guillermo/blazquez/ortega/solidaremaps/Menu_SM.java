@@ -50,7 +50,7 @@ public class Menu_SM extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMenuSMBinding.inflate(getLayoutInflater());
+        binding = ActivityMenuSMBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.contenido.toolbar);

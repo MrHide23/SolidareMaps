@@ -102,7 +102,6 @@ public class LocalIndividual extends AppCompatActivity {
 
                 localModel.setNombreLocal(snapshot.child("nombre").getValue().toString());
                 localModel.setTelefonoLocal(snapshot.child("telefono").getValue().toString());
-                localModel.setMenuLocal(snapshot.child("menu").getValue().toString());
                 localModel.setDescripcionLocal(snapshot.child("descripcionLocal").getValue().toString());
                 localModel.setEmailLocal(snapshot.child("emailLocal").getValue().toString());
 
@@ -139,6 +138,9 @@ public class LocalIndividual extends AppCompatActivity {
                     localModel.getTipoLocal().add(snapshot.child("tipoLocal").child(j + "").getValue().toString());
                 }
 
+                for (int k = 0; k <snapshot.child("menu").getChildrenCount(); k++) {
+                    localModel.setMenuLocal(snapshot.child("menu").child(k+"").getValue().toString());
+                }
 
                 //Calculamos puntuacion
                 putuacionBar = Configuraciones.calcularPuntuacion(snapshot.child("comentarios"));
@@ -215,12 +217,14 @@ public class LocalIndividual extends AppCompatActivity {
         binding.btnMenuLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LocalIndividual.this, MenuViewLocalIndividual.class));
+                verMenu();
             }
         }); //Diseñar
         binding.btnGaleriaLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Configuraciones.PASAR_MODEL_GALERIA, localModel);
                 verGaleria();
             }
         });
@@ -348,6 +352,12 @@ public class LocalIndividual extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString(Configuraciones.PASAR_MODEL_WEB, localModel.getWebLocal());
         startActivity(new Intent(LocalIndividual.this, WebLocalIndividual.class).putExtras(bundle));
+    }
+
+    private void verMenu() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Configuraciones.PASAR_MODEL_MENU, localModel);
+        startActivity(new Intent(LocalIndividual.this, MenuViewLocalIndividual.class).putExtras(bundle));
     }
 
     //Comentarios
