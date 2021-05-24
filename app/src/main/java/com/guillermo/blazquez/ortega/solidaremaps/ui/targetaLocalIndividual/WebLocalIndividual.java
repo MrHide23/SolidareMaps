@@ -3,6 +3,7 @@ package com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebViewClient;
 
@@ -21,7 +22,7 @@ public class WebLocalIndividual extends AppCompatActivity {
         binding = ActivityWebLocalIndividualBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        url = getIntent().getStringExtra(Configuraciones.PASAR_MODEL_WEB);
+        url = getIntent().getExtras().getString(Configuraciones.PASAR_MODEL_WEB);
 
         binding.toolbar9.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

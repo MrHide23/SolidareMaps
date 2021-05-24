@@ -40,6 +40,9 @@ public class Configuraciones {
     public static final int LLAMADA_PERMISION = 400;
     public static final int LLAMADA_ACTION = 401;
 
+    public static final int INTERNET_PERMISION = 500;
+    public static final int INTERNT_ACTION = 501;
+
     //Metodos genericos
     public static float calcularPuntuacion(DataSnapshot comentarios)  {
         float puntuacion = 0;

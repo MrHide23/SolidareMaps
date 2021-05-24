@@ -221,9 +221,7 @@ public class LocalIndividual extends AppCompatActivity {
         binding.btnGaleriaLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Configuraciones.PASAR_MODEL_GALERIA, localModel);
-                startActivity(new Intent(LocalIndividual.this, GaleriaLocalIndividual.class).putExtras(bundle));
+                verGaleria();
             }
         });
         binding.btnWebLocalIndividual.setOnClickListener(new View.OnClickListener() {
@@ -231,10 +229,17 @@ public class LocalIndividual extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Pedir permisos de internet
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
+                    visitarWeb();
+                } else {
+                    if (ContextCompat.checkSelfPermission(LocalIndividual.this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
+                        visitarWeb();
+                    } else {
+                        ActivityCompat.requestPermissions(LocalIndividual.this, new String[]{Manifest.permission.INTERNET},
+                                Configuraciones.INTERNET_PERMISION);
+                    }
+                }
 
-                Bundle bundle = new Bundle();
-                bundle.putString(Configuraciones.PASAR_MODEL_WEB, localModel.getWebLocal());
-                startActivity(new Intent(LocalIndividual.this, WebLocalIndividual.class).putExtras(bundle));
             }
         }); //Diseñar
 
@@ -286,6 +291,7 @@ public class LocalIndividual extends AppCompatActivity {
 
     }
 
+
     //Metemos info en componentes
     private void introducirDatosLocal() {
 
@@ -330,6 +336,18 @@ public class LocalIndividual extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel: " + telefonoLocal));
         startActivity(intent);
+    }
+
+    private void verGaleria() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Configuraciones.PASAR_MODEL_GALERIA, localModel);
+        startActivity(new Intent(LocalIndividual.this, GaleriaLocalIndividual.class).putExtras(bundle));
+    }
+
+    private void visitarWeb() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Configuraciones.PASAR_MODEL_WEB, localModel.getWebLocal());
+        startActivity(new Intent(LocalIndividual.this, WebLocalIndividual.class).putExtras(bundle));
     }
 
     //Comentarios
@@ -414,5 +432,14 @@ public class LocalIndividual extends AppCompatActivity {
                 Toast.makeText(this, "Se requieren permisos para poder continuar", Toast.LENGTH_SHORT).show();
             }
         }
+
+        if (requestCode == Configuraciones.INTERNET_PERMISION){
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                visitarWeb();
+            }else {
+                Toast.makeText(this, "Se requieren permisos para poder continuar", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 }
