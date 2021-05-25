@@ -112,7 +112,7 @@ public class LocalIndividual extends AppCompatActivity {
                 //Traer estado donativos + hacer comparacion
 
                 if (Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString())) {
-                    binding.btnWebLocalIndividual.setVisibility(View.VISIBLE);
+                    binding.btnDonarLocalIndividual.setVisibility(View.VISIBLE);
                     donativoModel.setEstado(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
 
                     for (int m = 0; m < snapshot.child("donativos").child("opciones").getChildrenCount(); m++) {
@@ -211,7 +211,10 @@ public class LocalIndividual extends AppCompatActivity {
         binding.btnDonarLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Configuraciones.PASAR_MODEL_DONATIVOS, localModel);
+                Log.d("ñañañ1111", "+++++ "+localModel.getListaDonativos());
+                startActivity(new Intent(LocalIndividual.this, DonativoLocalIndividual.class).putExtras(bundle));
             }
         }); //Diseñar
         binding.btnMenuLocalIndividual.setOnClickListener(new View.OnClickListener() {

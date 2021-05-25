@@ -20,6 +20,8 @@ public class LocalModel implements Parcelable {
     private ArrayList<DonativoModel> listaDonativos;
     private ArrayList<ComentariosModel> comentariosLocal;
 
+    private DonativoModel donativoModel;
+
     public LocalModel(ArrayList<String> imgLocal, String nombreLocal, String emailLocal, DireccionModel direccionLocal,
                       String descripcionLocal, ArrayList<String> menuLocal, String web, String telefonoLocal, ArrayList<String> horarios,
                       ArrayList<String> tipoLocal, ArrayList<DonativoModel> listaDonativos,
@@ -40,6 +42,7 @@ public class LocalModel implements Parcelable {
 
     public LocalModel() {
         direccionLocal = new DireccionModel();
+        donativoModel = new DonativoModel();
         horarios = new ArrayList<>();
         tipoLocal = new ArrayList<>();
         listaDonativos = new ArrayList<>();

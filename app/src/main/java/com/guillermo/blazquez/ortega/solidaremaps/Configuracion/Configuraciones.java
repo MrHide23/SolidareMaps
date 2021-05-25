@@ -27,6 +27,7 @@ public class Configuraciones {
     public static final String PASAR_MODEL_GALERIA ="MODEL_GALERIA";
     public static final String PASAR_MODEL_WEB ="MODEL_WEB";
     public static final String PASAR_MODEL_MENU ="MODEL_MENU";
+    public static final String PASAR_MODEL_DONATIVOS ="MODEL_DONAR";
 
     //Permisos
     public static final int CAMARA_PERMISO = 100;
