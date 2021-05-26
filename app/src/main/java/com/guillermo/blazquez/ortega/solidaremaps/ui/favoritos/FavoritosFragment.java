@@ -54,7 +54,6 @@ public class FavoritosFragment extends Fragment {
         rvFavoritos = favoritos.findViewById(R.id.rvfavoritos);
 
         rvFavoritos.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rvFavoritos.setHasFixedSize(true);
         rvFavoritos.setAdapter(adapter);
 
         cargarFavoritos(refInfo);

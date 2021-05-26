@@ -20,6 +20,7 @@ public class DonativoLocalIndividual extends AppCompatActivity {
 
     private DonarAdapter adapter;
 
+    private LocalModel localModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class DonativoLocalIndividual extends AppCompatActivity {
             }
         });
 
-        LocalModel localModel = getIntent().getParcelableExtra(Configuraciones.PASAR_MODEL_DONATIVOS);
+        localModel = getIntent().getParcelableExtra(Configuraciones.PASAR_MODEL_DONATIVOS);
 
         Log.d("ñañañ", "+++++ "+localModel.getListaDonativos());
 //        adapter = new DonarAdapter(this, localModel.getListaDonativos().get(0).getOpciones(), R.layout.adapter_donativos_local_individual);

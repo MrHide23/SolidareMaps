@@ -47,6 +47,8 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 public class LocalIndividual extends AppCompatActivity {
 
     private ActivityLocalIndividualBinding binding;
@@ -78,7 +80,6 @@ public class LocalIndividual extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         idLocal = getIntent().getExtras().getString(Configuraciones.ID_LOCAL); //Id del local que traemos con el intent
-        Log.d("TAG", "onCreate: " + idLocal);
         localModel = new LocalModel();
 
         //Instanciar adapters
@@ -213,7 +214,7 @@ public class LocalIndividual extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Configuraciones.PASAR_MODEL_DONATIVOS, localModel);
-                Log.d("ñañañ1111", "+++++ "+localModel.getListaDonativos());
+                Log.d("ñañañ1111", "+++++ "+localModel.getListaDonativos().get(0).getOpciones().get(0));
                 startActivity(new Intent(LocalIndividual.this, DonativoLocalIndividual.class).putExtras(bundle));
             }
         }); //Diseñar
@@ -297,7 +298,6 @@ public class LocalIndividual extends AppCompatActivity {
         }); //ARREGLAR
 
     }
-
 
     //Metemos info en componentes
     private void introducirDatosLocal() {
@@ -422,17 +422,80 @@ public class LocalIndividual extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_serie_individual, menu);
         menu.findItem(R.id.btnBarFavorito);
+
+        DatabaseReference refFav = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid())
+                .child("favoritos");
+        refFav.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (int i = 0; i < snapshot.getChildrenCount(); i++) {
+                    if (snapshot.child(""+i).getValue().toString().equals(idLocal)) {
+                        menu.getItem(0).setIcon(R.drawable.ic_corazon_rojo);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
     }
+    private final ArrayList<String> listaFav = new ArrayList<>();
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnBarFavorito) {
-            //Cambiar de fav a no-fav o alreves
-            Log.d("HAs cambiado el estado", null);
+
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
+                    child("favoritos");
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    boolean existe = false;
+
+                    for (int i = 0; i < snapshot.getChildrenCount(); i++) {
+                        if (snapshot.child(""+i).getValue().toString().equals(idLocal)) {
+                            existe = true;
+                        }else{
+                            listaFav.add(snapshot.child(""+i).getValue().toString());
+                        }
+                    }
+
+                    if(!existe){
+                        listaFav.add(idLocal);
+                        item.setIcon(R.drawable.ic_corazon_rojo);
+                    }else{
+                        item.setIcon(R.drawable.ic_corozon_no_rojo);
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+//            if (listaFav.size() == 0) {
+//                listaFav.add(idLocal);
+//                item.setIcon(R.drawable.ic_corazon_rojo);
+//            }
+            Configuraciones.favoritosEstados(listaFav);
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {

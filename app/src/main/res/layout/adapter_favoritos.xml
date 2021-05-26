@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:background="#EFE8E8"
     android:backgroundTint="#EFE8E8"
     android:orientation="vertical">
@@ -23,7 +24,7 @@
         android:layout_marginLeft="130dp"
         android:layout_marginTop="20dp"
         android:background="#EDE4E4"
-        app:srcCompat="@drawable/ic_corazon_rojo" />
+        app:srcCompat="@drawable/ic_corozon_no_rojo" />
 
     <TextView
         android:id="@+id/txtTituloAdapter"

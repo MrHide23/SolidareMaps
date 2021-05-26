@@ -74,6 +74,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
                     holder.txtTitulo.setText(snapshot.child("nombre").getValue().toString());
                     holder.txtDireccion.setText(snapshot.child("direccionLocal").child("direccion").getValue().toString());
                     holder.rbPuntuacion.setRating(Configuraciones.calcularPuntuacion(snapshot.child("comentarios")));
+                    holder.btnFavorito.setImageResource(R.drawable.ic_corazon_rojo);
 
                     StorageReference refImg = FirebaseStorage.getInstance().getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());
                     refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
