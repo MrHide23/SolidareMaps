@@ -41,6 +41,7 @@ import com.guillermo.blazquez.ortega.solidaremaps.Models.DonativoModel;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.LocalModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.SupportsClass.FavoritosEstado;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.ComentariosAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.TipoLocalAdapter;
 import com.squareup.picasso.Picasso;
@@ -135,10 +136,12 @@ public class LocalIndividual extends AppCompatActivity {
                 direccionModel.setDireccion(snapshot.child("direccionLocal").child("direccion").getValue().toString());
                 localModel.setDireccionLocal(direccionModel);
 
+                localModel.getTipoLocal().clear();
                 for (int j = 0; j < snapshot.child("tipoLocal").getChildrenCount(); j++) {
                     localModel.getTipoLocal().add(snapshot.child("tipoLocal").child(j + "").getValue().toString());
                 }
 
+                localModel.getMenuLocal().clear();
                 for (int k = 0; k <snapshot.child("menu").getChildrenCount(); k++) {
                     localModel.setMenuLocal(snapshot.child("menu").child(k+"").getValue().toString());
                 }
@@ -146,10 +149,12 @@ public class LocalIndividual extends AppCompatActivity {
                 //Calculamos puntuacion
                 putuacionBar = Configuraciones.calcularPuntuacion(snapshot.child("comentarios"));
 
+                localModel.getImgLocal().clear();
                 for (int l = 0; l < snapshot.child("imgLocal").getChildrenCount(); l++) {
                     localModel.setImgLocal(snapshot.child("imgLocal").child(l + "").getValue().toString());
                 }
 
+                localModel.getHorarios().clear();
                 for (int o = 0; o < snapshot.child("horario").getChildrenCount(); o++) {
                     localModel.setHorarios(snapshot.child("horario").child(o + "").getValue().toString());
                 }
@@ -393,30 +398,10 @@ public class LocalIndividual extends AppCompatActivity {
     private void publicarComentario(DatabaseReference dbLocal, String comentario, float rating) {
         ComentariosModel comentariosModel = new ComentariosModel(Configuraciones.firebaseUser.getEmail().toString(),comentario, rating);
         localModel.setComentariosLocal(comentariosModel);
-        adapterComentario.notifyDataSetChanged();
+        dbLocal.child("comentarios").removeValue();
+        dbLocal.child("comentarios").setValue(localModel.getComentariosLocal());
 
-        //ARReglar subida a FIrebase
-
-//        dbLocal.child("comentarios").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//               String c = String.valueOf(snapshot.getChildrenCount());
-//                dbLocal.child("comentarios").child(c).child("comentario").setValue(comentario);
-//                dbLocal.child("comentarios").child(c).child("email").setValue(Configuraciones.firebaseUser.getEmail());
-//                dbLocal.child("comentarios").child(c).child("puntuacion").setValue(rating);
-//
-//                adapterComentario.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        cargarComentariosLocal();
-
-    } //ARREGLAR Insertar Comentario
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -443,12 +428,11 @@ public class LocalIndividual extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-    private final ArrayList<String> listaFav = new ArrayList<>();
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnBarFavorito) {
-
+            FavoritosEstado favoritosEstado = new FavoritosEstado();
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
                     child("favoritos");
@@ -457,21 +441,24 @@ public class LocalIndividual extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                     boolean existe = false;
+                    ArrayList<String> listaFavs= new ArrayList<>();
 
                     for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                         if (snapshot.child(""+i).getValue().toString().equals(idLocal)) {
                             existe = true;
                         }else{
-                            listaFav.add(snapshot.child(""+i).getValue().toString());
+                            listaFavs.add(snapshot.child(""+i).getValue().toString());
                         }
                     }
 
                     if(!existe){
-                        listaFav.add(idLocal);
+                        listaFavs.add(idLocal);
                         item.setIcon(R.drawable.ic_corazon_rojo);
                     }else{
                         item.setIcon(R.drawable.ic_corozon_no_rojo);
                     }
+
+                    favoritosEstado.setListaFavs(listaFavs);
 
                 }
 
@@ -487,15 +474,17 @@ public class LocalIndividual extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-//            if (listaFav.size() == 0) {
+//            if (favoritosEstado.getListaFavs().size() == 0) {
 //                listaFav.add(idLocal);
+//                favoritosEstado.setListaFavs(listaFav);
 //                item.setIcon(R.drawable.ic_corazon_rojo);
 //            }
-            Configuraciones.favoritosEstados(listaFav);
+
+            Log.d("KAKKA", ""+favoritosEstado.getListaFavs());
+            Configuraciones.favoritosEstados(favoritosEstado.getListaFavs());
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
