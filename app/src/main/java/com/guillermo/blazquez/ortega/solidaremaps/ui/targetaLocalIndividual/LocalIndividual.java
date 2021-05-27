@@ -432,6 +432,8 @@ public class LocalIndividual extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnBarFavorito) {
+
+
             FavoritosEstado favoritosEstado = new FavoritosEstado();
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
@@ -447,18 +449,18 @@ public class LocalIndividual extends AppCompatActivity {
                         if (snapshot.child(""+i).getValue().toString().equals(idLocal)) {
                             existe = true;
                         }else{
-                            listaFavs.add(snapshot.child(""+i).getValue().toString());
+                            //listaFavs.add(snapshot.child(""+i).getValue().toString());
+                            favoritosEstado.getListaFavs().add(i+"");
                         }
                     }
 
                     if(!existe){
-                        listaFavs.add(idLocal);
+                        //listaFavs.add(idLocal);
+                        favoritosEstado.getListaFavs().add(idLocal);
                         item.setIcon(R.drawable.ic_corazon_rojo);
                     }else{
                         item.setIcon(R.drawable.ic_corozon_no_rojo);
                     }
-
-                    favoritosEstado.setListaFavs(listaFavs);
 
                 }
 
@@ -468,23 +470,18 @@ public class LocalIndividual extends AppCompatActivity {
                 }
             });
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
 //            if (favoritosEstado.getListaFavs().size() == 0) {
 //                listaFav.add(idLocal);
 //                favoritosEstado.setListaFavs(listaFav);
 //                item.setIcon(R.drawable.ic_corazon_rojo);
 //            }
 
-            Log.d("KAKKA", ""+favoritosEstado.getListaFavs());
+            Log.d("KAKKA", "");
             Configuraciones.favoritosEstados(favoritosEstado.getListaFavs());
+            favoritosEstado.ClearFavoritos();
         }
         return super.onOptionsItemSelected(item);
-    }
+    } //ARREGLAR
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {

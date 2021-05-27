@@ -499,7 +499,7 @@
                 <LinearLayout
                     android:id="@+id/lyComentarios"
                     android:layout_width="match_parent"
-                    android:layout_height="398dp"
+                    android:layout_height="550dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:visibility="gone">
@@ -541,7 +541,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvListaComentarios"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="300dp"
                         android:visibility="visible">
 
                     </androidx.recyclerview.widget.RecyclerView>

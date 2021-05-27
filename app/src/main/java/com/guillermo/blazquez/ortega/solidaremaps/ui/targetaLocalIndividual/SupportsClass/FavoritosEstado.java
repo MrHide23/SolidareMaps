@@ -5,7 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class FavoritosEstado {
-    private ArrayList<String> list;
+    private static ArrayList<String> list;
 
     public FavoritosEstado(ArrayList<String> list) {
         this.list = list;
@@ -21,5 +21,9 @@ public class FavoritosEstado {
 
     public void setListaFavs(ArrayList<String> list) {
         this.list = list;
+    }
+
+    public void ClearFavoritos(){
+        list.clear();
     }
 }

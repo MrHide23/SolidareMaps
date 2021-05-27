@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.SupportsClass.FavoritosEstado;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class Configuraciones {
     //Valore Fijos Intentes
     public static final int SING_IN_GOOGLE = 1;
     public static final String ID_LOCAL = "ID_LOCAL";
+    public static final int SING_GOOGLE = 2;
     public static final String PASAR_MODEL_GALERIA ="MODEL_GALERIA";
     public static final String PASAR_MODEL_WEB ="MODEL_WEB";
     public static final String PASAR_MODEL_MENU ="MODEL_MENU";
@@ -71,6 +73,7 @@ public class Configuraciones {
         for (int i = 0; i < favs.size(); i++) {
             refFav.child(String.valueOf(i)).setValue(favs.get(i).toString());
         }
+
     }
 
 

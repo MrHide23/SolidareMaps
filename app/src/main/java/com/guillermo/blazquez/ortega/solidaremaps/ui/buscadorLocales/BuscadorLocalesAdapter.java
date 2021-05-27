@@ -28,6 +28,7 @@ import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos.FavoritosAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.LocalIndividual;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -70,7 +71,7 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
                 refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        holder.imgLocal.setImageURI(uri);
+                        Picasso.get().load(uri).into(holder.imgLocal);
                     }
                 });
 
