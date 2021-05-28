@@ -1,16 +1,8 @@
 package com.guillermo.blazquez.ortega.solidaremaps.Configuracion;
 
-import androidx.annotation.NonNull;
-
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.SupportsClass.FavoritosEstado;
 
 import java.util.ArrayList;
 
@@ -59,21 +51,6 @@ public class Configuraciones {
 
         puntuacion = puntuacion / comentarios.getChildrenCount();
         return puntuacion;
-    }
-
-    public static void favoritosEstados(ArrayList<String> favs){
-        //Comprobamos ref
-        //SI ---> elimnar ref + eliminar de lista +  insertr datos en ref
-        //NO ---> añadir a ref
-
-        DatabaseReference refFav = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
-                child("favoritos");
-        refFav.removeValue();
-
-        for (int i = 0; i < favs.size(); i++) {
-            refFav.child(String.valueOf(i)).setValue(favs.get(i).toString());
-        }
-
     }
 
 

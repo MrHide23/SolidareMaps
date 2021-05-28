@@ -16,7 +16,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +40,6 @@ import com.guillermo.blazquez.ortega.solidaremaps.Models.DonativoModel;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.LocalModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.SupportsClass.FavoritosEstado;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.ComentariosAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.TipoLocalAdapter;
 import com.squareup.picasso.Picasso;
@@ -62,6 +60,7 @@ public class LocalIndividual extends AppCompatActivity {
     //Cargar datos FireBase
     private FirebaseStorage imgLocal;
     private DatabaseReference dbLocal;
+    private DatabaseReference dbFavoritos;
     private LocalModel localModel;
     private ComentariosModel comentariosModel;
     private AppDonativosModel appDonativosModel;
@@ -163,6 +162,25 @@ public class LocalIndividual extends AppCompatActivity {
 
                 adapterTipoLocal.notifyDataSetChanged();
                 adapterComentario.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        //Descargar favoritos
+        dbFavoritos = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
+                child("favoritos");
+        dbFavoritos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                localModel.getListaFavoritos().clear();
+                for (int i = 0; i < snapshot.getChildrenCount(); i++) {
+                    localModel.setListaFavoritos(snapshot.child(i+"").getValue().toString());
+                }
+                adapterTipoLocal.notifyDataSetChanged();
             }
 
             @Override
@@ -433,52 +451,25 @@ public class LocalIndividual extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnBarFavorito) {
 
+            boolean existe = false;
 
-            FavoritosEstado favoritosEstado = new FavoritosEstado();
-
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
-                    child("favoritos");
-
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                    boolean existe = false;
-                    ArrayList<String> listaFavs= new ArrayList<>();
-
-                    for (int i = 0; i < snapshot.getChildrenCount(); i++) {
-                        if (snapshot.child(""+i).getValue().toString().equals(idLocal)) {
-                            existe = true;
-                        }else{
-                            //listaFavs.add(snapshot.child(""+i).getValue().toString());
-                            favoritosEstado.getListaFavs().add(i+"");
-                        }
-                    }
-
-                    if(!existe){
-                        //listaFavs.add(idLocal);
-                        favoritosEstado.getListaFavs().add(idLocal);
-                        item.setIcon(R.drawable.ic_corazon_rojo);
-                    }else{
-                        item.setIcon(R.drawable.ic_corozon_no_rojo);
-                    }
-
+            for (int i = 0; i < localModel.getListaFavoritos().size(); i++) {
+                if (localModel.getListaFavoritos().get(i).equals(idLocal)) {
+                    existe = true;
+                    localModel.getListaFavoritos().remove(i);
+                    break;
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            if (!existe) {
+                localModel.setListaFavoritos(idLocal);
+                item.setIcon(R.drawable.ic_corazon_rojo);
+            }else{
+                item.setIcon(R.drawable.ic_corozon_no_rojo);
+            }
 
-                }
-            });
-
-//            if (favoritosEstado.getListaFavs().size() == 0) {
-//                listaFav.add(idLocal);
-//                favoritosEstado.setListaFavs(listaFav);
-//                item.setIcon(R.drawable.ic_corazon_rojo);
-//            }
-
-            Log.d("KAKKA", "");
-            Configuraciones.favoritosEstados(favoritosEstado.getListaFavs());
-            favoritosEstado.ClearFavoritos();
+            dbFavoritos.removeValue();
+            dbFavoritos.setValue(localModel.getListaFavoritos());
         }
         return super.onOptionsItemSelected(item);
     } //ARREGLAR

@@ -20,25 +20,9 @@ public class LocalModel implements Parcelable {
     private ArrayList<DonativoModel> listaDonativos;
     private ArrayList<ComentariosModel> comentariosLocal;
 
-    private DonativoModel donativoModel;
+    private ArrayList<String> listaFavoritos;
 
-    public LocalModel(ArrayList<String> imgLocal, String nombreLocal, String emailLocal, DireccionModel direccionLocal,
-                      String descripcionLocal, ArrayList<String> menuLocal, String web, String telefonoLocal, ArrayList<String> horarios,
-                      ArrayList<String> tipoLocal, ArrayList<DonativoModel> listaDonativos,
-                      ArrayList<ComentariosModel> comentariosLocal) {
-        this.imgLocal = imgLocal;
-        this.nombreLocal = nombreLocal;
-        this.emailLocal = emailLocal;
-        this.direccionLocal = direccionLocal;
-        this.descripcionLocal = descripcionLocal;
-        this.menuLocal = menuLocal;
-        this.webLocal = web;
-        this.telefonoLocal = telefonoLocal;
-        this.horarios = horarios;
-        this.tipoLocal = tipoLocal;
-        this.listaDonativos = listaDonativos;
-        this.comentariosLocal = comentariosLocal;
-    }
+    private DonativoModel donativoModel;
 
     public LocalModel() {
         direccionLocal = new DireccionModel();
@@ -49,6 +33,7 @@ public class LocalModel implements Parcelable {
         comentariosLocal = new ArrayList<>();
         imgLocal= new ArrayList<>();
         menuLocal = new ArrayList<>();
+        listaFavoritos = new ArrayList<>();
     }
 
     protected LocalModel(Parcel in) {
@@ -61,6 +46,7 @@ public class LocalModel implements Parcelable {
         telefonoLocal = in.readString();
         horarios = in.createStringArrayList();
         tipoLocal = in.createStringArrayList();
+        listaFavoritos = in.createStringArrayList();
     }
 
     @Override
@@ -74,6 +60,7 @@ public class LocalModel implements Parcelable {
         dest.writeString(telefonoLocal);
         dest.writeStringList(horarios);
         dest.writeStringList(tipoLocal);
+        dest.writeStringList(listaFavoritos);
     }
 
     @Override
@@ -187,5 +174,13 @@ public class LocalModel implements Parcelable {
 
     public void setComentariosLocal(ComentariosModel comentariosLocal) {
         this.comentariosLocal.add(comentariosLocal);
+    }
+
+    public ArrayList<String> getListaFavoritos() {
+        return listaFavoritos;
+    }
+
+    public void setListaFavoritos(String listaFavoritos) {
+        this.listaFavoritos.add(listaFavoritos);
     }
 }
