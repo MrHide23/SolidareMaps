@@ -66,8 +66,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
         ref = FirebaseDatabase.getInstance().getReference("Locales_SM").child(lista.get(position).toString());
 
         //No funcion dado que no existe las referencias, todavia
-
-            ref.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     try {
@@ -95,7 +94,6 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.Favo
 
                 }
             });
-
 
         holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
             @Override

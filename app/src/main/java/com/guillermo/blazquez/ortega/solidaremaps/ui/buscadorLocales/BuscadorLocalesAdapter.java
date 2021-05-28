@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
+import com.guillermo.blazquez.ortega.solidaremaps.Models.TargetaLocalPrevisualizacionModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos.FavoritosAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.LocalIndividual;
@@ -35,11 +36,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocalesAdapter.BuscadorVH> {
-    private ArrayList<String> list;
+    private ArrayList<TargetaLocalPrevisualizacionModel> list;
     private int resource;
     private Context context;
 
-    public BuscadorLocalesAdapter(int resource, ArrayList<String> list, Context context) {
+    public BuscadorLocalesAdapter(int resource, ArrayList<TargetaLocalPrevisualizacionModel> list, Context context) {
         this.list = list;
         this.resource = resource;
         this.context = context;
@@ -59,29 +60,20 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
     public void onBindViewHolder(@NonNull @NotNull BuscadorVH holder, int position) {
         ArrayList<String> listaFavs = new ArrayList<>();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Locales_SM").child(list.get(position).toString());
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                holder.txtTitulo.setText(snapshot.child("nombre").getValue().toString());
-                holder.txtDireccion.setText(snapshot.child("direccionLocal").child("direccion").getValue().toString());
-                holder.rbPuntuacion.setRating(Configuraciones.calcularPuntuacion(snapshot.child("comentarios")));
+        holder.txtTitulo.setText(list.get(position).getNombreLocal());
+        holder.txtDireccion.setText(list.get(position).getDireccionLocal());
+        holder.rbPuntuacion.setRating(list.get(position).getPuntuacionLocal());
 
-                StorageReference refImg = FirebaseStorage.getInstance().getReferenceFromUrl(snapshot.child("imgLocal").child("0").getValue().toString());
-                refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(holder.imgLocal);
-                    }
-                });
+        if (list.get(position).getImagenesLocal().size()>0) {
+            StorageReference refImg = FirebaseStorage.getInstance().getReferenceFromUrl(list.get(position).getImagenesLocal().get(0));
+            refImg.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(holder.imgLocal);
+                }
+            });
+        }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
 
         //Maracar en rojo si es fav
         DatabaseReference refFav = FirebaseDatabase.getInstance().getReference("Users").child(Configuraciones.firebaseUser.getUid()).
@@ -89,12 +81,15 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
         refFav.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                listaFavs.clear();
+
                 for (int i = 0; i < snapshot.getChildrenCount(); i++) {
-                    Log.d("Valor posicion ---> ", list.get(position));
-                    if (snapshot.child(i+"").getValue().toString().equals(list.get(position))) {
+                    if (snapshot.child(i+"").getValue().toString().equals(position+"")) {
                         holder.btnFavorito.setImageResource(R.drawable.ic_corazon_rojo);
-                        listaFavs.add(i+"");
+
                     }
+
+                    listaFavs.add(snapshot.child(i+"").getValue().toString());
                 }
             }
 
@@ -105,21 +100,37 @@ public class BuscadorLocalesAdapter extends RecyclerView.Adapter<BuscadorLocales
         });
 
         //Si pulsa btnCorazon meter o eliminar de lista de favoritos
-//        holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (listaFavs.contains(lista.get(position))){
-//                    refFav.child(listaFavs.get(position)).removeValue();
-//                }
-//            }
-//        });
+        holder.btnFavorito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean existe = false;
+                for (int i = 0; i < listaFavs.size(); i++) {
+                    if(listaFavs.get(i).equals(""+position)){
+                        listaFavs.remove(i);
+                        existe = true;
+                        break;
+                    }
+                }
+
+                if (existe) {
+                    holder.btnFavorito.setImageResource(R.drawable.ic_corozon_no_rojo);
+                }else{
+                    listaFavs.add(position+"");
+                    holder.btnFavorito.setImageResource(R.drawable.ic_corazon_rojo);
+                }
+
+                refFav.removeValue();
+                refFav.setValue(listaFavs);
+                notifyDataSetChanged();
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Cargar informacion en Pagina Locales
                 Bundle bundle = new Bundle();
-                bundle.putString(Configuraciones.ID_LOCAL, list.get(position).toString());
+                bundle.putString(Configuraciones.ID_LOCAL, String.valueOf(position));
                 context.startActivity(new Intent(context, LocalIndividual.class).putExtras(bundle));
 
             }
