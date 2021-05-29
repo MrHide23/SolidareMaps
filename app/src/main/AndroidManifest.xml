@@ -22,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SolidareMaps">
-
+        <activity android:name=".ui.mi_local.CrearLocalMiLocal"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,9 +36,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.targetaLocalIndividual.DonativoLocalIndividual"
-            android:theme="@style/Theme.SolidareMaps.NoActionBar"/>
-
+        <activity
+            android:name=".ui.targetaLocalIndividual.DonativoLocalIndividual"
+            android:theme="@style/Theme.SolidareMaps.NoActionBar" />
         <activity
             android:name=".ui.targetaLocalIndividual.GaleriaLocalIndividual"
             android:theme="@style/Theme.SolidareMaps.NoActionBar" />

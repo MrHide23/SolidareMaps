@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.mi_local.CrearLocalMiLocal">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar11"
+        android:layout_width="410dp"
+        android:layout_height="53dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/abc_vector_test"
+        app:title="Datos del Local"
+        app:titleMarginStart="80dp"
+        app:titleTextColor="#FFFFFF" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="410dp"
+        android:layout_height="677dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar11">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lyDatosTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/txtDatosMiLocal1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Es obligatorio rellenar todos lo campos que contengan una marca (*)"
+                    android:textColor="#000000" />
+
+                <EditText
+                    android:id="@+id/txtNombreLocalMiLoca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:ems="10"
+                    android:hint="*Nombre del Local"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/txtDireccionLocalMiLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:ems="10"
+                    android:hint="*Direccionn del  Local"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/txtTelefonoMiLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:ems="10"
+                    android:hint="*Numero telefono del local"
+                    android:inputType="phone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtTipoLocalMiLocal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="10"
+                            android:hint="*Tipo de Local"
+                            android:textColor="#000000"
+                            android:textSize="18dp" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="#FFFFFF"
+                            app:srcCompat="@drawable/ic_arrow_down" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="¿Quires habilitar la posibilidad de recibir donativos de los usuarios?"
+                    android:textColor="#000000" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Recibir donativos"
+                    android:textSize="18dp" />
+
+                <LinearLayout
+                    android:id="@+id/lyDonativosActivos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="#EDE4E4"
+                        android:backgroundTint="#EDE4E4"
+                        android:elevation="20dp"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/txtAppDonativoMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:ems="10"
+                            android:hint="* Nombre de la App"
+                            android:inputType="textPersonName" />
+
+                        <EditText
+                            android:id="@+id/txtIDDonativoMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:ems="10"
+                            android:hint="* ID del usuario o numero de telefono"
+                            android:inputType="textPersonName" />
+
+                        <Button
+                            android:id="@+id/btnAñadirDonativosMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Añadir Donaitvo" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvAppDonativos"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyHorarios"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txtDatosMiLocal2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="En esta pantalla puedes configurar los horarios de abertura del local. Los espacios que dejes en blanco se guardara como CERRADO. Debe haber como minimo 1 dia configurado"
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_lunes_horarios" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Lunes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Lunes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Lunes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Lunes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageMartes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_martes_horas" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Martes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Martes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView122"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Martes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Martes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageMiercoles2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_martes_horas" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Miercoles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Miercoles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView121"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Miercoles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Miercoles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageJueves2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_jueves_horas" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Jueves"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Jueves"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView123"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Jueves"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Jueves"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageViernes2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_viernes_horas" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Viernes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Viernes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView124"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Viernes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Viernes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageSabado2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_sabado_horas" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Sabado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Sabado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView125"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Sabado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Sabado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageDomingo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_domingo_horas" />
+
+                    <EditText
+                        android:id="@+id/txtHora1Domingo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora2Domingo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <TextView
+                        android:id="@+id/textView127"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:text=","
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/txtHora3Domingo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText
+                        android:id="@+id/txtHora4Domingo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:id="@+id/txtDatosMiLocal3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="textMultiLine"
+                    android:text="Añade una descripcion de tu local, datos interesantes, historia del local, etc... Añade toda aquella informacion que pueda resultar interesante a los posibles clientes"
+                    android:textColor="#000000"
+                    android:textIsSelectable="true" />
+
+                <EditText
+                    android:id="@+id/editTextTextMultiLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="431dp"
+                    android:layout_margin="20dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyFotosLocal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txtDatosMiLocal4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Añade fotos del local, los platos, empleados  o  todo aquello que pueda resultar de interes para el usuario."
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/txtDatosMiLocal5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Requerda qe en este apartado no es necesario que publiques fotos del menu ya que en la sigiente pantalla tendras que añadir o tomar fotos explicitamente del menu"
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/lyAbrirGaleriaMiLocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="20dp"
+                        android:background="#EDE4E4"
+                        android:backgroundTint="#EDE4E4"
+                        android:elevation="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imgbtnSubirFotoMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="4"
+                            android:backgroundTint="#EDE4E4"
+                            app:srcCompat="@drawable/ic_upload_fils" />
+
+                        <TextView
+                            android:id="@+id/txtAbrirGaleriaMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="1"
+                            android:text="Abrir Galeria"
+                            android:textColor="#040404"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lySacarFotoMiLocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#EDE4E4"
+                        android:backgroundTint="#EDE4E4"
+                        android:elevation="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imgbtnAbrirCamaraMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="4"
+                            android:backgroundTint="#EDE4E4"
+                            app:srcCompat="@drawable/ic_camera" />
+
+                        <TextView
+                            android:id="@+id/txtAbrirCamaraMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="1"
+                            android:text="Abrir Camara"
+                            android:textColor="#040404"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txtDatosMiLocal6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Tansolo queda un paso mas, debes añadir fotos del menu de tu local. El numero de fotos es cosa tuya pero es obligatorio que haya 1 foto como minimo"
+                    android:textColor="#000000" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/lyAbrirGaleriMenuMiLocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="20dp"
+                        android:background="#EDE4E4"
+                        android:backgroundTint="#EDE4E4"
+                        android:elevation="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imgbtnSubirFotoMenuMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="4"
+                            android:backgroundTint="#EDE4E4"
+                            app:srcCompat="@drawable/ic_upload_fils" />
+
+                        <TextView
+                            android:id="@+id/txtAbrirGaleriaMenuMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="1"
+                            android:text="Abrir Galeria"
+                            android:textColor="#040404"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lySacarFotoMenuMiLocal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="#EDE4E4"
+                        android:backgroundTint="#EDE4E4"
+                        android:elevation="20dp"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/imgbtnAbrirCamaraMenuMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="4"
+                            android:backgroundTint="#EDE4E4"
+                            app:srcCompat="@drawable/ic_camera" />
+
+                        <TextView
+                            android:id="@+id/txtAbrirCamaraMenuMiLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:layout_weight="1"
+                            android:text="Abrir Camara"
+                            android:textColor="#040404"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabComprobarMiLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="10dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_arrow_down" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.guillermo.blazquez.ortega.solidaremaps.ui.mi_local;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class MiLocalFragment extends Fragment {
 
     //Llamar Real Data
     private DatabaseReference refInfo;
+    private Boolean pagado;
     
     public static MiLocalFragment newInstance() {
         return new MiLocalFragment();
@@ -56,28 +58,35 @@ public class MiLocalFragment extends Fragment {
         rvMiLocal.setLayoutManager(new LinearLayoutManager(getContext()));
         cargarMisLocales(refInfo);
 
+        FirebaseDatabase.getInstance().getReference("Users").
+                child(Configuraciones.firebaseUser.getUid()).child("subscripcion").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (Boolean.parseBoolean(snapshot.child("pagado").getValue().toString())) {
+                    pagado = true;
+                }else{
+                    pagado = false;
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         FloatingActionButton fab = mi_local.findViewById(R.id.fabNewLocal);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                FirebaseDatabase.getInstance().getReference("Users").
-                        child(Configuraciones.firebaseUser.getUid()).child("subscripcion").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (Boolean.parseBoolean(snapshot.child("pagado").getValue().toString())) {
-                            Log.d("Puedes", "Crea nuevo local");
-                        }else{
-
-                            Toast.makeText(getContext(), "Deber tener un subscripcion Gol para poder tener un local", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                if (pagado) {
+                    startActivity(new Intent(getContext(), CrearLocalMiLocal.class));
+                }else{
+                    Toast.makeText(getContext(), "Deber tener un subscripcion Gol para poder tener un local", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
