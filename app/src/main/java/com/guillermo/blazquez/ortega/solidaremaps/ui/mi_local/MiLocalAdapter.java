@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.squareup.picasso.Picasso;
 
@@ -86,8 +87,8 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("ID_LOCAL", lista.get(position));
-                    //context.startActivity(new Intent(context, MiNewLocal.class).putExtras(bundle));
+                    bundle.putString(Configuraciones.ID_LOCAL, lista.get(position));
+                    context.startActivity(new Intent(context, CrearLocalMiLocal.class).putExtras(bundle));
                 }
             });
             holder.btnEliminar.setOnClickListener(new View.OnClickListener() {

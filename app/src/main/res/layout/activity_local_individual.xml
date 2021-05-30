@@ -61,16 +61,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnDonarLocalIndividual"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="1"
-                    android:text="Donar"
-                    android:visibility="gone" />
-
-                <Button
                     android:id="@+id/btnMenuLocalIndividual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,6 +158,57 @@
                     android:layout_marginLeft="2dp"
                     android:backgroundTint="#F6F3F3"
                     app:srcCompat="@drawable/ic_map_marker" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyDonativosLocal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="#F6F3F3"
+                android:backgroundTint="#F6F3F3"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtDonativos"
+                        android:layout_width="349dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:text="Donativos:"
+                        android:textColor="#000000" />
+
+                    <ImageButton
+                        android:id="@+id/imgbtnDesplegarDonativos"
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:backgroundTint="#F6F3F3"
+                        android:src="@drawable/ic_arrow_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lyDoantivosMostrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDonativos"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -502,7 +543,7 @@
                     android:layout_height="550dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:id="@+id/lyInsertarComentario"

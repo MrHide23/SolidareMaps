@@ -41,6 +41,7 @@ import com.guillermo.blazquez.ortega.solidaremaps.Models.LocalModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.ComentariosAdapter;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.DonarAdapter;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.adapter.TipoLocalAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -54,7 +55,7 @@ public class LocalIndividual extends AppCompatActivity {
     private String idLocal;
 
     //Componenetes
-    private boolean horariosDesplegados, comentariosDesplegados;
+    private boolean horariosDesplegados, comentariosDesplegados, donativosDesplegado;
     private float putuacionBar;
 
     //Cargar datos FireBase
@@ -71,6 +72,7 @@ public class LocalIndividual extends AppCompatActivity {
     //Adapter
     private ComentariosAdapter adapterComentario;
     private TipoLocalAdapter adapterTipoLocal;
+    private DonarAdapter adapterDonar;
 
 
     @Override
@@ -90,6 +92,11 @@ public class LocalIndividual extends AppCompatActivity {
         adapterComentario = new ComentariosAdapter(this, localModel.getComentariosLocal(), R.layout.adapter_comentarios_local);
         binding.rvListaComentarios.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListaComentarios.setAdapter(adapterComentario);
+
+        adapterDonar = new DonarAdapter(this, localModel.getListaDonativos().getOpciones(), R.layout.adapter_donativos_local_individual);
+        binding.rvDonativos.setHasFixedSize(true);
+        binding.rvDonativos.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvDonativos.setAdapter(adapterDonar);
 
         //Descargar Datos Firebase
         dbLocal = FirebaseDatabase.getInstance().getReference("Locales_SM").child(idLocal);
@@ -113,18 +120,18 @@ public class LocalIndividual extends AppCompatActivity {
                 //Traer estado donativos + hacer comparacion
 
                 if (Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString())) {
-                    binding.btnDonarLocalIndividual.setVisibility(View.VISIBLE);
-                    donativoModel.setEstado(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
+                    binding.lyDonativosLocal.setVisibility(View.VISIBLE);
+                    localModel.getListaDonativos().setEstado(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
 
                     for (int m = 0; m < snapshot.child("donativos").child("opciones").getChildrenCount(); m++) {
                         appDonativosModel = new AppDonativosModel();
 
                         appDonativosModel.setApp(snapshot.child("donativos").child("opciones").child(m + "").child("appDonativos").getValue().toString());
                         appDonativosModel.setUser(snapshot.child("donativos").child("opciones").child(m + "").child("id_user").getValue().toString());
-                        donativoModel.setOpciones(appDonativosModel);
+                        localModel.setListaDonativos(appDonativosModel);
                     }
 
-                    localModel.setListaDonativos(donativoModel);
+
                 }
 
                 //Añadimos local
@@ -162,6 +169,7 @@ public class LocalIndividual extends AppCompatActivity {
 
                 adapterTipoLocal.notifyDataSetChanged();
                 adapterComentario.notifyDataSetChanged();
+                adapterDonar.notifyDataSetChanged();
             }
 
             @Override
@@ -200,6 +208,7 @@ public class LocalIndividual extends AppCompatActivity {
 
         horariosDesplegados = false;
         comentariosDesplegados = false;
+        donativosDesplegado = false;
 
         //Configurar Imgbtn Deslegables + mostrar info
         binding.imgbtnDesplegarHorarios.setOnClickListener(new View.OnClickListener() {
@@ -231,15 +240,19 @@ public class LocalIndividual extends AppCompatActivity {
             }
         });
 
-        //Buttons de navegacion
-        binding.btnDonarLocalIndividual.setOnClickListener(new View.OnClickListener() {
+        binding.imgbtnDesplegarDonativos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Configuraciones.PASAR_MODEL_DONATIVOS, localModel);
-                startActivity(new Intent(LocalIndividual.this, DonativoLocalIndividual.class).putExtras(bundle));
+                donativosDesplegado = Configuraciones.CambairImgButton(binding.imgbtnComentariosDesplegar, donativosDesplegado);
+                if (donativosDesplegado) {
+                    binding.lyDoantivosMostrar.setVisibility(View.VISIBLE);
+
+                } else {
+                    binding.lyDoantivosMostrar.setVisibility(View.GONE);
+                }
             }
-        }); //ARREGLAR
+        });
+
         binding.btnMenuLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

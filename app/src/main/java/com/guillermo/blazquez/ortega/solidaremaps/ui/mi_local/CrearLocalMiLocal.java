@@ -1,12 +1,24 @@
 package com.guillermo.blazquez.ortega.solidaremaps.ui.mi_local;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,20 +37,28 @@ import com.google.firebase.storage.StorageReference;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.AppDonativosModel;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.LocalModel;
+import com.guillermo.blazquez.ortega.solidaremaps.Modificar_Info_User;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityCrearLocalMiLocalBinding;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityLocalIndividualBinding;
+import com.guillermo.blazquez.ortega.solidaremaps.databinding.AdapterImagenesMiLocalBinding;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.mi_local.adapter.DonativosMiLocalAdapter;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.mi_local.adapter.ImagenesLocalAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CrearLocalMiLocal extends AppCompatActivity {
 
     private ActivityCrearLocalMiLocalBinding binding;
 
     //Valores fijos
+    private String cargarDatos;
     private int visible;
     private LocalModel localModel;
     private Boolean estadobtn;
@@ -50,6 +70,7 @@ public class CrearLocalMiLocal extends AppCompatActivity {
     private DonativosMiLocalAdapter adapterDonativos;
 
     //Definicion Layout 4
+    private ImagenesLocalAdapter adapterImagenes;
     private int numeroLocales;
     private ArrayList<String> nombresImgsLocal;
     private DatabaseReference localesBD;
@@ -72,6 +93,42 @@ public class CrearLocalMiLocal extends AppCompatActivity {
         nombresImgsLocal = new ArrayList<>();
         localesBD = FirebaseDatabase.getInstance().getReference("Locales_SM");
 
+        if( !getIntent().getExtras().getString(Configuraciones.ID_LOCAL).isEmpty()){
+
+            cargarDatos = getIntent().getExtras().getString(Configuraciones.ID_LOCAL);
+            localesBD.child(cargarDatos).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    binding.txtNombreLocalMiLoca.setText(snapshot.child("nombre").getValue().toString());
+                    binding.txtDireccionLocalMiLocal.setText(snapshot.child("direccionLocal").child("direccion").getValue().toString());
+                    binding.txtTelefonoMiLocal.setText(snapshot.child("telefono").getValue().toString());
+
+                    String valor1="";
+                    for (int j = 0; j < snapshot.child("tipoLocal").getChildrenCount(); j++) {
+                        valor1 = valor1.concat(snapshot.child("tipoLocal").child(j+"").getValue().toString() + "   ");
+                    }
+                    binding.txtTipoLocalMiLocal.setText(valor1);
+                    binding.swDonativosLocal.setChecked(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
+
+                    for (int i = 0; i < snapshot.child("donativos").child("opciones").getChildrenCount(); i++) {
+                     appDonativosModel = new AppDonativosModel(snapshot.child("donativos").child("opciones").child(i+"").child("appDonativos").getValue().toString(),
+                                                            snapshot.child("donativos").child("opciones").child(i+"").child("id_user").getValue().toString());
+                     listaDonativos.add(appDonativosModel);
+                    }
+
+                    //Descripccion
+                    binding.txtDireccionLocalMiLocal.setText(snapshot.child("descripcionLocal").getValue().toString());
+
+                    //Horas
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+        }
+
 
         setSupportActionBar(binding.toolbar11);
         binding.toolbar11.setNavigationOnClickListener(new View.OnClickListener() {
@@ -79,6 +136,22 @@ public class CrearLocalMiLocal extends AppCompatActivity {
             public void onClick(View v) {
                 visible = visible - 1;
                 onResume();
+            }
+        });
+
+        localesBD.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                Configuraciones.numLocales = (int) snapshot.getChildrenCount();
+                adapterDonativos.notifyDataSetChanged();
+                if (!cargarDatos.isEmpty()) {
+                    
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
             }
         });
 
@@ -123,18 +196,10 @@ public class CrearLocalMiLocal extends AppCompatActivity {
         });
 
         //Acciones Layout 4
-        localesBD.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                Configuraciones.numLocales = (int) snapshot.getChildrenCount();
-                adapterDonativos.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
+        adapterImagenes = new ImagenesLocalAdapter(this, nombresImgsLocal, R.layout.adapter_imagenes_mi_local);
+        binding.ryImgLocal.setHasFixedSize(true);
+        binding.ryImgLocal.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.ryImgLocal.setAdapter(adapterImagenes);
 
         imgLocal = FirebaseStorage.getInstance().getReference("localesImgs").child(Configuraciones.numLocales+"");
         imgMenu = FirebaseStorage.getInstance().getReference("localesImgs").child(Configuraciones.numLocales+"");
@@ -142,12 +207,37 @@ public class CrearLocalMiLocal extends AppCompatActivity {
         binding.lySacarFotoMiLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+                    AbrirCamara();
+                }
+                else {
+                    if (ContextCompat.checkSelfPermission(CrearLocalMiLocal.this, Manifest.permission.CAMERA)
+                            == PackageManager.PERMISSION_GRANTED
+                            && ContextCompat.checkSelfPermission(CrearLocalMiLocal.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_GRANTED ) {
+                        AbrirCamara();
+                    }
+                    else {
+                        String[] permisos = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                        ActivityCompat.requestPermissions(CrearLocalMiLocal.this, permisos, Configuraciones.CAMARA_PERMISO);
+                    }
+                }
             }
         });
         binding.lyAbrirGaleriaMiLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                    SeleccionarGaleria();
+                }else{
+                    if (ContextCompat.checkSelfPermission(CrearLocalMiLocal.this, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_GRANTED  ) {
+                        SeleccionarGaleria();
+                    }else{
+                        ActivityCompat.requestPermissions(CrearLocalMiLocal.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                Configuraciones.GALERIA_PERMISION);
+                    }
+                }
 
             }
         });
@@ -169,6 +259,9 @@ public class CrearLocalMiLocal extends AppCompatActivity {
                     case 3:
                         validado = validacionDescripcion();
                         break;
+                    case 4:
+                        validado =validacionImgsLocal();
+                        break;
                 }
 
                 if (validado) {
@@ -179,7 +272,6 @@ public class CrearLocalMiLocal extends AppCompatActivity {
             }
         });
     }
-
 
     //Validacion Layout 1
     private boolean validacionCamposDatosTexto() {
@@ -192,7 +284,7 @@ public class CrearLocalMiLocal extends AppCompatActivity {
 
                     for (int i = 0; i < listaDonativos.size(); i++) {
                         appDonativosModel = new AppDonativosModel(listaDonativos.get(i).getApp(), listaDonativos.get(i).getUser());
-                        localModel.getListaDonativos().get(0).setOpciones(appDonativosModel);
+                        localModel.getListaDonativos().setOpciones(appDonativosModel);
                     }
 
             }else{
@@ -418,11 +510,40 @@ public class CrearLocalMiLocal extends AppCompatActivity {
         return false;
     }
 
+
     //Validacion layout 4
     private boolean validacionImgsLocal(){
-
+        if (nombresImgsLocal.size()>0) {
+            return true;
+        }
 
         return false;
+    }
+
+    private void AbrirCamara() {
+        try {
+            File photoFile = createImageFile();
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri photURI = FileProvider.getUriForFile(CrearLocalMiLocal.this,
+                    "com.guillermo.blazquez.ortega.solidaremaps", photoFile);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photURI);
+            startActivityForResult(cameraIntent, Configuraciones.CAMERA_ACTION);
+
+        } catch (IOException e) {
+            Toast.makeText(this, "Error al escribir el fichero", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_"+timeStamp+"_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imagen = File.createTempFile(imageFileName, ".jpg", storageDir);
+        nombresImgsLocal.add(imagen.getAbsolutePath());
+        return imagen;
+    }
+
+    private void SeleccionarGaleria() {
     }
 
 
@@ -451,11 +572,52 @@ public class CrearLocalMiLocal extends AppCompatActivity {
                 binding.lyFotosLocal.setVisibility(View.GONE);
                 binding.fabComprobarMiLocal.setImageResource(R.drawable.ic_confirmar_check);
                 break;
+            case 6:
+                //Subir imgs local
+                //Subir local a Local_SM
+                break;
             default:
                 finish();
                 break;
         }
     } //Determinamos que apartado es visible
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Configuraciones.CAMERA_ACTION && resultCode == RESULT_OK && data != null) {
+            adapterImagenes.notifyDataSetChanged();
+        }
+
+        if (requestCode == Configuraciones.GALERIA_ACTION && resultCode== RESULT_OK && data!=null) {
+            nombresImgsLocal.add(data.getData().toString());
+            adapterImagenes.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == Configuraciones.CAMARA_PERMISO){
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                AbrirCamara();
+            }
+            else {
+                Toast.makeText(this, "Se requieren permisos para realizazar esta accion", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (requestCode == Configuraciones.GALERIA_PERMISION) {
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                SeleccionarGaleria();
+            }else{
+                Toast.makeText(this, "Se requieren permisos para realizazar esta accion", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 
     @Override
     protected void onResume() {

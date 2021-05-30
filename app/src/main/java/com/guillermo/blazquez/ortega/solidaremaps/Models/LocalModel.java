@@ -17,7 +17,7 @@ public class LocalModel implements Parcelable {
     private String telefonoLocal;
     private ArrayList<String> horarios;
     private ArrayList<String> tipoLocal;
-    private ArrayList<DonativoModel> listaDonativos;
+    private DonativoModel listaDonativos;
     private ArrayList<ComentariosModel> comentariosLocal;
 
     private ArrayList<String> listaFavoritos;
@@ -26,10 +26,9 @@ public class LocalModel implements Parcelable {
 
     public LocalModel() {
         direccionLocal = new DireccionModel();
-        donativoModel = new DonativoModel();
         horarios = new ArrayList<>();
         tipoLocal = new ArrayList<>();
-        listaDonativos = new ArrayList<>();
+        listaDonativos = new DonativoModel();
         comentariosLocal = new ArrayList<>();
         imgLocal= new ArrayList<>();
         menuLocal = new ArrayList<>();
@@ -160,12 +159,12 @@ public class LocalModel implements Parcelable {
         this.tipoLocal = tipoLocal;
     }
 
-    public ArrayList<DonativoModel> getListaDonativos() {
+    public DonativoModel getListaDonativos() {
         return listaDonativos;
     }
 
-    public void setListaDonativos(DonativoModel donativos) {
-        this.listaDonativos.add(donativos);
+    public void setListaDonativos(AppDonativosModel donativos) {
+        listaDonativos.setOpciones(donativos);
     }
 
     public ArrayList<ComentariosModel> getComentariosLocal() {

@@ -2,11 +2,10 @@ package com.guillermo.blazquez.ortega.solidaremaps.ui.faq;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -17,8 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.FAQModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityPagoSubscripcionBinding;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityPreguntasFrecuentesFaqBinding;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.faq.adapter.ComunesFAQAdapter;
 
 import java.util.ArrayList;
 
@@ -38,6 +37,14 @@ public class PreguntasFrecuentesFAQ extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPreguntasFrecuentesFaqBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        setSupportActionBar(binding.tbBackFAQ);
+        binding.tbBackFAQ.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //Firebase
         bdPreguntas = FirebaseDatabase.getInstance().getReference("FAQ");

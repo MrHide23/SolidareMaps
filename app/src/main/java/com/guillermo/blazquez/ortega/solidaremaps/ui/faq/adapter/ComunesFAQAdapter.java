@@ -1,4 +1,4 @@
-package com.guillermo.blazquez.ortega.solidaremaps.ui.faq;
+package com.guillermo.blazquez.ortega.solidaremaps.ui.faq.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.FAQModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
-import com.guillermo.blazquez.ortega.solidaremaps.ui.favoritos.FavoritosAdapter;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.faq.VerPreguntaFAQ;
 
 import java.util.ArrayList;
 

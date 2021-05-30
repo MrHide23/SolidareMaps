@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.guillermo.blazquez.ortega.solidaremaps.Models.DonativoModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 
 import java.util.ArrayList;
@@ -67,6 +68,5 @@ public class Configuraciones {
 
         return true;
     }
-
 
 }

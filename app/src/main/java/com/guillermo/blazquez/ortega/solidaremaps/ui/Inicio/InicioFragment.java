@@ -2,6 +2,7 @@ package com.guillermo.blazquez.ortega.solidaremaps.ui.Inicio;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -27,15 +28,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.MarkerInfoModel;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
+import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.LocalIndividual;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,26 +69,53 @@ public class InicioFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             Map = googleMap;
             listaLocales = new ArrayList<MarkerInfoModel>();
-            //fbLocales = FirebaseDatabase.getInstance().getReference("Locales_SM");
-            //cargarLocales(fbLocales);
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Locales_SM");
+            dbRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
-            //+++++++++++++++++++++++++ARREGLAR MARKER MAPA+++++++++++++++
-            try {
-                listaLocales = new CargarDatosArray().execute().get();
-                Thread.sleep(5000);
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                    for (int i = 0; i < snapshot.getChildrenCount(); i++) {
 
-            for (int i = 0; i < listaLocales.size(); i++) {
-                LatLng latLng = new LatLng(listaLocales.get(i).getLat(), listaLocales.get(i).getLon());
-                Map.addMarker(new MarkerOptions().position(latLng).title(listaLocales.get(i).getNombre()));
+                        String finalI = i+"";
+                        double lat = Double.parseDouble(snapshot.child(i+"").child("direccionLocal").
+                                child("cordenadas").child("lat").getValue().toString());
 
-                Map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                Map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                Log.d("VUELTAS", "CARGA " + i);
+                        double lon = Double.parseDouble(snapshot.child(i+"").child("direccionLocal").
+                                child("cordenadas").child("lon").getValue().toString());
+
+                        String titulo = snapshot.child(i+"").child("nombre").getValue().toString();
+
+                        LatLng sydney = new LatLng(lat, lon);
+                        googleMap.addMarker(new MarkerOptions().position(sydney).title(titulo));
+
+                        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(@NonNull @NotNull Marker marker) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString(Configuraciones.ID_LOCAL, finalI);
+                                getContext().startActivity(new Intent(getContext(), LocalIndividual.class).putExtras(bundle));
+                                return false;
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                miPosicion(Map);
+            } else {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    miPosicion(Map);
+                } else {
+                    String[] permisos = {Manifest.permission.ACCESS_FINE_LOCATION};
+                    ActivityCompat.requestPermissions(getActivity(), permisos, Configuraciones.GPS_PERMISION);
+                }
             }
         }
     };
@@ -97,11 +130,11 @@ public class InicioFragment extends Fragment {
             public void onClick(View v) {
                 //if(){
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                    miPosicion();
+                    miPosicion(Map);
                 } else {
                     if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) ==
                             PackageManager.PERMISSION_GRANTED) {
-                        miPosicion();
+                        miPosicion(Map);
                     } else {
                         String[] permisos = {Manifest.permission.ACCESS_FINE_LOCATION};
                         ActivityCompat.requestPermissions(getActivity(), permisos, Configuraciones.GPS_PERMISION);
@@ -113,7 +146,7 @@ public class InicioFragment extends Fragment {
         return root;
     }
 
-    private void miPosicion() {
+    private void miPosicion(GoogleMap map) {
         //Comprobar si GPS activado
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -132,41 +165,16 @@ public class InicioFragment extends Fragment {
         if (location != null) {
             Log.d("Coordenadas", location.getLatitude()+" - "+location.getLongitude());
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            Map.addMarker(new MarkerOptions().position(latLng).title("Tu"));
+            map.addMarker(new MarkerOptions().position(latLng).title("Tu"));
 
-            Map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-            Map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+            map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
         }
         else {
             Toast.makeText(getContext(), "No se ha podido acceder a la localizacion", Toast.LENGTH_SHORT).show();
         }
     } //+++++++++ARREGLAR MI POSICION++++++++++++
-
-    private void cargarLocales(DatabaseReference fbLocales) {
-        fbLocales.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (int i = 0; i <snapshot.getChildrenCount() ; i++) {
-
-                    localMarker = new MarkerInfoModel();
-                    localMarker.setNombre(snapshot.child(i+"").child("nombre").getValue().toString());
-                    localMarker.setTlfLocal(Integer.parseInt(snapshot.child(i+"").child("telefono").getValue().toString()));
-                    localMarker.setDireccion(snapshot.child(i+"").child("direccionLocal").child("direccion").getValue().toString());
-
-                    localMarker.setLat(Double.parseDouble(snapshot.child(i+"").child("direccionLocal").child("cordenadas").child("lat").getValue().toString()));
-                    localMarker.setLon(Double.parseDouble(snapshot.child(i+"").child("direccionLocal").child("cordenadas").child("lon").getValue().toString()));
-
-                    listaLocales.add(localMarker);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -219,7 +227,7 @@ public class InicioFragment extends Fragment {
 
         if(requestCode == Configuraciones.GPS_PERMISION){
             if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                miPosicion();
+                miPosicion(Map);
                 fabPosicion.setImageResource(R.drawable.ic_mipos);
             }
             else {

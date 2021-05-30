@@ -30,6 +30,12 @@ public class VerPreguntaFAQ extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar6);
+        binding.toolbar6.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //Cazamos pos de pregunta FAQ
         posPregunta = getIntent().getExtras().getString(Configuraciones.FAQPregunta);

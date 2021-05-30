@@ -37,9 +37,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.targetaLocalIndividual.DonativoLocalIndividual"
-            android:theme="@style/Theme.SolidareMaps.NoActionBar" />
-        <activity
             android:name=".ui.targetaLocalIndividual.GaleriaLocalIndividual"
             android:theme="@style/Theme.SolidareMaps.NoActionBar" />
         <activity
