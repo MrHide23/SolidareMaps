@@ -205,7 +205,7 @@ public class LocalIndividual extends AppCompatActivity {
         binding.imgbtnDesplegarHorarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                horariosDesplegados = CambairImgButton(binding.imgbtnDesplegarHorarios, horariosDesplegados);
+                horariosDesplegados = Configuraciones.CambairImgButton(binding.imgbtnDesplegarHorarios, horariosDesplegados);
 
                 if (horariosDesplegados) {
                     binding.lyHorariosDesplegada.setVisibility(View.VISIBLE);
@@ -219,7 +219,7 @@ public class LocalIndividual extends AppCompatActivity {
         binding.imgbtnComentariosDesplegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                comentariosDesplegados = CambairImgButton(binding.imgbtnComentariosDesplegar, comentariosDesplegados);
+                comentariosDesplegados = Configuraciones.CambairImgButton(binding.imgbtnComentariosDesplegar, comentariosDesplegados);
 
                 if (comentariosDesplegados) {
                     binding.lyComentarios.setVisibility(View.VISIBLE);
@@ -237,16 +237,15 @@ public class LocalIndividual extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Configuraciones.PASAR_MODEL_DONATIVOS, localModel);
-                Log.d("ñañañ1111", "+++++ "+localModel.getListaDonativos().get(0).getOpciones().get(0));
                 startActivity(new Intent(LocalIndividual.this, DonativoLocalIndividual.class).putExtras(bundle));
             }
-        }); //Diseñar
+        }); //ARREGLAR
         binding.btnMenuLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 verMenu();
             }
-        }); //Diseñar
+        });
         binding.btnGaleriaLocalIndividual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,17 +347,6 @@ public class LocalIndividual extends AppCompatActivity {
             }
         });
 
-    }
-
-    private boolean CambairImgButton(ImageButton imgButton, Boolean desplegado) {
-        if (desplegado) {
-            imgButton.setImageResource(R.drawable.ic_arrow_down);
-            return false;
-        }
-
-        imgButton.setImageResource(R.drawable.ic_arrow_up);
-
-        return true;
     }
 
     //Acciones con permisos

@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/txtDatosMiLocal1"
@@ -102,7 +102,7 @@
                             android:textSize="18dp" />
 
                         <ImageButton
-                            android:id="@+id/imageButton"
+                            android:id="@+id/imgbtnOpcionesLocalMiLocal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -121,7 +121,7 @@
                     android:textColor="#000000" />
 
                 <Switch
-                    android:id="@+id/switch1"
+                    android:id="@+id/swDonativosLocal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -147,7 +147,8 @@
                         android:background="#EDE4E4"
                         android:backgroundTint="#EDE4E4"
                         android:elevation="20dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="visible">
 
                         <EditText
                             android:id="@+id/txtAppDonativoMiLocal"
@@ -168,7 +169,7 @@
                             android:inputType="textPersonName" />
 
                         <Button
-                            android:id="@+id/btnAñadirDonativosMiLocal"
+                            android:id="@+id/btnNuevoDonativosMiLocal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
@@ -609,8 +610,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
+
                 <TextView
                     android:id="@+id/txtDatosMiLocal3"
                     android:layout_width="match_parent"
@@ -622,7 +623,7 @@
                     android:textIsSelectable="true" />
 
                 <EditText
-                    android:id="@+id/editTextTextMultiLine"
+                    android:id="@+id/txtDescripcionLocalMiLocal"
                     android:layout_width="match_parent"
                     android:layout_height="431dp"
                     android:layout_margin="20dp"
@@ -636,7 +637,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/txtDatosMiLocal4"
@@ -662,7 +663,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="100dp"
                     android:orientation="vertical">
 

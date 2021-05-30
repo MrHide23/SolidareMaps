@@ -1,8 +1,11 @@
 package com.guillermo.blazquez.ortega.solidaremaps.Configuracion;
 
+import android.widget.ImageButton;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.guillermo.blazquez.ortega.solidaremaps.R;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,8 @@ public class Configuraciones {
     public static final String FAQPregunta = " FAQPregunta";
 
     //Storage Imgs
-    public static final String fotoInicial = "gs://solidaremapsdb.appspot.com/usersImg/user1.png";
+    public static String fotoInicial = "gs://solidaremapsdb.appspot.com/usersImg/user1.png";
+    public static int numLocales;
 
     //Valore Fijos Intentes
     public static final int SING_IN_GOOGLE = 1;
@@ -53,7 +57,16 @@ public class Configuraciones {
         return puntuacion;
     }
 
+    public static boolean CambairImgButton(ImageButton imgButton, Boolean desplegado) {
+        if (desplegado) {
+            imgButton.setImageResource(R.drawable.ic_arrow_down);
+            return false;
+        }
 
+        imgButton.setImageResource(R.drawable.ic_arrow_up);
+
+        return true;
+    }
 
 
 }
