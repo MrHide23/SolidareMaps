@@ -71,7 +71,6 @@ public class CrearLocalMiLocal extends AppCompatActivity {
 
     //Definicion Layout 4
     private ImagenesLocalAdapter adapterImagenes;
-    private int numeroLocales;
     private ArrayList<String> nombresImgsLocal;
     private DatabaseReference localesBD;
     private StorageReference imgLocal;
@@ -93,7 +92,7 @@ public class CrearLocalMiLocal extends AppCompatActivity {
         nombresImgsLocal = new ArrayList<>();
         localesBD = FirebaseDatabase.getInstance().getReference("Locales_SM");
 
-        if( !getIntent().getExtras().getString(Configuraciones.ID_LOCAL).isEmpty()){
+        if(getIntent().getExtras().getString(Configuraciones.ID_LOCAL) != null){
 
             cargarDatos = getIntent().getExtras().getString(Configuraciones.ID_LOCAL);
             localesBD.child(cargarDatos).addValueEventListener(new ValueEventListener() {
@@ -109,6 +108,10 @@ public class CrearLocalMiLocal extends AppCompatActivity {
                     }
                     binding.txtTipoLocalMiLocal.setText(valor1);
                     binding.swDonativosLocal.setChecked(Boolean.parseBoolean(snapshot.child("donativos").child("estado").getValue().toString()));
+
+                    if ( binding.swDonativosLocal.isChecked()) {
+                        binding.lyDonativosActivos.setVisibility(View.VISIBLE);
+                    }
 
                     for (int i = 0; i < snapshot.child("donativos").child("opciones").getChildrenCount(); i++) {
                      appDonativosModel = new AppDonativosModel(snapshot.child("donativos").child("opciones").child(i+"").child("appDonativos").getValue().toString(),
@@ -144,9 +147,9 @@ public class CrearLocalMiLocal extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 Configuraciones.numLocales = (int) snapshot.getChildrenCount();
                 adapterDonativos.notifyDataSetChanged();
-                if (!cargarDatos.isEmpty()) {
-                    
-                }
+//                if (!cargarDatos.isEmpty()) {
+//
+//                }
             }
 
             @Override

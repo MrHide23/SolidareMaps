@@ -91,6 +91,7 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
                     context.startActivity(new Intent(context, CrearLocalMiLocal.class).putExtras(bundle));
                 }
             });
+            
             holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +112,6 @@ public class MiLocalAdapter extends RecyclerView.Adapter<MiLocalAdapter.MiLocalV
                 notifyDataSetChanged();
             }
         });
-
 
     }
 

@@ -83,7 +83,9 @@ public class MiLocalFragment extends Fragment {
             public void onClick(View v) {
 
                 if (pagado) {
-                    startActivity(new Intent(getContext(), CrearLocalMiLocal.class));
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Configuraciones.ID_LOCAL, null);
+                    startActivity(new Intent(getContext(), CrearLocalMiLocal.class).putExtras(bundle));
                 }else{
                     Toast.makeText(getContext(), "Deber tener un subscripcion Gol para poder tener un local", Toast.LENGTH_SHORT).show();
                 }
