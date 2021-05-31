@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         boolean isConeted = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         if (!isConeted) {
-            Log.d("Ha finalizado", "1");
             startActivity(new Intent(MainActivity.this, NoConectionActivity.class));
         }
     }

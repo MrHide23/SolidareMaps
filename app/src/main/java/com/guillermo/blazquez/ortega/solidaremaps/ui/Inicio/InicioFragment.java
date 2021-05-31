@@ -166,7 +166,6 @@ public class InicioFragment extends Fragment {
         }
 
         if (location != null) {
-            Log.d("Coordenadas", location.getLatitude()+" - "+location.getLongitude());
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             map.addMarker(new MarkerOptions().position(latLng).title("Tu"));
 
