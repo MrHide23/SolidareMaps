@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/abc_vector_test"
-        app:title="Galeria"
+        app:title="@string/toolbar8"
         app:titleMarginStart="120dp"
         app:titleTextColor="#FFFFFF" />
 

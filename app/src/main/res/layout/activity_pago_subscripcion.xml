@@ -13,18 +13,19 @@
         android:layout_marginStart="123dp"
         android:layout_marginEnd="123dp"
         android:layout_marginBottom="51dp"
-        android:text="Pagar"
+        android:text="@string/btnPagarSubscripcion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtNumerodeTargetPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="120dp"
-        android:hint="Nº. targeta de credito"
+        android:hint="@string/txtNumerodeTargetPago"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -38,12 +39,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtPropietarioTargetaPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="30dp"
-        android:hint="Nombre Propietario"
+        android:hint="@string/txtPropietarioTargetaPago"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -61,7 +63,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="220dp"
         android:layout_marginBottom="57dp"
-        android:hint="Fecha de Caducidad"
+        android:hint="@string/txtFrechaCaducidadTargetaPago"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -81,7 +83,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="200dp"
         android:layout_marginBottom="175dp"
-        android:hint="Codigo CV"
+        android:hint="@string/textInputLayout7"
         app:layout_constraintBottom_toTopOf="@+id/btnPagarSubscripcion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -107,13 +109,13 @@
         app:navigationIcon="?attr/homeAsUpIndicator" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtImportePago"
         android:layout_width="83dp"
         android:layout_height="24dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="313dp"
         android:layout_marginBottom="76dp"
-        android:text="Importe:"
+        android:text="@string/txtImpotePago"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/btnPagarSubscripcion"

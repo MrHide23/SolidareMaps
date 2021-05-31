@@ -345,7 +345,6 @@ public class Modificar_Info_User extends AppCompatActivity {
             }else{
                 Toast.makeText(this, "Se requieren permisos para realizazar esta accion", Toast.LENGTH_SHORT).show();
             }
-
         }
 
     }

@@ -1,20 +1,58 @@
 <resources>
     <string name="app_name">SolidareMaps</string>
-    <string name="title_activity_menu__s_m" translatable="false">Menu_SM</string>
+    <string name="title_activity_menu__s_m">Menu_SM</string>
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
     <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_inicio" translatable="false">Inicio</string>
-    <string name="menu_buscar_locales" translatable="false">Buscar Locales</string>
-    <string name="menu_notificaciones" translatable="false">Notificaciones</string>
-    <string name="menu_subscripcion" translatable="false">Subscripcion</string>
-    <string name="menu_mi_local" translatable="false">Mi Local</string>
-    <string name="menu_favoritos" translatable="false">Favoritos</string>
-    <string name="menu_faq" translatable="false">F.A.Q</string>
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_buscar_locales">Buscar Locales</string>
+    <string name="menu_subscripcion">Subscripcion</string>
+    <string name="menu_mi_local">Mi Local</string>
+    <string name="menu_favoritos">Favoritos</string>
+    <string name="menu_faq">F.A.Q</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="txtDatosMiLocal1">Es obligatorio rellenar todos lo campos que contengan una marca (*)</string>
+    <string name="txtInformacionDoantivos">¿Quires habilitar la posibilidad de recibir donativos de los usuarios?</string>
+    <string name="btnNuevoDonativosMiLocal">Añadir Donaitvo</string>
+    <string name="txtNombreLocalMiLoca">*Nombre del Local</string>
+    <string name="txtDireccionLocalMiLocal">*Direccionn del  Local</string>
+    <string name="txtTelefonoMiLocal">*Numero telefono del local</string>
+    <string name="txtTipoLocalMiLocal">*Tipo de Local</string>
+    <string name="swDonativosLocal">Recibir donativos</string>
+    <string name="txtAppDonativoMiLocal">* Nombre de la App</string>
+    <string name="txtIDDonativoMiLocal">* ID del usuario o numero de telefono</string>
+    <string name="toolbar11">Datos del Loca</string>
+    <string name="toolbar8">Galeria</string>
+    <string name="btnGaleriaLocalIndividual">Galeria</string>
+    <string name="txtDescripcion">Descripcion</string>
+    <string name="txtDireccion">Direccion</string>
+    <string name="txtDonativos">Donativos</string>
+    <string name="txtTelefono">Telefono</string>
+    <string name="txtHorarios">Horarios</string>
+    <string name="textView25">Tipo Local</string>
+    <string name="txtComentarios">Ver Comentarios:</string>
+    <string name="txtEscribirComentarioLocal">Introduce un comentario</string>
+    <string name="btnPublicarOpinionLocal">Publicar</string>
+    <string name="txtLunes">Lunes</string>
+    <string name="txtMartes">Martes</string>
+    <string name="txtMiercoles">Miercoles</string>
+    <string name="txtJueves">Jueves</string>
+    <string name="txtVierner">Viernes</string>
+    <string name="txtSabado">Sabado</string>
+    <string name="txtDomingo">Domingo</string>
+    <string name="btnInicarSesionLogin">Inciar Sesion</string>
+    <string name="btnGoogleLogin">Iniciar con Google</string>
+    <string name="textView3">¿Heres nuevo?</string>
+    <string name="txtRegistrarseLogin">Registrate</string>
+    <string name="txtNumerodeTargetPago">Nº. targeta de credito</string>
+    <string name="txtPropietarioTargetaPago">Nombre del Propietario</string>
+    <string name="txtFrechaCaducidadTargetaPago">Fecha de Caducidad</string>
+    <string name="textInputLayout7">Codigo CV</string>
+    <string name="txtImpotePago">Importe</string>
+    <string name="btnPagarSubscripcion">Pagar</string>
 </resources>

@@ -12,13 +12,14 @@
         android:layout_width="410dp"
         android:layout_height="53dp"
         android:background="?attr/colorPrimary"
+        android:backgroundTint="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/abc_vector_test"
-        app:title="Datos del Local"
+        app:title="@string/toolbar11"
         app:titleMarginStart="80dp"
         app:titleTextColor="#FFFFFF" />
 
@@ -26,12 +27,10 @@
         android:id="@+id/scrollView2"
         android:layout_width="410dp"
         android:layout_height="677dp"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar11">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,14 +42,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/txtDatosMiLocal1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="Es obligatorio rellenar todos lo campos que contengan una marca (*)"
+                    android:text="@string/txtDatosMiLocal1"
                     android:textColor="#000000" />
 
                 <EditText
@@ -59,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:ems="10"
-                    android:hint="*Nombre del Local"
+                    android:hint="@string/txtNombreLocalMiLoca"
                     android:inputType="textPersonName" />
 
                 <EditText
@@ -68,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:ems="10"
-                    android:hint="*Direccionn del  Local"
+                    android:hint="@string/txtDireccionLocalMiLocal"
                     android:inputType="textPersonName" />
 
                 <EditText
@@ -77,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:ems="10"
-                    android:hint="*Numero telefono del local"
+                    android:hint="@string/txtTelefonoMiLocal"
                     android:inputType="phone" />
 
                 <LinearLayout
@@ -113,11 +112,11 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/txtInformacionDoantivos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:text="¿Quires habilitar la posibilidad de recibir donativos de los usuarios?"
+                    android:text="@string/txtInformacionDoantivos"
                     android:textColor="#000000" />
 
                 <Switch
@@ -156,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:ems="10"
-                            android:hint="* Nombre de la App"
+                            android:hint="@string/txtAppDonativoMiLocal"
                             android:inputType="textPersonName" />
 
                         <EditText
@@ -165,7 +164,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
                             android:ems="10"
-                            android:hint="* ID del usuario o numero de telefono"
+                            android:hint="@string/txtIDDonativoMiLocal"
                             android:inputType="textPersonName" />
 
                         <Button
@@ -173,7 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:text="Añadir Donaitvo" />
+                            android:text="@string/btnNuevoDonativosMiLocal" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -194,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/txtDatosMiLocal2"

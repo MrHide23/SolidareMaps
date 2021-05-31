@@ -46,6 +46,8 @@ public class Configuraciones {
     public static final int INTERNET_PERMISION = 500;
     public static final int INTERNT_ACTION = 501;
 
+    public static final int INTERNTE_STATE = 600;
+
     //Metodos genericos
     public static float calcularPuntuacion(DataSnapshot comentarios)  {
         float puntuacion = 0;
@@ -68,5 +70,6 @@ public class Configuraciones {
 
         return true;
     }
+
 
 }

@@ -87,7 +87,7 @@ public class CrearLocalMiLocal extends AppCompatActivity {
         visible = 1;
         estadobtn = false;
         localModel = new LocalModel();
-        listaDonativos = new ArrayList<>();
+        listaDonativos = new ArrayList<AppDonativosModel>();
         tipoLocal = new ArrayList<>();
         nombresImgsLocal = new ArrayList<>();
         localesBD = FirebaseDatabase.getInstance().getReference("Locales_SM");
@@ -114,7 +114,7 @@ public class CrearLocalMiLocal extends AppCompatActivity {
                     }
 
                     for (int i = 0; i < snapshot.child("donativos").child("opciones").getChildrenCount(); i++) {
-                     appDonativosModel = new AppDonativosModel(snapshot.child("donativos").child("opciones").child(i+"").child("appDonativos").getValue().toString(),
+                    appDonativosModel = new AppDonativosModel(snapshot.child("donativos").child("opciones").child(i+"").child("appDonativos").getValue().toString(),
                                                             snapshot.child("donativos").child("opciones").child(i+"").child("id_user").getValue().toString());
                      listaDonativos.add(appDonativosModel);
                     }
@@ -132,29 +132,12 @@ public class CrearLocalMiLocal extends AppCompatActivity {
             });
         }
 
-
         setSupportActionBar(binding.toolbar11);
         binding.toolbar11.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 visible = visible - 1;
                 onResume();
-            }
-        });
-
-        localesBD.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                Configuraciones.numLocales = (int) snapshot.getChildrenCount();
-                adapterDonativos.notifyDataSetChanged();
-//                if (!cargarDatos.isEmpty()) {
-//
-//                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
             }
         });
 
@@ -187,7 +170,8 @@ public class CrearLocalMiLocal extends AppCompatActivity {
             public void onClick(View v) {
                 if (!binding.txtAppDonativoMiLocal.getText().toString().isEmpty() &&
                     !binding.txtIDDonativoMiLocal.getText().toString().isEmpty()) {
-                    appDonativosModel = new AppDonativosModel(binding.txtAppDonativoMiLocal.getText().toString(),
+
+                    AppDonativosModel appDonativosModel = new AppDonativosModel(binding.txtAppDonativoMiLocal.getText().toString(),
                             binding.txtIDDonativoMiLocal.getText().toString());
 
                     listaDonativos.add(appDonativosModel);

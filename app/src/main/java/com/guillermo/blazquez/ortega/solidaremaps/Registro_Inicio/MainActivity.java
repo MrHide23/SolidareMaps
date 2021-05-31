@@ -3,8 +3,16 @@ package com.guillermo.blazquez.ortega.solidaremaps.Registro_Inicio;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +32,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Menu_SM;
+import com.guillermo.blazquez.ortega.solidaremaps.Modificar_Info_User;
+import com.guillermo.blazquez.ortega.solidaremaps.NoConection.NoConectionActivity;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.databinding.ActivityMainBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,22 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Configuraciones.SING_IN_GOOGLE && data != null) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Toast.makeText(this, "Inico de sesion exitoso", Toast.LENGTH_SHORT).show();
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Erro al iniciar sesion", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -150,12 +147,72 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Configuraciones.SING_IN_GOOGLE && data != null) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                Toast.makeText(this, "Inico de sesion exitoso", Toast.LENGTH_SHORT).show();
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Erro al iniciar sesion", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void comprobarConexion() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConeted = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        if (!isConeted) {
+            Log.d("Ha finalizado", "1");
+            startActivity(new Intent(MainActivity.this, NoConectionActivity.class));
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == Configuraciones.INTERNTE_STATE) {
+            if (permissions.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                comprobarConexion();
+            }else{
+                Toast.makeText(this, "Se requieren conexion para acceder a la app", Toast.LENGTH_SHORT).show();
+                finishAndRemoveTask();
+            }
+        }
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            comprobarConexion();
+        }else{
+            if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_NETWORK_STATE) ==
+                    PackageManager.PERMISSION_GRANTED  ) {
+                comprobarConexion();
+            }else{
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_NETWORK_STATE},
+                        Configuraciones.INTERNTE_STATE);
+            }
+        }
+
         Configuraciones.firebaseUser = mAuth.getCurrentUser();
         updateUI( Configuraciones.firebaseUser);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        comprobarConexion();
+    }
 }
 
 

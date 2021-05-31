@@ -82,51 +82,6 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        binding.btnSingInGoogleRegistrarse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn(mGoogle);
-            }
-        });
-    }
-
-    private void signIn(GoogleSignInClient singInGoogle) {
-        Intent signInIntent = singInGoogle.getSignInIntent();
-        startActivityForResult(signInIntent, Configuraciones.SING_GOOGLE);
-    }
-
-
-    private void singInGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            CrearEspacioUserDB(task);
-                            Log.d("TAG", "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithCredential:failure", task.getException());
-
-                            updateUI(null);
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
-    private void registrarUser(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        CrearEspacioUserDB(task);
-                    }
-                });
     }
 
     private boolean ComprobarCampos() {
@@ -171,29 +126,15 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    private void updateUI(FirebaseUser firebaseUser) {
-        if (firebaseUser != null) {
-            finish();
-        }
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Configuraciones.SING_GOOGLE && data != null) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                singInGoogle(account.getIdToken());
-
-                Log.d("TAG", "firebaseAuthWithGoogle:" + account.getId());
-            } catch (ApiException e) {
-                Log.w("TAG", "Google sign in failed", e);
-            }catch (NullPointerException n){
-                Log.w("TAG", "Null point Exception ", n);
-            }
-        }
+    private void registrarUser(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        CrearEspacioUserDB(task);
+                    }
+                });
     }
 
 }

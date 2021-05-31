@@ -8,6 +8,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.guillermo.blazquez.ortega.solidaremaps.Configuracion.Configuraciones;
 import com.guillermo.blazquez.ortega.solidaremaps.Models.MarkerInfoModel;
+import com.guillermo.blazquez.ortega.solidaremaps.NoConection.NoConectionActivity;
 import com.guillermo.blazquez.ortega.solidaremaps.R;
 import com.guillermo.blazquez.ortega.solidaremaps.ui.targetaLocalIndividual.LocalIndividual;
 
@@ -235,5 +238,19 @@ public class InicioFragment extends Fragment {
                 fabPosicion.setImageResource(R.drawable.ic_mipos_inaccesible);
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ConnectivityManager cm = (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConeted = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+        if (!isConeted) {
+            startActivity(new Intent(getContext(), NoConectionActivity.class));
+        }
+
     }
 }

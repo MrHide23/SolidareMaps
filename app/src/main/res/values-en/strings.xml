@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SolidareMaps</string>
+    <string name="menu_inicio">Start</string>
+    <string name="menu_buscar_locales">Local Search Engine</string>
+    <string name="action_settings">Settings</string>
+    <string name="txtDatosMiLocal1">It is mandatory to fill in all the fields that contain a mark (*)</string>
+    <string name="txtInformacionDoantivos">Do you want to enable the possibility of receiving donations from users?</string>
+    <string name="btnNuevoDonativosMiLocal">Add donative</string>
+    <string name="txtNombreLocalMiLoca">* Local name</string>
+    <string name="txtDireccionLocalMiLocal">* Local address</string>
+    <string name="txtTelefonoMiLocal">* Local phone number</string>
+    <string name="txtTipoLocalMiLocal">* Type of premises</string>
+    <string name="swDonativosLocal">Receive donations</string>
+    <string name="txtIDDonativoMiLocal">* User ID or phone number</string>
+    <string name="txtAppDonativoMiLocal">* App name</string>
+    <string name="toolbar11">Loca data</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="menu_mi_local">My Local</string>
+    <string name="menu_favoritos">Fauvorites</string>
+    <string name="menu_faq" translatable="false">F.A.Q</string>
+    <string name="menu_subscripcion" translatable="false">Subscription</string>
+    <string name="title_activity_menu__s_m">Menu_SM</string>
+    <string name="toolbar8">Gallery</string>
+    <string name="btnGaleriaLocalIndividual">Gallery</string>
+    <string name="txtDescripcion">Description</string>
+    <string name="txtDireccion">Description</string>
+    <string name="txtDonativos">Donations</string>
+    <string name="txtTelefono">Phone</string>
+    <string name="txtHorarios">Horary</string>
+    <string name="textView25">Local Type</string>
+    <string name="txtComentarios">See comments:</string>
+    <string name="txtEscribirComentarioLocal">Please enter a comment</string>
+    <string name="btnPublicarOpinionLocal">To post</string>
+    <string name="txtLunes">Monday</string>
+    <string name="txtMartes">Tuesday</string>
+    <string name="txtMiercoles">Wednesday</string>
+    <string name="txtJueves">Thursday</string>
+    <string name="txtVierner">Friday</string>
+    <string name="txtSabado">Saturday</string>
+    <string name="txtDomingo">Sunday</string>
+    <string name="btnInicarSesionLogin">Log in</string>
+    <string name="btnGoogleLogin">Start with Google</string>
+    <string name="textView3">Heres new?</string>
+    <string name="txtRegistrarseLogin">Sign up</string>
+    <string name="txtNumerodeTargetPago">Nº. credit card</string>
+    <string name="txtPropietarioTargetaPago">Owner\'s Name</string>
+    <string name="txtFrechaCaducidadTargetaPago">Date of Expiry</string>
+    <string name="textInputLayout7">CV code</string>
+    <string name="txtImpotePago">Amount</string>
+    <string name="btnPagarSubscripcion">Pay</string>
+</resources>

@@ -76,7 +76,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_weight="1"
-                    android:text="Galeria" />
+                    android:text="@string/btnGaleriaLocalIndividual" />
 
                 <Button
                     android:id="@+id/btnWebLocalIndividual"
@@ -108,7 +108,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="3"
-                    android:text="Descripcion:"
+                    android:text="@string/txtDescripcion"
                     android:textColor="#000000" />
 
                 <TextView
@@ -140,7 +140,7 @@
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
-                    android:text="Direccion:"
+                    android:text="@string/txtDireccion"
                     android:textColor="#000000" />
 
                 <TextView
@@ -183,7 +183,7 @@
                         android:layout_width="349dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
-                        android:text="Donativos:"
+                        android:text="@string/txtDonativos"
                         android:textColor="#000000" />
 
                     <ImageButton
@@ -228,7 +228,7 @@
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
-                    android:text="Telefono:"
+                    android:text="@string/txtTelefono"
                     android:textColor="#000000" />
 
                 <TextView
@@ -341,7 +341,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Lunes:"
+                            android:text="@string/txtLune"
                             android:textColor="#000000" />
 
                         <TextView
@@ -349,7 +349,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Martes:"
+                            android:text="@string/txtMartes"
                             android:textColor="#000000" />
 
                         <TextView
@@ -357,7 +357,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Miercoles:"
+                            android:text="@string/txtMiercoles"
                             android:textColor="#000000" />
 
                         <TextView
@@ -365,7 +365,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Juves:"
+                            android:text="@string/txtJueves"
                             android:textColor="#000000" />
 
                         <TextView
@@ -373,7 +373,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Viernes:"
+                            android:text="@string/txtVierner"
                             android:textColor="#000000" />
 
                         <TextView
@@ -381,7 +381,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Sabado:"
+                            android:text="@string/txtSabado"
                             android:textColor="#000000" />
 
                         <TextView
@@ -389,7 +389,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:text="Domingo:"
+                            android:text="@string/txtDomingo"
                             android:textColor="#000000" />
                     </LinearLayout>
 
@@ -485,7 +485,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="2dp"
                         android:layout_weight="4"
-                        android:text="Tipo Local:"
+                        android:text="@string/txtDonativos"
                         android:textColor="#000000" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -523,7 +523,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Ver Comentarios:"
+                        android:text="@string/txtComentarios"
                         android:textColor="#000000" />
 
                     <ImageButton
@@ -543,7 +543,7 @@
                     android:layout_height="550dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/lyInsertarComentario"
@@ -562,7 +562,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:ems="10"
-                            android:hint="Introduce un comentario"
+                            android:hint="@string/txtEscribirComentarioLocal"
                             android:inputType="textPersonName" />
 
                         <RatingBar
