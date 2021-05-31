@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.555"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:title="Perfil"
+        app:title="@string/toolbar2"
         app:titleMarginStart="125dp">
 
     </androidx.appcompat.widget.Toolbar>
@@ -84,13 +84,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/txtEmail"
+                android:id="@+id/txtCambiarUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="60dp"
                 android:layout_marginRight="15dp"
-                android:text="Cambiar contraseña:"
+                android:text="@string/txtCambiarUser"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
-                android:hint="Contraseña Actual"
+                android:hint="@string/txtAntiguaContrasenyaPerfil"
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +116,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginRight="15dp"
-                android:hint="Contraseña Nueva"
+                android:hint="@string/txtNuevaContrasenyaPerfil"
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -133,7 +133,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginBottom="50dp"
-                android:hint="Repite Nueva Contraseña"
+                android:hint="@string/txtRepetirNuevaContrasenyaPerfil"
                 app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText

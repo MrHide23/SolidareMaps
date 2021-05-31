@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:text="Selecciona las opciones que mas se adecuen a tu local"
+                android:text="@string/txtDescripcionAlertMiLocal"
                 android:textColor="#000000" />
 
             <CheckBox
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Bar tradiccional" />
+                android:text="@string/rbBarTradicionalAlert" />
 
             <CheckBox
                 android:id="@+id/rbGatrobarAlert"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Gastro bar/ bar restaurante" />
+                android:text="@string/rbGatrobarAlert" />
 
             <CheckBox
                 android:id="@+id/rbAfterlAlert"
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="After" />
+                android:text="@string/rbAfterlAlert" />
 
             <CheckBox
                 android:id="@+id/rbChiringitoAlert"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Chiringito/ Bar de piscina" />
+                android:text="@string/rbChiringitoAlert" />
 
             <CheckBox
                 android:id="@+id/rbPubAlert"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Pub" />
+                android:text="@string/rbPubAlert" />
 
             <CheckBox
                 android:id="@+id/rbBarVinosAlert"
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Bar de vino" />
+                android:text="@string/rbBarVinosAlert" />
 
             <CheckBox
                 android:id="@+id/rbBarCoctelesAlert"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Bar de Cocteles" />
+                android:text="@string/rbBarCoctelesAlert" />
 
             <CheckBox
                 android:id="@+id/rbBarCafesAlert"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Bar de Cafes" />
+                android:text="@string/rbBarCafesAlert" />
 
             <CheckBox
                 android:id="@+id/rbBarTabernaAlert"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Taberna/ Cantina" />
+                android:text="@string/rbBarTabernaAlert" />
 
             <CheckBox
                 android:id="@+id/rbBarCerveceriaAlert"
@@ -100,7 +100,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="Bar cerveceria" />
+                android:text="@string/rbBarCerveceriaAlert" />
 
         </LinearLayout>
     </ScrollView>

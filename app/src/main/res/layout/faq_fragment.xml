@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Buscar Pregunta"
+            android:text="@string/txtTituloComunesFAQ"
             android:textColor="#000000"
             android:textSize="24sp" />
     </LinearLayout>
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Iniciar Chat en Directo"
+            android:text="@string/txtTituloChatFAQ"
             android:textColor="#090909"
             android:textSize="24sp" />
     </LinearLayout>

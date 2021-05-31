@@ -40,7 +40,7 @@
                     android:layout_marginTop="100dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="Estas son las opciones que estan activas e inactivas en la subscripcion free:"
+                    android:text="@string/txtContenidoFree1"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -52,7 +52,7 @@
                     android:layout_marginTop="200dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="+Acceso a la busqueda de locales      +Lista personalizada de locales favoritos   +Comentarios desbloqueados"
+                    android:text="@string/txtContenidoFree3"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -64,7 +64,7 @@
                     android:layout_marginTop="320dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="-Posibilidad de añadir un local propio  -Chat en directo"
+                    android:text="@string/txtContenidoFree5"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -88,7 +88,7 @@
                     android:layout_marginTop="290dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="Inactivas:"
+                    android:text="@string/txtContenidoFree4"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -128,7 +128,7 @@
                     android:layout_marginTop="340dp"
                     android:background="#0BF316"
                     android:backgroundTint="#0BF416"
-                    android:text="29,99 €/año"
+                    android:text="@string/btnSeleccionarGoldSubscripcion"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 
@@ -160,7 +160,7 @@
                     android:layout_marginTop="210dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="+Acceso a la busqueda de locales      +Lista personalizada de locales favoritos            +Comentarios desbloqueados +Posibilidad de añadir un local propio  +Chat en directo"
+                    android:text="@string/txtContenidoGold3"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -172,7 +172,7 @@
                     android:layout_marginTop="100dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="Estas son las opciones que estan activas e inactivas en la subscripcion free:"
+                    android:text="@string/txtContenidoGold1"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 
@@ -184,7 +184,7 @@
                     android:layout_marginTop="180dp"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:text="Activas:"
+                    android:text="@string/txtContenidoGold2"
                     android:textColor="#000000"
                     android:textSize="16sp" />
 

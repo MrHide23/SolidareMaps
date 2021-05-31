@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="¿Te a resultado util estas solucion?"
+                    android:text="@string/textView11"
                     android:textAlignment="center"
                     android:textColor="#050505"
                     android:textSize="18sp" />
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:text="Si" />
+                        android:text="@string/btnSiVerFAQ" />
 
                     <Button
                         android:id="@+id/btnNoVerFAQ"
